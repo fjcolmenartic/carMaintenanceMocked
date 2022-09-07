@@ -8,7 +8,7 @@ import { NotFoundComponent } from './content/not-found/not-found.component';
 import { RepairComponent } from './content/repair/repair.component';
 import { UserComponent } from './content/user/user.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'user', component: UserComponent },
   { path: 'car', component: CarComponent },
