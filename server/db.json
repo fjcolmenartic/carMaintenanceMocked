@@ -1,0 +1,69 @@
+{
+    "users": [
+        {
+            "userId": 1,
+            "name": "John Doe",
+            "email": "john-doe@mail.es",
+            "password": "123456",
+            "city": "Madrid"
+        }
+    ],
+    "cars": [
+        {
+            "plateNumber": "1234TSJ",
+            "branch": "Porsche",
+            "model": "Cayenne",
+            "color": "Red",
+            "doors": 5,
+            "type": "Diesel",
+            "kilometers": 150000,
+            "year": 2019,
+            "engine": 385,
+            "userId": 1
+        }
+    ],
+    "maintenanceRevisions": [
+        {
+            "maintenanceId": 1,
+            "plateNumber": "1234TSJ",
+            "date": "01/01/2022",
+            "kilometers": 155000,
+            "faultyBodyWork": true,
+            "bodyWorkStatus": "Description",
+            "faultyPaint": false,
+            "paintStatus": "Description... ",
+            "tyrePressureStatus": true,
+            "engineOilStatus": true,
+            "windshieldWasherFluidStatus": true,
+            "coolantStatus": true,
+            "breakFluidStatus": true,
+            "cabinFilterStatus": true,
+            "engineOilFilter": true,
+            "engineAirFilter": true,
+            "batteryStatus": true,
+            "breaksSatus": true,
+            "headlightsStatus": true,
+            "bulbHeadlightsSatus": true,
+            "description": "Description... ",
+            "authorizedWorkshop": true,
+            "authorizedParts": true,
+            "invoiceNo": "",
+            "cost": 0
+        }
+    ],
+    "repairs": [
+        {
+            "fixingId": 1,
+            "plateNumber": "1234TSJ",
+            "faultyPart": "Faros delanteros",
+            "faultyDescription": "Faros desgastados por el sol",
+            "dateIn": "01/01/2022",         
+            "fixDescription": "Pulimentado de faros",
+            "fixedOn": "06/01/2022",
+            "status": "Reparado",
+            "repeat": true,
+            "cost": 18,
+            "minutes": 30
+        }
+    ]
+}
