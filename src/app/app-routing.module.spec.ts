@@ -21,7 +21,7 @@ import { RepairComponent } from './content/repair/repair.component';
 import { UserComponent } from './content/user/user.component';
 
 
-describe('(02) App Routing', () => {
+xdescribe('(02) App Routing', () => {
   let appComponent: AppComponent;
   let appFixture: ComponentFixture<AppComponent>;
 
