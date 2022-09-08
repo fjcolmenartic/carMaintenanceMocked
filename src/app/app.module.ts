@@ -19,6 +19,8 @@ import { RegisterComponent } from './content/register/register.component';
 import { SetUserComponent } from './content/set-user/set-user.component';
 import { SetMaintenanceComponent } from './content/set-maintenance/set-maintenance.component';
 import { SetRepairComponent } from './content/set-repair/set-repair.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 
 @NgModule({
   declarations: [
@@ -36,10 +38,12 @@ import { SetRepairComponent } from './content/set-repair/set-repair.component';
     RegisterComponent,
     SetUserComponent,
     SetMaintenanceComponent,
-    SetRepairComponent
+    SetRepairComponent,
+    NumbersOnlyDirective
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
