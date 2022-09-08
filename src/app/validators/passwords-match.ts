@@ -6,8 +6,8 @@ export class PasswordsMatch  {
 
     validate(control: AbstractControl, confirmControl: AbstractControl): ValidationErrors | null {
         
-        let password = control.value;
-        let confirmPassword = confirmControl.value;
+        let password = control;
+        let confirmPassword = confirmControl;
 
         if (password != confirmPassword) {
             return { passwordsDontMatch: false }
