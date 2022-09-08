@@ -5,6 +5,7 @@ import { DashboardComponent } from './content/dashboard/dashboard.component';
 import { LoginComponent } from './content/login/login.component';
 import { MaintenanceComponent } from './content/maintenance/maintenance.component';
 import { NotFoundComponent } from './content/not-found/not-found.component';
+import { RegisterComponent } from './content/register/register.component';
 import { RepairComponent } from './content/repair/repair.component';
 import { UserComponent } from './content/user/user.component';
 
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'maintenances', component: MaintenanceComponent },
   { path: 'repairs', component: RepairComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'logout', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
