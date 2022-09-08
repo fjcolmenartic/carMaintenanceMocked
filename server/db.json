@@ -1,7 +1,7 @@
 {
     "users": [
         {
-            "userId": 1,
+            "id": 1,
             "name": "John Doe",
             "email": "john-doe@mail.es",
             "password": "123456",
@@ -10,7 +10,7 @@
     ],
     "cars": [
         {
-            "plateNumber": "1234TSJ",
+            "id": "1234TSJ",
             "branch": "Porsche",
             "model": "Cayenne",
             "color": "Red",
@@ -24,7 +24,7 @@
     ],
     "maintenanceRevisions": [
         {
-            "maintenanceId": 1,
+            "id": 1,
             "plateNumber": "1234TSJ",
             "date": "01/01/2022",
             "kilometers": 155000,
@@ -53,7 +53,7 @@
     ],
     "repairs": [
         {
-            "fixingId": 1,
+            "id": 1,
             "plateNumber": "1234TSJ",
             "faultyPart": "Faros delanteros",
             "faultyDescription": "Faros desgastados por el sol",
