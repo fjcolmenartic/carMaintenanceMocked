@@ -17,6 +17,7 @@ export class PlateNumber implements Validator {
             const plateNumberNumbers:number = parseInt(plateNumber.substr(0,4));
             const plateNumberLetters:string = plateNumber.substr(4,3);
 
+            // TODO path for wrong order error
             // Check if plate number is in valid format (exact size of each part and regex format)
             if (
                 typeof plateNumberNumbers == 'number' &&
