@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
 export class LoginComponent implements OnInit {
 
   showEmoji: boolean = false;
-  title = 'Ejercicio #1 Unit Testing Angular';
+  title = 'Log in';
   subtitle = 'Estamos creando este ejercicio para comenzar a aprender sobre pruebas unitarias en Componentes'; 
   contentEmoji = '';
   dataSession: any;
@@ -66,6 +66,10 @@ export class LoginComponent implements OnInit {
         res => {
           this.dataSession = res;
           this.isCheck = 'SUCCESS';
+
+          // Start a session
+          // redirect after login
+
         },
         (err: any) => {
           this.isCheck = 'ERROR_USER'

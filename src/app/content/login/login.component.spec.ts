@@ -179,7 +179,7 @@ describe('(5) LoginComponent Custom test', () => {
   });
 
   it(`should have as title 'leifer-login'`, () => {
-    expect(app.title).toEqual('Ejercicio #1 Unit Testing Angular');
+    expect(app.title).toEqual('Log in');
   });
 
   it('Must have a checkHuman variable with an "[]" as default value', () => {

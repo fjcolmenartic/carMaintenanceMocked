@@ -1,6 +1,6 @@
 <div class="container">
-    <h1 class="">{{title}}</h1>
-    <p>{{subtitle}}</p>
+    <h1 class="text-center mt-5">{{title}}</h1>
+    <!-- <p>{{subtitle}}</p> -->
     <p><b>Form Session: <span id="isCheck">{{isCheck | json}}</span></b></p>
     <p><b>Form is invalid: {{form.invalid | json}}</b></p>
     <div class="emoji-zone" *ngIf="showEmoji">{{contentEmoji}}</div>
@@ -40,8 +40,9 @@
         </ul>
 
       </div>
-
+      <a routerLink="/register">Registro de usuario</a>
     </form>
+    
   
     <div *ngIf="dataSession">
       <div class="profile">
@@ -53,12 +54,12 @@
     </div>
   
   
-  <hr>
+  <!-- <hr>
    Form values: {{ form.value| json }}<br>
    Email errors: {{ form.controls['email'].errors | json }}<br>
    Email errors: {{ form.controls['email'].value | json }}<br>
    Password errors: {{ form.controls['password'].errors | json }}<br>
    Password errors: {{ form.controls['password'].value | json }}<br>
    Form valid: {{ form.valid }}<br>
-   Form invalid: {{ form.invalid }}
+   Form invalid: {{ form.invalid }} -->
   </div>
