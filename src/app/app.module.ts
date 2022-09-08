@@ -14,6 +14,11 @@ import { UserComponent } from './content/user/user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomTranslatePipe } from './pipes/custom-translate.pipe';
 import { SharedModule } from './shared/shared.module';
+import { SetCarComponent } from './content/set-car/set-car.component';
+import { RegisterComponent } from './content/register/register.component';
+import { SetUserComponent } from './content/set-user/set-user.component';
+import { SetMaintenanceComponent } from './content/set-maintenance/set-maintenance.component';
+import { SetRepairComponent } from './content/set-repair/set-repair.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,12 @@ import { SharedModule } from './shared/shared.module';
     NotFoundComponent,
     RepairComponent,
     UserComponent,
-    CustomTranslatePipe
+    CustomTranslatePipe,
+    SetCarComponent,
+    RegisterComponent,
+    SetUserComponent,
+    SetMaintenanceComponent,
+    SetRepairComponent
   ],
   imports: [
     BrowserModule,
