@@ -11,6 +11,8 @@ import { MaintenanceComponent } from './content/maintenance/maintenance.componen
 import { NotFoundComponent } from './content/not-found/not-found.component';
 import { RepairComponent } from './content/repair/repair.component';
 import { UserComponent } from './content/user/user.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CustomTranslatePipe } from './pipes/custom-translate.pipe';
 
 @NgModule({
   declarations: [
@@ -22,11 +24,14 @@ import { UserComponent } from './content/user/user.component';
     MaintenanceComponent,
     NotFoundComponent,
     RepairComponent,
-    UserComponent
+    UserComponent,
+    CustomTranslatePipe
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
