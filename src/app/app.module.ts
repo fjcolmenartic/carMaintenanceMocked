@@ -13,6 +13,7 @@ import { RepairComponent } from './content/repair/repair.component';
 import { UserComponent } from './content/user/user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomTranslatePipe } from './pipes/custom-translate.pipe';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -31,8 +32,9 @@ import { CustomTranslatePipe } from './pipes/custom-translate.pipe';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    SharedModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
