@@ -1,1 +1,92 @@
-<p>set-user works!</p>
+<div class="container col-5 mt-5">
+    <div class="row">
+        <h1 class="">Registro</h1>
+    </div>
+        <form id="registerForm" [formGroup]="registerForm" (submit)="onSubmit($event)" class="form mt-3 mb-3">
+            <fieldset class="form-group border p-3">
+                <legend>Usuario</legend>
+                <div class="form-group">
+                    <label class="fw-bold">Name</label>
+                    <input class="form-control" type="text" placeholder="" 
+                        formControlName="name"/>
+                    <div class="alert text-danger" 
+                        *ngIf="registerForm.controls['name'].errors && 
+                        registerForm.controls['name'].touched && 
+                        registerForm.controls['name'].dirty">
+                        Por favor, introduce un nombre válido de al menos 2 carácteres.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="fw-bold">Email</label>
+                    <input class="form-control" type="email" placeholder="" 
+                        formControlName="email"/>
+                    <div class="alert text-danger" 
+                        *ngIf="registerForm.controls['email'].errors && 
+                        registerForm.controls['email'].touched && 
+                        registerForm.controls['email'].dirty">
+                        La dirección de correo electrónico no tiene un formato válido.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="fw-bold">Contaseña</label>
+                    <input class="form-control" type="password" placeholder="" 
+                        formControlName="password"/>
+                    <div class="alert text-danger" 
+                        *ngIf="registerForm.controls['password'].errors && 
+                        registerForm.controls['password'].touched && 
+                        registerForm.controls['password'].dirty">
+                        La contraseña debe tener entre 5 y 15 carácteres.
+                     </div>
+                </div>
+                <div class="form-group">
+                    <label class="fw-bold">Confirmar Contaseña</label>
+                    <input class="form-control" type="password" placeholder="" 
+                        formControlName="confirmPassword"/>
+                    <div class="alert text-danger" 
+                        *ngIf="registerForm.controls['confirmPassword'].errors && 
+                        registerForm.controls['confirmPassword'].touched && 
+                        registerForm.controls['confirmPassword'].dirty">
+                        Las contraseñas no coinciden.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="fw-bold">Ciudad</label>
+                    <input class="form-control" type="text" placeholder="" 
+                        formControlName="city"/>
+                    <div class="alert text-danger" 
+                        *ngIf="registerForm.controls['city'].errors && 
+                        registerForm.controls['city'].touched && 
+                        registerForm.controls['city'].dirty">
+                        La ciudad debe tener entre 3 y 20 carácteres.
+                        <!-- length and format -->
+                    </div>
+                </div>     
+                <div class="form-group">
+                    <button class="btn btn-primary mt-3" [disabled]="registerForm.invalid">Enviar</button>
+                </div>  
+                <div class="alert text-warning" *ngIf="registerSuccess">
+                    <p class="text-primary text-center">
+                        Usuario registrado éxitosamente, puedes hacer  
+                        <a class="text-decoration-none fw-bold" routerLink="/login">Log in</a>
+                    </p>
+                    
+                </div>
+            </fieldset>
+        </form>
+ 
+</div>
+
+<!-- <hr>
+Form values: {{ registerForm.value| json }}<br>
+Name errors: {{ registerForm.controls['name'].errors | json }}<br>
+Name value: {{ registerForm.controls['name'].value | json }}<br>
+Email errors: {{ registerForm.controls['email'].errors | json }}<br>
+Email value: {{ registerForm.controls['email'].value | json }}<br>
+Password errors: {{ registerForm.controls['password'].errors | json }}<br>
+Password value: {{ registerForm.controls['password'].value | json }}<br>
+confirmPassword errors: {{ registerForm.controls['confirmPassword'].errors | json }}<br>
+confirmPassword value: {{ registerForm.controls['confirmPassword'].value | json }}<br>
+City errors: {{ registerForm.controls['city'].errors | json }}<br>
+City value: {{ registerForm.controls['city'].value | json }}<br>
+Form valid: {{ registerForm.valid }}<br>
+Form invalid: {{ registerForm.invalid }} -->
