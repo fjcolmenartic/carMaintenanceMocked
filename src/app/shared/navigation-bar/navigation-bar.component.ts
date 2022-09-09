@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { SessionService } from 'src/app/services/session.service';
+// import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationBarComponent implements OnInit {
 
-  constructor() { }
+  // Value from parent if session started on browser or not
+  @Input() userLoggedIn = false;
+  // @Output() userLoggedInChange = new EventEmitter();
+  
+  constructor(
+    private sessionService: SessionService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    // Remove browser session
+    this.sessionService.removeData('user-session');
+    // Update user Loggedin value on parent (userSession)
+    this.userLoggedIn = false;
+    // Redirect to login
+    this.router.navigateByUrl('/login');
   }
 
 }
