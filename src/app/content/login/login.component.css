@@ -1,5 +1,4 @@
-.body {
-    /* background-color: red; */
+/* .body {
     text-align: center;
     padding: 3rem;
   }
@@ -18,9 +17,9 @@
   
   .btn-zone {
     margin-top: 1rem;
-  }
+  } */
   
-  .form {
+  /* .form {
     padding: 1rem;
     display: flex;
     width: 400px;
@@ -42,12 +41,19 @@
   
   .form .form-group label {
     display: block;
-  }
+  } */
   
-  .profile img {
+  /* .profile img {
     width: 150px;
     height: 150px;
     object-fit: cover;
     border-radius: 100px;
-  }
+  } */
   
+  .loginHeight {
+    height: 500px;
+  }
+
+  .carFont {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }

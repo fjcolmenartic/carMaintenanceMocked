@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 export class LoginComponent implements OnInit {
 
   showEmoji: boolean = false;
-  title = 'Log in';
+  title = 'Acceso';
   subtitle = 'Estamos creando este ejercicio para comenzar a aprender sobre pruebas unitarias en Componentes'; 
   contentEmoji = '';
   dataSession: any;
@@ -24,6 +26,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService, // Login http
+    private sessionService: SessionService,
+    private router: Router,
     private dataService: DataService // Mathmatics
     ) { }
 
@@ -66,10 +70,9 @@ export class LoginComponent implements OnInit {
         res => {
           this.dataSession = res;
           this.isCheck = 'SUCCESS';
-
-          // Start a session
-          // redirect after login
-
+          console.log('auth service login res', this.dataSession)
+          this.sessionService.saveData('user-session', 'logged-in');
+          this.router.navigateByUrl('/dashboard');
         },
         (err: any) => {
           this.isCheck = 'ERROR_USER'
