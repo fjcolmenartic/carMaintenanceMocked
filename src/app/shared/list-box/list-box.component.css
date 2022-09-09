@@ -1,0 +1,30 @@
+#select-box {
+    background-color: #e8f6ff;
+    border-bottom: 2px solid black;
+    border-top: 0;
+    border-right: 0;
+    border-left:0;
+    border-radius: 5px 5px 0 0;
+    font-family: Trebuchet ms;
+    color: #393939;
+    font-weight: lighter;
+    /* width:400px; */
+}
+
+#select-box span {
+    display: inline-block;
+    color: #8e8e8e;
+}
+
+#select-box select {
+    width: 100%;
+    padding: 15px;
+    background-color: transparent;
+    border: 0px;
+}
+
+#select-box option {
+    padding: 15px;
+    border:1px solid red;
+    background-color: #e8f6ff;
+}

@@ -1,0 +1,16 @@
+<input 
+    class="input-soyou" 
+    type="{{type}}" 
+    name="{{name}}"
+    label="" 
+    [disabled]="disabled"
+    placeholder="{{placeholder}}" 
+    [formControl]="control"
+/> 
+<p id="instruction" class="text-secondary mb-1">{{instruction}}</p>
+<div *ngIf="printErrors()">    
+    <p *ngIf="control.errors.required || 
+                control.errors.minlength || 
+                control.errors.maxlength || 
+                control.errors.pattern" id="error" class="text-danger">{{errorMessage}}</p>   
+</div>
