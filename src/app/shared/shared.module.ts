@@ -7,8 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    // NavigationBarComponent
-  
+    // NavigationBarComponent  
     ListBoxComponent,
     TextBoxComponent
   ],
@@ -19,6 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     // NavigationBarComponent
+    ListBoxComponent,
+    TextBoxComponent
   ]
 })
 
