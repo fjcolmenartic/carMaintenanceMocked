@@ -10,3 +10,14 @@
         </ng-container>
     </div>
 </div>
+
+<div class="row text-center">
+    <div class="col">      
+        <ng-container *ngIf="userLoggedIn">
+            <a routerLink="set-car">set car</a> | 
+            <a routerLink="set-maintenance">set maintenance</a> | 
+            <a routerLink="set-repair">set repair</a> | 
+            <a routerLink="set-user">set user</a> | 
+        </ng-container>
+    </div>
+</div>
