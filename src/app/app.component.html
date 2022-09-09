@@ -1,9 +1,9 @@
 <div class="body container">
   <div class="row title">
-    <h1 class="text-center mt-5">Car Maintenance app</h1>
+    <h1 class="text-center mt-5 fw-bold carFontAppName">Car Maintenance</h1>
   </div>
   <div class="row content">
-    <app-navigation-bar></app-navigation-bar>
+    <app-navigation-bar [userLoggedIn]="userSession"></app-navigation-bar>
     <router-outlet></router-outlet>
   </div>
 </div>

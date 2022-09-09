@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'repairs', component: RepairComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'logout', component: LoginComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];
 
