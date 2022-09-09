@@ -1,12 +1,12 @@
 <div class="row text-center">
-    <div class="col">
-        <a routerLink="login">Login</a> | 
-        <a routerLink="user">Usuario</a> | 
-        <a routerLink="car">Coche</a> | 
-        <a routerLink="dashboard">Dashboard</a> | 
-        <a routerLink="maintenances">Mantenimiento</a> | 
-        <a routerLink="repairs">Reparación</a> | 
-        <a routerLink="register">Registro</a> | 
-        <a routerLink="logout">Logout</a>
+    <div class="col">      
+        <ng-container *ngIf="userLoggedIn">
+            <a routerLink="user">Usuario</a> | 
+            <a routerLink="car">Coche</a> | 
+            <a routerLink="dashboard">Dashboard</a> | 
+            <a routerLink="maintenances">Mantenimiento</a> | 
+            <a routerLink="repairs">Reparación</a> | 
+            <a routerLink="logout" (click)="logout()">Logout</a>
+        </ng-container>
     </div>
 </div>
