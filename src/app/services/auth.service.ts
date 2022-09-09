@@ -15,10 +15,17 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  // json-server-auth
+  // login endpoings: /login  /signin
+  // Must register first cause password are encripted otherwise won't work
+
   public login(email: string, password: string): Observable<any> {
     const body = { email, password };
 
-    return this.http.post<User>(`${environment.api}/users`, body);
+    return this.http.post<User>(`${environment.api}/login`, body);
 
+    // ?name=email
   }
+
+  // getUser/s
 }
