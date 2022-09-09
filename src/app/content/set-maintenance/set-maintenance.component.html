@@ -1,1 +1,131 @@
-<p>set-maintenance works!</p>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6 loginHeight">
+            <form 
+                id="registerForm" 
+                [formGroup]="setMaintenance" 
+                (submit)="onSubmit($event)" 
+                class="form bg-white">                
+                <fieldset class="form-group border p-3 loginHeight">
+                    <legend> <h2 class="fst-italic">{{title}}</h2></legend>
+                    <div class="form-group">
+                        <label class="fw-bold">Matrícula</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="plateNum"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setMaintenance.controls['plateNum'].errors && 
+                            setMaintenance.controls['plateNum'].touched && 
+                            setMaintenance.controls['plateNum'].dirty">
+                            Por favor, introduce un nombre válido de al menos 2 carácteres.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Marca</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="branch"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setMaintenance.controls['branch'].errors && 
+                            setMaintenance.controls['branch'].touched && 
+                            setMaintenance.controls['branch'].dirty">
+                            La dirección de correo electrónico no tiene un formato válido.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Modelo</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="model"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setMaintenance.controls['model'].errors && 
+                            setMaintenance.controls['model'].touched && 
+                            setMaintenance.controls['model'].dirty">
+                            La contraseña debe tener entre 5 y 15 carácteres.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Color</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="color"/>
+
+                          
+
+                        <div class="alert text-danger" 
+                            *ngIf="setMaintenance.controls['color'].errors && 
+                            setMaintenance.controls['color'].touched && 
+                            setMaintenance.controls['color'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Puertas</label>
+                        <input class="form-control" type="number" placeholder="" 
+                            formControlName="doors"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setMaintenance.controls['doors'].errors && 
+                            setMaintenance.controls['doors'].touched && 
+                            setMaintenance.controls['doors'].dirty">
+                            La ciudad debe tener entre 3 y 20 carácteres.
+                            <!-- length and format -->
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label class="fw-bold">Tipo</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="type"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setMaintenance.controls['type'].errors && 
+                            setMaintenance.controls['type'].touched && 
+                            setMaintenance.controls['type'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="fw-bold">Kilometers</label>
+                        <input class="form-control" type="number" placeholder="" 
+                            formControlName="kilometers"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setMaintenance.controls['kilometers'].errors && 
+                            setMaintenance.controls['kilometers'].touched && 
+                            setMaintenance.controls['kilometers'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Año</label>
+                        <input class="form-control" type="number" placeholder="" 
+                            formControlName="year"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setMaintenance.controls['year'].errors && 
+                            setMaintenance.controls['year'].touched && 
+                            setMaintenance.controls['year'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Motorización</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="engine"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setMaintenance.controls['engine'].errors && 
+                            setMaintenance.controls['engine'].touched && 
+                            setMaintenance.controls['engine'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="hidden" placeholder="" 
+                            formControlName="userId"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary mt-3" [disabled]="setMaintenance.invalid">Enviar</button>
+                    </div>  
+                    <div class="alert text-warning" *ngIf="setMaintenance">
+                        <p class="text-primary text-center">
+                            Coche añadido>/editado éxitosamente.                        
+                        </p>                                        
+                    </div>
+                </fieldset>
+            </form> 
+        </div>
+    </div>
+</div>

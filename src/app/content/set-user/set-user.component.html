@@ -1,10 +1,13 @@
-<div class="container col-5 mt-5">
+<div class="container mt-5">
     <div class="row">
-        <h1 class="">Registro</h1>
-    </div>
-        <form id="registerForm" [formGroup]="registerForm" (submit)="onSubmit($event)" class="form mt-3 mb-3">
+        <div class="col-6 loginHeight">
+        <form 
+            id="registerForm" 
+            [formGroup]="registerForm" 
+            (submit)="onSubmit($event)"
+            class="form bg-white">
             <fieldset class="form-group border p-3">
-                <legend>Usuario</legend>
+                <legend><h2 class="fst-italic">{{title}}</h2></legend>
                 <div class="form-group">
                     <label class="fw-bold">Name</label>
                     <input class="form-control" type="text" placeholder="" 
@@ -74,6 +77,8 @@
             </fieldset>
         </form>
  
+        </div>
+    </div>
 </div>
 
 <!-- <hr>

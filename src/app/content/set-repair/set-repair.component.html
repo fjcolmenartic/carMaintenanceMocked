@@ -1,1 +1,141 @@
-<p>set-repair works!</p>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6 loginHeight">
+            <form 
+                id="registerForm" 
+                [formGroup]="setRepair" 
+                (submit)="onSubmit($event)" 
+                class="form bg-white">                
+                <fieldset class="form-group border p-3 loginHeight">
+                    <legend> <h2 class="fst-italic">{{title}}</h2></legend>
+                    <div class="form-group">
+                        <label class="fw-bold">Matrícula</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="plateNum"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setRepair.controls['plateNum'].errors && 
+                            setRepair.controls['plateNum'].touched && 
+                            setRepair.controls['plateNum'].dirty">
+                            Por favor, introduce un nombre válido de al menos 2 carácteres.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Pieza averiada</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="faultyPart"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setRepair.controls['faultyPart'].errors && 
+                            setRepair.controls['faultyPart'].touched && 
+                            setRepair.controls['faultyPart'].dirty">
+                            La dirección de correo electrónico no tiene un formato válido.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Descripción de la avería</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="faultyDescription"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setRepair.controls['faultyDescription'].errors && 
+                            setRepair.controls['faultyDescription'].touched && 
+                            setRepair.controls['faultyDescription'].dirty">
+                            La contraseña debe tener entre 5 y 15 carácteres.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Fecha de ocurrencia</label>
+                        <input class="form-control" type="date" placeholder="" 
+                            formControlName="dateIn"/>                        
+                        <div class="alert text-danger" 
+                            *ngIf="setRepair.controls['dateIn'].errors && 
+                            setRepair.controls['dateIn'].touched && 
+                            setRepair.controls['dateIn'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Descripción de la reparación</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="fixDescription"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setRepair.controls['fixDescription'].errors && 
+                            setRepair.controls['fixDescription'].touched && 
+                            setRepair.controls['fixDescription'].dirty">
+                            La ciudad debe tener entre 3 y 20 carácteres.
+                            <!-- length and format -->
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label class="fw-bold">Fecha de reparación</label>
+                        <input class="form-control" type="date" placeholder="" 
+                            formControlName="fixedOn"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setRepair.controls['fixedOn'].errors && 
+                            setRepair.controls['fixedOn'].touched && 
+                            setRepair.controls['fixedOn'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="fw-bold">Estado &nbsp;</label>
+                        <input name="status" value="Reparado" class="ms-3" type="radio"  
+                            formControlName="status"/> <label for="status">&nbsp; Reparado</label>
+                        <input name="status" value="No reparado" class="ms-3" type="radio"  
+                            formControlName="status"/> <label for="status">&nbsp; No reparado</label>
+                        <div class="alert text-danger" 
+                            *ngIf="setRepair.controls['status'].errors && 
+                            setRepair.controls['status'].touched && 
+                            setRepair.controls['status'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Repetir</label> SELECT
+                        <input class="form-control" type="number" placeholder="" 
+                            formControlName="repeat"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setRepair.controls['repeat'].errors && 
+                            setRepair.controls['repeat'].touched && 
+                            setRepair.controls['repeat'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Coste</label>
+                        <input class="form-control" type="number" placeholder="" 
+                            formControlName="cost"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setRepair.controls['cost'].errors && 
+                            setRepair.controls['cost'].touched && 
+                            setRepair.controls['cost'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Duración</label>
+                        <input class="form-control" type="number" placeholder="" 
+                            formControlName="minutes"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setRepair.controls['minutes'].errors && 
+                            setRepair.controls['minutes'].touched && 
+                            setRepair.controls['minutes'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="hidden" placeholder="" 
+                            formControlName="userId"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary mt-3" [disabled]="setRepair.invalid">Enviar</button>
+                    </div>  
+                    <div class="alert text-warning" *ngIf="setRepair">
+                        <p class="text-primary text-center">
+                            Coche añadido>/editado éxitosamente.                        
+                        </p>                                        
+                    </div>
+                </fieldset>
+            </form> 
+        </div>
+    </div>
+</div>

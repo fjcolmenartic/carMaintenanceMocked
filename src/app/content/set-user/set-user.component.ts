@@ -10,7 +10,7 @@ import { PasswordsMatch } from 'src/app/validators/passwords-match';
   styleUrls: ['./set-user.component.css']
 })
 export class SetUserComponent implements OnInit {
-  title = "Registro";
+  title = "Editar usuario";
   //registerForm: FormGroup = new FormGroup({});
   dataSession: any;
   isCheck: any;

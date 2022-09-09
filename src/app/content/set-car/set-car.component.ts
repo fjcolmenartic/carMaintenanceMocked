@@ -9,7 +9,7 @@ import { PlateNumber } from 'src/app/validators/plate-number';
 })
 export class SetCarComponent implements OnInit {
 
-  title = 'Set Car component';
+  title = 'Editar coche';
   colorList = ['Blanco', 'Negro', 'Gris', 'Azul', 'Rojo', 'Verde', 'Granate', 'Amarillo', 'Rosa', 'Beige'];
   // name, email, password, city
   setACar = new FormGroup({

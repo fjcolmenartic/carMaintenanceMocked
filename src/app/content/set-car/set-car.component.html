@@ -1,14 +1,11 @@
 <div class="container mt-5">
     <div class="row">
-        <h2>Set a car</h2>
-
         <div class="col-6 loginHeight">
             <form 
-                style="width: 300px;" 
                 id="registerForm" 
                 [formGroup]="setACar" 
                 (submit)="onSubmit($event)" 
-                class="float-end form bg-white">                
+                class="form bg-white">                
                 <fieldset class="form-group border p-3 loginHeight">
                     <legend> <h2 class="fst-italic">{{title}}</h2></legend>
                     <div class="form-group">
@@ -124,20 +121,16 @@
                         <input class="form-control" type="hidden" placeholder="" 
                             formControlName="userId"/>
                     </div>
-
-
                     <div class="form-group">
                         <button class="btn btn-primary mt-3" [disabled]="setACar.invalid">Enviar</button>
                     </div>  
                     <div class="alert text-warning" *ngIf="setACar">
                         <p class="text-primary text-center">
-                            Usuario registrado éxitosamente.                        
+                            Coche añadido>/editado éxitosamente.                        
                         </p>                                        
                     </div>
-                    <a class="text-decoration-none" routerLink="/login">Log in</a>
                 </fieldset>
             </form> 
         </div>
-
     </div>
 </div>
