@@ -1,1 +1,143 @@
-<p>set-car works!</p>
+<div class="container mt-5">
+    <div class="row">
+        <h2>Set a car</h2>
+
+        <div class="col-6 loginHeight">
+            <form 
+                style="width: 300px;" 
+                id="registerForm" 
+                [formGroup]="setACar" 
+                (submit)="onSubmit($event)" 
+                class="float-end form bg-white">                
+                <fieldset class="form-group border p-3 loginHeight">
+                    <legend> <h2 class="fst-italic">{{title}}</h2></legend>
+                    <div class="form-group">
+                        <label class="fw-bold">Matrícula</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="plateNum"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setACar.controls['plateNum'].errors && 
+                            setACar.controls['plateNum'].touched && 
+                            setACar.controls['plateNum'].dirty">
+                            Por favor, introduce un nombre válido de al menos 2 carácteres.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Marca</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="branch"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setACar.controls['branch'].errors && 
+                            setACar.controls['branch'].touched && 
+                            setACar.controls['branch'].dirty">
+                            La dirección de correo electrónico no tiene un formato válido.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Modelo</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="model"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setACar.controls['model'].errors && 
+                            setACar.controls['model'].touched && 
+                            setACar.controls['model'].dirty">
+                            La contraseña debe tener entre 5 y 15 carácteres.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Color</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="color"/>
+
+                            <app-list-box 
+                                title="Color"                          
+                                [values]="colorList"
+                                selectedValue=""
+                                name="country"
+                                [control]="setACar.get('color')"></app-list-box> 
+
+                        <div class="alert text-danger" 
+                            *ngIf="setACar.controls['color'].errors && 
+                            setACar.controls['color'].touched && 
+                            setACar.controls['color'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Puertas</label>
+                        <input class="form-control" type="number" placeholder="" 
+                            formControlName="doors"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setACar.controls['doors'].errors && 
+                            setACar.controls['doors'].touched && 
+                            setACar.controls['doors'].dirty">
+                            La ciudad debe tener entre 3 y 20 carácteres.
+                            <!-- length and format -->
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label class="fw-bold">Tipo</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="type"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setACar.controls['type'].errors && 
+                            setACar.controls['type'].touched && 
+                            setACar.controls['type'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="fw-bold">Kilometers</label>
+                        <input class="form-control" type="number" placeholder="" 
+                            formControlName="kilometers"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setACar.controls['kilometers'].errors && 
+                            setACar.controls['kilometers'].touched && 
+                            setACar.controls['kilometers'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Año</label>
+                        <input class="form-control" type="number" placeholder="" 
+                            formControlName="year"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setACar.controls['year'].errors && 
+                            setACar.controls['year'].touched && 
+                            setACar.controls['year'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Motorización</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="engine"/>
+                        <div class="alert text-danger" 
+                            *ngIf="setACar.controls['engine'].errors && 
+                            setACar.controls['engine'].touched && 
+                            setACar.controls['engine'].dirty">
+                            Las contraseñas no coinciden.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="hidden" placeholder="" 
+                            formControlName="userId"/>
+                    </div>
+
+
+                    <div class="form-group">
+                        <button class="btn btn-primary mt-3" [disabled]="setACar.invalid">Enviar</button>
+                    </div>  
+                    <div class="alert text-warning" *ngIf="setACar">
+                        <p class="text-primary text-center">
+                            Usuario registrado éxitosamente.                        
+                        </p>                                        
+                    </div>
+                    <a class="text-decoration-none" routerLink="/login">Log in</a>
+                </fieldset>
+            </form> 
+        </div>
+
+    </div>
+</div>
