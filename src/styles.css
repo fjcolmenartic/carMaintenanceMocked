@@ -1,1 +1,8 @@
 @import url('bootstrap/dist/css/bootstrap.css');
+
+.appBkg {
+    background: url('./assets/images/app_bkgII.jpg') no-repeat;
+    background-size:contain;
+    background-position: left;
+    background-position-y: bottom;
+}
