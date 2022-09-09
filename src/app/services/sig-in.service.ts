@@ -14,9 +14,11 @@ interface Register {
   providedIn: 'root'
 })
 export class SignInService {
-
   
   constructor(private http: HttpClient) { }
+
+  // json-server-auth
+  // register endpoints: /register  /signup  /users
 
   public register(
     name: string, 
