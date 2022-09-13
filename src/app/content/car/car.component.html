@@ -1,1 +1,35 @@
-<p>car works!</p>
+<div class="container mt-5">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-6 loginHeight">
+            <h2 class="fst-italic">{{title}}</h2>
+            <ng-container>
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Matrícula</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Color</th>
+                        <th>Puertas</th>
+                        <th>Combustible</th>
+                        <th>Año</th>
+                        <th>Motor</th>
+                        <th>Kilometraje</th>
+                    </thead>
+                    <tbody>
+                        <tr class="" *ngFor="let car of carList; let i=index" routerLink="/set-car?id={{i}}">
+                            <td class="cursor-pointer">{{car.plateNumber}}</td>
+                            <td class="cursor-pointer">{{car.brand}}</td>
+                            <td class="cursor-pointer">{{car.model}}</td>
+                            <td class="cursor-pointer">{{car.color}}</td>
+                            <td class="cursor-pointer">{{car.doors}}</td>
+                            <td class="cursor-pointer">{{car.type}}</td>
+                            <td class="cursor-pointer">{{car.year}}</td>
+                            <td class="cursor-pointer">{{car.engine}}</td>
+                            <td class="cursor-pointer">{{car.kilometers}} km</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+        </div>
+    </div>
+</div>
