@@ -11,23 +11,23 @@
                     <div class="form-group">
                         <label class="fw-bold">Matrícula</label>
                         <input class="form-control" type="text" placeholder="" 
-                            formControlName="plateNum"/>
+                            formControlName="plateNum" maxlength="7"/>
                         <div class="alert text-danger" 
                             *ngIf="setACar.controls['plateNum'].errors && 
                             setACar.controls['plateNum'].touched && 
                             setACar.controls['plateNum'].dirty">
-                            Por favor, introduce un nombre válido de al menos 2 carácteres.
+                            Por favor, introduce una mátricula válida (4 números y 3 letras mayúsculas, ej: '8396WXS').
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="fw-bold">Marca</label>
                         <input class="form-control" type="text" placeholder="" 
-                            formControlName="branch"/>
+                            formControlName="brand"/>
                         <div class="alert text-danger" 
-                            *ngIf="setACar.controls['branch'].errors && 
-                            setACar.controls['branch'].touched && 
-                            setACar.controls['branch'].dirty">
-                            La dirección de correo electrónico no tiene un formato válido.
+                            *ngIf="setACar.controls['brand'].errors && 
+                            setACar.controls['brand'].touched && 
+                            setACar.controls['brand'].dirty">
+                            El campo Marca del vehículo es necesario.
                         </div>
                     </div>
                     <div class="form-group">
@@ -38,60 +38,48 @@
                             *ngIf="setACar.controls['model'].errors && 
                             setACar.controls['model'].touched && 
                             setACar.controls['model'].dirty">
-                            La contraseña debe tener entre 5 y 15 carácteres.
+                            El Modelo del vehículo es necesario.
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="fw-bold">Color</label>
-                        <input class="form-control" type="text" placeholder="" 
-                            formControlName="color"/>
-
-                            <app-list-box 
-                                title="Color"                          
-                                [values]="colorList"
-                                selectedValue=""
-                                name="country"
-                                [control]="setACar.get('color')"></app-list-box> 
-
+                        <app-list-box 
+                            title="Color"                          
+                            [values]="colorList"
+                            selectedValue=""
+                            name="color"
+                            [control]="setACar.get('color')"></app-list-box>
                         <div class="alert text-danger" 
                             *ngIf="setACar.controls['color'].errors && 
                             setACar.controls['color'].touched && 
                             setACar.controls['color'].dirty">
-                            Las contraseñas no coinciden.
+                            Debes seleccionar un color.
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="fw-bold">Puertas</label>
                         <input class="form-control" type="number" placeholder="" 
-                            formControlName="doors"/>
+                            formControlName="doors" step="2" min="3" max="5"/>
                         <div class="alert text-danger" 
                             *ngIf="setACar.controls['doors'].errors && 
                             setACar.controls['doors'].touched && 
                             setACar.controls['doors'].dirty">
-                            La ciudad debe tener entre 3 y 20 carácteres.
-                            <!-- length and format -->
+                            Debes indicar el número de puertas.
                         </div>
                     </div>  
                     <div class="form-group">
-                        <label class="fw-bold">Tipo</label>
-                        <input class="form-control" type="text" placeholder="" 
-                            formControlName="type"/>
-
-                            <app-list-box 
+                        <app-list-box 
                             title="Combustible"                          
                             [values]="carTypeList"
                             selectedValue=""
-                            name="country"
+                            name="type"
                             [control]="setACar.get('type')"></app-list-box> 
-
                         <div class="alert text-danger" 
                             *ngIf="setACar.controls['type'].errors && 
                             setACar.controls['type'].touched && 
                             setACar.controls['type'].dirty">
-                            Las contraseñas no coinciden.
+                            Debes seleccionar un tipo de combustible.
                         </div>
-                    </div>
-                    
+                    </div>                    
                     <div class="form-group">
                         <label class="fw-bold">Kilometers</label>
                         <input class="form-control" type="number" placeholder="" 
@@ -100,18 +88,21 @@
                             *ngIf="setACar.controls['kilometers'].errors && 
                             setACar.controls['kilometers'].touched && 
                             setACar.controls['kilometers'].dirty">
-                            Las contraseñas no coinciden.
+                            Debes indicar el kilometraje
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="fw-bold">Año</label>
-                        <input class="form-control" type="number" placeholder="" 
-                            formControlName="year"/>
+                        <app-list-box 
+                            title="Primera matriculación"                          
+                            [values]="yearList"
+                            selectedValue=""
+                            name="year"
+                            [control]="setACar.get('year')"></app-list-box>
                         <div class="alert text-danger" 
                             *ngIf="setACar.controls['year'].errors && 
                             setACar.controls['year'].touched && 
                             setACar.controls['year'].dirty">
-                            Las contraseñas no coinciden.
+                            Debes indicar el año de primera matriculación.
                         </div>
                     </div>
                     <div class="form-group">
@@ -122,19 +113,19 @@
                             *ngIf="setACar.controls['engine'].errors && 
                             setACar.controls['engine'].touched && 
                             setACar.controls['engine'].dirty">
-                            Las contraseñas no coinciden.
+                            Debes indicar la potencia del motor.
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <input class="form-control" type="hidden" placeholder="" 
                             formControlName="userId"/>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <button class="btn btn-primary mt-3" [disabled]="setACar.invalid">Enviar</button>
                     </div>  
-                    <div class="alert text-warning" *ngIf="setACar">
+                    <div class="alert alert-info text-warning" *ngIf="isCheck == 'INSERT_SUCCESS'">
                         <p class="text-primary text-center">
-                            Coche añadido>/editado éxitosamente.                        
+                            Coche añadido éxitosamente.                        
                         </p>                                        
                     </div>
                 </fieldset>
@@ -142,3 +133,27 @@
         </div>
     </div>
 </div>
+<!-- <hr>
+Form values: {{ setACar.value| json }}<br>
+Platenumber errors: {{ setACar.controls['plateNum'].errors | json }}<br>
+Platenumber value: {{ setACar.controls['plateNum'].value | json }}<br>
+brand errors: {{ setACar.controls['brand'].errors | json }}<br>
+brand value: {{ setACar.controls['brand'].value | json }}<br>
+model errors: {{ setACar.controls['model'].errors | json }}<br>
+model value: {{ setACar.controls['model'].value | json }}<br>
+color errors: {{ setACar.controls['color'].errors | json }}<br>
+color value: {{ setACar.controls['color'].value | json }}<br>
+doors errors: {{ setACar.controls['doors'].errors | json }}<br>
+doors value: {{ setACar.controls['doors'].value | json }}<br>
+
+type errors: {{ setACar.controls['type'].errors | json }}<br>
+type value: {{ setACar.controls['type'].value | json }}<br>
+kilometers errors: {{ setACar.controls['kilometers'].errors | json }}<br>
+kilometers value: {{ setACar.controls['kilometers'].value | json }}<br>
+year errors: {{ setACar.controls['year'].errors | json }}<br>
+year value: {{ setACar.controls['year'].value | json }}<br>
+engine errors: {{ setACar.controls['engine'].errors | json }}<br>
+engine value: {{ setACar.controls['engine'].value | json }}<br>
+
+Form valid: {{ setACar.valid }}<br>
+Form invalid: {{ setACar.invalid }} -->
