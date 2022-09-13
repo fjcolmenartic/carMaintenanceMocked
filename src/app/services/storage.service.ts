@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CarModel } from '../models/car-model';
+import { RepairModel } from '../models/repair-model';
 import { UserModel } from '../models/user-model';
 
 @Injectable({
@@ -83,28 +84,62 @@ export class StorageService {
       return this.http.post<CarModel>(`${environment.api}/cars`, body);
     }
 
-  getCar() {}
+  getCar(id:string) {
+    return this.http.get<CarModel>(`${environment.api}/cars?userId=${id}`);
+  }
 
-  editCar() {}
+  // editCar(id: number): Observable<any> {
+  //   const body = {};
+  //   return this.http.put<UserModel>(`${environment.api}/users/${id}`);
+  // }
 
-  removeCar() {}
-
-  // MAINTENANCE STORAGE METHODS -----------------
-  setMaintenance() {}
-
-  getMaintenance() {}
-
-  editMaintenance() {}
-
-  removeMaintenance() {}
+  removeCar(id: number): Observable<any> {
+    return this.http.delete(`${environment.api}/cars/${id}`);
+  }
 
   // REPAIR STORAGE METHODS -----------------
-  setRepair() {}
+  setRepair(
+    plateNumber: string,
+    userId: number,
+    faultyPart: string,
+    faultyDescription: string,
+    dateIn: string,
+    fixDescription: string,
+    fixedOn: string,
+    status: string,
+    repeat: boolean,
+    cost: number,
+    minutes: number
+  ): Observable<any> {
+    const body = { 
+      plateNumber, 
+      userId,
+      faultyPart,
+      faultyDescription,
+      dateIn,
+      fixDescription,
+      fixedOn,
+      status,
+      repeat,
+      cost,
+      minutes
+    };
+    return this.http.post<CarModel>(`${environment.api}/cars`, body);
+  }
 
-  getRepair() {}
+  getRepair(id: string) {
+    return this.http.get<RepairModel>(`${environment.api}/repairs?userId=${id}`);
+
+  }
+
+  getAllRepairs(id:string) {
+    return this.http.get<RepairModel>(`${environment.api}/repairs?userId=${id}`);
+  }
 
   editRepair() {}
 
-  removeRepair() {}
+  removeRepair(id:number): Observable<any> {
+    return this.http.delete(`${environment.api}/repairs/${id}`);
+  }
 
 }
