@@ -55,7 +55,7 @@ export class StorageService {
   // CAR STORAGE METHODS -----------------
   setCar( 
     plateNumber: string,
-    branch: string,
+    brand: string,
     model: string,
     color: string,
     doors: number,
@@ -64,10 +64,23 @@ export class StorageService {
     year: number,
     engine: number,
     userId: number,
+    id: number
     ): Observable<any> {
-      const body = { plateNumber, branch, model, color, doors, type, kilometers, year, engine, userId };
+      const body = { 
+        plateNumber, 
+        brand, 
+        model, 
+        color, 
+        doors, 
+        type, 
+        kilometers, 
+        year, 
+        engine, 
+        userId, 
+        id
+      };
 
-      return this.http.post<CarModel>(`${environment.api}/users`, body);
+      return this.http.post<CarModel>(`${environment.api}/cars`, body);
     }
 
   getCar() {}
