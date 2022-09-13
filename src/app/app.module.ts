@@ -21,6 +21,8 @@ import { SetMaintenanceComponent } from './content/set-maintenance/set-maintenan
 import { SetRepairComponent } from './content/set-repair/set-repair.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
+import { SessionStatusService } from './services/session-status.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -47,9 +49,10 @@ import { NumbersOnlyDirective } from './directives/numbers-only.directive';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    NgbModule
     ],
-  providers: [],
+  providers: [ SessionStatusService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
