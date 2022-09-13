@@ -1,1 +1,37 @@
-<p>repair works!</p>
+<div class="container mt-5">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-6 loginHeight">
+            <h2 class="fst-italic">{{title}}</h2>
+            <ng-container>
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Matrícula</th>
+                        <th>Pieza</th>
+                        <th>Avería</th>
+                        <th>Fecha avería</th>
+                        <th>Reparación</th>
+                        <th>Fecha reparación</th>
+                        <th>Estado</th>
+                        <th>Repetir</th>
+                        <th>Coste</th>
+                        <th>Duración</th>
+                    </thead>
+                    <tbody>
+                        <tr class="" *ngFor="let repair of repairList; let i=index" routerLink="/set-repair?id={{i}}">
+                            <td class="cursor-pointer">{{repair.plateNumber}}</td>
+                            <td class="cursor-pointer">{{repair.faultyPart}}</td>
+                            <td class="cursor-pointer">{{repair.faultyDescription}}</td>
+                            <td class="cursor-pointer">{{repair.dateIn}}</td>
+                            <td class="cursor-pointer">{{repair.fixDescription}}</td>
+                            <td class="cursor-pointer">{{repair.fixedOn}}</td>
+                            <td class="cursor-pointer">{{repair.status}}</td>
+                            <td class="cursor-pointer">{{repair.repeat}}</td>
+                            <td class="cursor-pointer">{{repair.cost}} km</td>
+                            <td class="cursor-pointer">{{repair.minutes}} km</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+        </div>
+    </div>
+</div>
