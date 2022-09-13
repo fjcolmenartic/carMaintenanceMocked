@@ -5,7 +5,9 @@
   <div class="row content">
     <app-navigation-bar 
       [userSession]="userSession" 
+      [userName]="userName"
       (eventData)="childUpdateSession($event)"></app-navigation-bar>
+      //// {{userName}}
     --------------------- {{userSession}} -------------
      Session status {{ data$ | async | json }}
     <router-outlet></router-outlet>
