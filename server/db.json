@@ -1,11 +1,11 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "John Doe",
-      "email": "john-doe@mail.es",
-      "password": "123456",
-      "city": "Madrid"
+      "name": "JONAS DOES",
+      "email": "jonas-does@dark.gr",
+      "city": "Greendenwell",
+      "password": "$2a$10$rrlGchq7gre0UaSZckh2xuBHvxDxamP5JS8pNqB1KmuFmoRzyEAb2",
+      "id": 1
     },
     {
       "name": "Javier",
@@ -50,13 +50,6 @@
       "id": 7
     },
     {
-      "name": "Chapuli",
-      "email": "chapuli@mail.es",
-      "password": "12345",
-      "city": "12345",
-      "id": 8
-    },
-    {
       "email": "spidy@mail.es",
       "password": "$2a$10$61Ti5op7uKaWBA53mJkX9.oXTkL.D4GNyzTzaT5ueMxP3Qu7qn0rm",
       "name": "Peter Parker",
@@ -64,11 +57,25 @@
       "id": 9
     },
     {
-      "email": "thanos@outerspace.us",
-      "password": "$2a$10$U/67Y.pb5jprth4MIP8d5.PdE1p/iqICEBRzODuXyktpx/NQm2Rye",
-      "name": "Thanos",
+      "email": "manganeso@mail.es",
+      "password": "$2a$10$jRXM4R.l/Q77oQofIi/oROs6wOYPQWUY8uW.HIVUEgHN9nWE3JK3S",
+      "name": "Manganeso",
       "city": "123456",
-      "id": 10
+      "id": 11
+    },
+    {
+      "email": "salomon@salmon.es",
+      "password": "$2a$10$oP7qTwNrQxqNr2VJkBv5I.uSeO929wSisyzKb6vqJnEdsOHmizWbC",
+      "name": "salomon",
+      "city": "123456",
+      "id": 12
+    },
+    {
+      "email": "palmero@troya.es",
+      "password": "$2a$10$KVA.TDKA1L1SzK14cOKtguOayVEywayfy.29efRP1JN35QTI0DO9O",
+      "name": "palmero",
+      "city": "123456",
+      "id": 13
     }
   ],
   "cars": [
