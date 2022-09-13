@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Input, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CarComponent } from './content/car/car.component';
 import { DashboardComponent } from './content/dashboard/dashboard.component';
@@ -28,7 +28,7 @@ export const routes: Routes = [
   { path: 'set-repair', component: SetRepairComponent },
   { path: 'set-user', component: SetUserComponent },
 
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -36,4 +36,4 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
