@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     // If session starte update userSession value
     if(sessionLoggedIn) {
       this.userSession = true;
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/car');
     } else {
       this.userSession = false;
     }
@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
           this.sessionService.saveData('user-id', this.dataSession.user.id);
           console.log('login emit//////////////////')
           this.sessionStatus.sessionStatusObservableData = { userSessionService: true };
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/car');
         },
         (err: any) => {
           this.isCheck = 'ERROR_USER';
