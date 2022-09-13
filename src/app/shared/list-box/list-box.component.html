@@ -1,6 +1,6 @@
-<div id="select-box" class="container-fluid no-margin pt-0 ps-0 pe-0 pb-2">
-    <span class="ms-3 mt-3 me-3 mb-2">{{title}}</span>
-    <select class="mt-1 no-padding mb-2" [formControl]="control" name="{{name}}">
+<div id="select-box" class="container-fluid no-margin pt-0 ps-0 pe-0 pb-2 mt-2 mb-2">
+    <span class="ms-3 mt-1 me-3 mb-1">{{title}}</span>
+    <select class="mt-1 no-padding mb-0" [formControl]="control" name="{{name}}">
         <ng-container *ngFor="let value of values" >
             <option 
                 class="" 

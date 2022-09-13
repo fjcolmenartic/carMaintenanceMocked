@@ -1,6 +1,6 @@
 #select-box {
     background-color: #e8f6ff;
-    border-bottom: 2px solid black;
+    /* border-bottom: 2px solid black; */
     border-top: 0;
     border-right: 0;
     border-left:0;
@@ -13,18 +13,19 @@
 
 #select-box span {
     display: inline-block;
-    color: #8e8e8e;
+    color: #000000;
+    font-weight: bold;
 }
 
 #select-box select {
     width: 100%;
-    padding: 15px;
+    padding: 5px;
     background-color: transparent;
     border: 0px;
 }
 
 #select-box option {
-    padding: 15px;
+    padding: 5px;
     border:1px solid red;
     background-color: #e8f6ff;
 }
