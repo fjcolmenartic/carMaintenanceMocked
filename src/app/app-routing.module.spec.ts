@@ -14,8 +14,6 @@ import { Router, RouterLinkWithHref } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './content/login/login.component';
 import { CarComponent } from './content/car/car.component';
-import { DashboardComponent } from './content/dashboard/dashboard.component';
-import { MaintenanceComponent } from './content/maintenance/maintenance.component';
 import { NotFoundComponent } from './content/not-found/not-found.component';
 import { RepairComponent } from './content/repair/repair.component';
 import { UserComponent } from './content/user/user.component';
@@ -34,8 +32,6 @@ xdescribe('(02) App Routing', () => {
         AppComponent, 
         LoginComponent, 
         CarComponent, 
-        DashboardComponent, 
-        MaintenanceComponent, 
         NotFoundComponent, 
         RepairComponent, 
         UserComponent],
@@ -92,9 +88,9 @@ xdescribe('(02) App Routing', () => {
 
   it('Navigate to "login" path route', fakeAsync(() => {
     // Pay attention to the neededd imports for REactive forms otherwise will fail
-    router.navigate(['dashboard']);
+    router.navigate(['car']);
     tick();
-    expect(location.path()).toBe('/dashboard');
+    expect(location.path()).toBe('/car');
   }));
 
   it('Default route', async () => {
