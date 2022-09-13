@@ -1,9 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { CarModel } from '../models/car-model';
+import { UserModel } from '../models/user-model';
 
 @Injectable({
   providedIn: 'root'
 })
-/*
+/**
  * Local Storage 
  *
  * This service uses the navigator JS object 'local storage'
@@ -22,29 +27,71 @@ import { Injectable } from '@angular/core';
 // save data to the Db on every submit form so this makes this service obsolete
 export class StorageService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  // Save one item
-  saveData(key:string,value:string | number | boolean) {
-    console.log('On storage Service');
-    localStorage.setItem(key,JSON.stringify(value));
+  // USER STORAGE METHODS ---------------
+  // -- doesn't have insert cause is in sign-in service
+  // neither get cause is in auth service
+  setUser(
+    name: string, 
+    email: string, 
+    password: string, 
+    city: string,
+    userId: number
+  ): Observable<any> {
+    const body = { name, email, password, city };
+
+    return this.http.put<UserModel>(`${environment.api}/users/${userId}`, body);
   }
 
-  // Returns one item
-  getData(key:string):string | null {
-    console.log('On get local storage');
-    // return JSON.parse(localStorage.getItem(key) ?? '');
-    return JSON.parse(localStorage.getItem(key)!);
+  getUser(userId:string) {
+    return this.http.get<UserModel>(`${environment.api}/users/${userId}`);
   }
 
-  // Removes one item key - value pair
-  removeData(key:string):void {
-    localStorage.removeItem(key);
+  removeUser(userId: number): Observable<any> {
+    return this.http.delete(`${environment.api}/users/${userId}`);
   }
 
-  // Clears all the data key - value pairs
-  clearData() {
-    localStorage.clear();
-  }
+  // CAR STORAGE METHODS -----------------
+  setCar( 
+    plateNumber: string,
+    branch: string,
+    model: string,
+    color: string,
+    doors: number,
+    type: string,
+    kilometers: number,
+    year: number,
+    engine: number,
+    userId: number,
+    ): Observable<any> {
+      const body = { plateNumber, branch, model, color, doors, type, kilometers, year, engine, userId };
+
+      return this.http.post<CarModel>(`${environment.api}/users`, body);
+    }
+
+  getCar() {}
+
+  editCar() {}
+
+  removeCar() {}
+
+  // MAINTENANCE STORAGE METHODS -----------------
+  setMaintenance() {}
+
+  getMaintenance() {}
+
+  editMaintenance() {}
+
+  removeMaintenance() {}
+
+  // REPAIR STORAGE METHODS -----------------
+  setRepair() {}
+
+  getRepair() {}
+
+  editRepair() {}
+
+  removeRepair() {}
 
 }
