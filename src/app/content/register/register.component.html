@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row">
         <div class="col-6 loginHeight">
             <form 
@@ -69,11 +69,16 @@
                         <button class="btn btn-primary mt-3" [disabled]="registerForm.invalid">Enviar</button>
                     </div>  
                     <div class="alert text-warning" *ngIf="registerSuccess">
-                        <p class="text-primary text-center">
-                            Usuario registrado éxitosamente.                        
+                        <p class="text-primary">
+                            Usuario registrado éxitosamente, puedes hacer <a routerLink="/login">login</a>                       
                         </p>                                        
                     </div>
-                    <a class="text-decoration-none" routerLink="/login">Log in</a>
+                    <div class="alert text-warning" *ngIf="!registerSuccess">
+                        <p class="text-primary">
+                            <a class="text-decoration-none" routerLink="/login">Log in</a>                       
+                        </p>                                        
+                    </div>
+                    
                 </fieldset>
             </form> 
         </div>

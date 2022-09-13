@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/services/data.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -82,9 +82,10 @@ export class RegisterComponent implements OnInit {
       let email = this.registerForm.controls['email'].value;
       let password = this.registerForm.controls['password'].value;
       let confirmPassword = this.registerForm.controls['confirmPassword'].value;
+      let city = this.registerForm.controls['city'].value;
 
       this.signinService.register(
-        name, email, password, confirmPassword
+        name, email, password, city
         )
         .subscribe(
           res => {
