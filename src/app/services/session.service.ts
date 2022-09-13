@@ -5,6 +5,15 @@ import { Injectable } from '@angular/core';
 })
 export class SessionService {
 
+  checkStatus() {
+    let loggedIn = this.getData('user-session');
+    if(loggedIn) {
+      console.log('TRUEEE')
+    } else {
+      console.log('FALSEEE')
+    }
+  }
+
   // Save one item
   saveData(key:string,value:string | number | boolean) {
     sessionStorage.setItem(key,JSON.stringify(value));
