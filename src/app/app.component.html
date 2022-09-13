@@ -3,7 +3,11 @@
     <h1 class="text-center mt-5 fw-bold carFontAppName">Car Maintenance</h1>
   </div>
   <div class="row content">
-    <app-navigation-bar [userLoggedIn]="userSession"></app-navigation-bar>
+    <app-navigation-bar 
+      [userSession]="userSession" 
+      (eventData)="childUpdateSession($event)"></app-navigation-bar>
+    --------------------- {{userSession}} -------------
+     Session status {{ data$ | async | json }}
     <router-outlet></router-outlet>
   </div>
 </div>
