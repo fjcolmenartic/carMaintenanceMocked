@@ -1,6 +1,10 @@
 <div class="row text-center">
-    <div class="col">      
-        <ng-container *ngIf="userLoggedIn">
+    <div class="col">     
+        session staus service {{data$ | async | json}} 
+        <ng-container *ngIf="(data$ | async)">
+            WORKING!!!
+        </ng-container>
+            <ng-container *ngIf="userSession">
             <a routerLink="user">Usuario</a> | 
             <a routerLink="car">Coche</a> | 
             <a routerLink="dashboard">Dashboard</a> | 
@@ -13,7 +17,7 @@
 
 <div class="row text-center">
     <div class="col">      
-        <ng-container *ngIf="userLoggedIn">
+        <ng-container *ngIf="userSession">
             <a routerLink="set-car">set car</a> | 
             <a routerLink="set-maintenance">set maintenance</a> | 
             <a routerLink="set-repair">set repair</a> | 
