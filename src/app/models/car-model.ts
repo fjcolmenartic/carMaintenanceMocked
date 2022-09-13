@@ -1,6 +1,6 @@
 interface Car {
     plateNumber: string;
-    branch: string;
+    brand: string;
     model: string;
     color: string;
     doors: number;
@@ -9,12 +9,13 @@ interface Car {
     year: number;
     engine: number;
     userId: number;
+    id: number;
 }
 
 export class CarModel implements Car {
 
     plateNumber = '';
-    branch = '';
+    brand = '';
     model = '';
     color = '';
     doors = 0;
@@ -23,6 +24,7 @@ export class CarModel implements Car {
     year = 0;
     engine = 0;
     userId = 0;
+    id = 0;
     
     constructo() {}
     
