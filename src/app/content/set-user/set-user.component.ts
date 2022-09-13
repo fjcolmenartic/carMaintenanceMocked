@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { PasswordsMatch } from 'src/app/validators/passwords-match';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-set-user',
@@ -11,15 +14,14 @@ import { PasswordsMatch } from 'src/app/validators/passwords-match';
 })
 export class SetUserComponent implements OnInit {
   title = "Editar usuario";
-  //registerForm: FormGroup = new FormGroup({});
   dataSession: any;
   isCheck: any;
   checkHuman: Array<any> =  [];
-  registerSuccess = false;
+  updateSuccess = false;
+  closeResult = '';
   //PasswordsMatch: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null | undefined;
 
-  // name, email, password, city
-  registerForm = new FormGroup({
+  userEditForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
@@ -53,45 +55,111 @@ export class SetUserComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private storageService: StorageService,
-    private PasswordsMatch: PasswordsMatch
+    private sessionService: SessionService,
+    private PasswordsMatch: PasswordsMatch,
+    private router: Router,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
+    // Get the user id from storage
+    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+    userId = userId.toString();
+    // Get the user data
+    this.storageService.getUser(userId)
+    .subscribe(
+      res => {
+        this.dataSession = res;
+        this.isCheck = 'SUCCESS';
+        // Set user data on the form
+        this.userEditForm.controls['name'].setValue(this.dataSession.name);
+        this.userEditForm.controls['email'].setValue(this.dataSession.email);
+        this.userEditForm.controls['city'].setValue(this.dataSession.city);
+      },
+      (err: any) => {
+        this.isCheck = 'ERROR_USER';
+      });
+
   }
 
   onSubmit(e:any) {
 
+    // Get password form data
+    let password = this.userEditForm.controls['password'].value;
+    let confirmPassword = this.userEditForm.controls['confirmPassword'].value;
+
+    // Validate password
     let passwordsMatch = this.PasswordsMatch.validate(
-        this.registerForm.controls['password'].value, 
-        this.registerForm.controls['confirmPassword'].value);
+       password, confirmPassword);
 
+    // If password matchs
     if(!!!passwordsMatch) {
+      // Get other form data
+      let name = this.userEditForm.controls['name'].value;
+      let email = this.userEditForm.controls['email'].value;
+      let city = this.userEditForm.controls['city'].value;
+      let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+      userId = userId.toString();
 
-      let name = this.registerForm.controls['name'].value;
-      let email = this.registerForm.controls['email'].value;
-      let password = this.registerForm.controls['password'].value;
-      let confirmPassword = this.registerForm.controls['confirmPassword'].value;
-
-      // this.signinService.register(
-      //   name, email, password, confirmPassword
-      //   )
-      //   .subscribe(
-      //     res => {
-      //       this.dataSession = res;
-      //       console.info('register SUCCESS')
-      //       this.registerSuccess = true;
-      //     },
-      //     (err: any) => {
-      //       console.warn('ERROR ON POST - REGISTER')
-      //     });
-
-          // todo toast success
+      // Update user data
+      this.storageService.setUser(name, email, password, city, userId)
+        .subscribe(
+          res => {
+            this.dataSession = res;
+            this.updateSuccess = true;
+            this.isCheck = 'UPDATE_SUCCESS';
+          },
+          (err: any) => {
+            this.isCheck = 'UPDATE_ERROR';
+          });
 
     } else {
       // TODO retornar un toast ???
+      console.error('passwords do not match')
     }
 
    
+  }
+
+  // Open modal (delete user popup)
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  onDelete() {
+    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+    userId = userId.toString();
+
+    // Update user data
+    this.storageService.removeUser(userId)
+      .subscribe(
+        res => {
+          this.dataSession = res;
+          this.updateSuccess = true;
+          this.isCheck = 'DELETE_SUCCESS';
+          this.sessionService.clearData();
+          // Close modal
+          this.modalService.dismissAll();
+
+          this.router.navigateByUrl('/login');
+        },
+        (err: any) => {
+          this.isCheck = 'DELETE_ERROR';
+        });
   }
 
 }
