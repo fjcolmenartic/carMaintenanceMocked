@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SessionStatusService, UserSession } from './services/session-status.service';
 import { SessionService } from './services/session.service';
+import { StorageService } from './services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +15,16 @@ export class AppComponent implements OnInit, OnChanges {
   // User session on browser
   // To pass data to child navbar and component
   userSession = false;
+  userName = '';
+  dataSession:any;
+  isCheck = '';
 
   data$: Observable<UserSession>;
 
   constructor(
     private sessionService: SessionService,
-    private sessionStatus: SessionStatusService
+    private sessionStatus: SessionStatusService,
+    private storageService: StorageService
     ) {
       this.data$ = sessionStatus.sessionStatusObservable;
     }
@@ -38,6 +43,20 @@ export class AppComponent implements OnInit, OnChanges {
       this.userSession = false;
     }
 console.log(this.userSession)
+
+    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+    userId = userId.toString();
+    this.storageService.getUser(userId)
+      .subscribe(
+      res => {
+        this.dataSession = res;
+        console.warn(res)
+        this.userName = res.name;
+        this.isCheck = 'UPDATE_SUCCESS';
+      },
+      (err: any) => {
+        this.isCheck = 'UPDATE_ERROR';
+      });
 
 
   }
