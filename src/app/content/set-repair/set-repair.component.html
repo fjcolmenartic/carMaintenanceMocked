@@ -12,6 +12,14 @@
                         <label class="fw-bold">Matrícula</label>
                         <input class="form-control" type="text" placeholder="" 
                             formControlName="plateNum"/>
+
+                        <app-list-box 
+                            title="Selecciona la Matrícula"                          
+                            [values]="carList"
+                            selectedValue=""
+                            name="plateNum"
+                            [control]="setRepair.get('plateNum')"></app-list-box>
+
                         <div class="alert text-danger" 
                             *ngIf="setRepair.controls['plateNum'].errors && 
                             setRepair.controls['plateNum'].touched && 
@@ -122,10 +130,10 @@
                             Las contraseñas no coinciden.
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <input class="form-control" type="hidden" placeholder="" 
                             formControlName="userId"/>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <button class="btn btn-primary mt-3" [disabled]="setRepair.invalid">Enviar</button>
                     </div>  

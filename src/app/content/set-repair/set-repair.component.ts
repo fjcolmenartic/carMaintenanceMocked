@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SessionService } from 'src/app/services/session.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { PlateNumber } from 'src/app/validators/plate-number';
 
 @Component({
@@ -10,6 +12,10 @@ import { PlateNumber } from 'src/app/validators/plate-number';
 export class SetRepairComponent implements OnInit {
 
   title = 'Añadir/editar reparación';
+  carList: string[] = [];
+  dataSession: any;
+  isCheck: any;
+
 
   setRepair = new FormGroup({
     plateNum: new FormControl('', [
@@ -75,10 +81,33 @@ export class SetRepairComponent implements OnInit {
   });
 
   constructor(
-    private plateNumber: PlateNumber
+    private plateNumber: PlateNumber,
+    private sessionService: SessionService,
+    private storageService: StorageService
   ) { }
 
   ngOnInit(): void {
+  // Get the user id from storage
+  let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+  userId = userId.toString();
+
+    // Get the user data
+    this.storageService.getCar(userId)
+    .subscribe(
+      res => {
+        this.dataSession = res;
+        this.isCheck = 'SUCCESS';
+
+        for (let i = 0; i < this.dataSession.length; i++) {
+          this.carList.push(this.dataSession[i]['plateNumber']);
+        }
+
+      },
+      (err: any) => {
+        this.isCheck = 'ERROR_USER';
+      });
+
+
   }
   
   onSubmit(e: any) {
