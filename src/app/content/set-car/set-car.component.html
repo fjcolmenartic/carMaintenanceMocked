@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <div class="row">
+    <div class="row align-items-center justify-content-center">
         <div class="col-6 loginHeight">
             <form 
                 id="registerForm" 
@@ -76,6 +76,14 @@
                         <label class="fw-bold">Tipo</label>
                         <input class="form-control" type="text" placeholder="" 
                             formControlName="type"/>
+
+                            <app-list-box 
+                            title="Combustible"                          
+                            [values]="carTypeList"
+                            selectedValue=""
+                            name="country"
+                            [control]="setACar.get('type')"></app-list-box> 
+
                         <div class="alert text-danger" 
                             *ngIf="setACar.controls['type'].errors && 
                             setACar.controls['type'].touched && 

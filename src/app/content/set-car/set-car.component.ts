@@ -11,6 +11,7 @@ export class SetCarComponent implements OnInit {
 
   title = 'Editar coche';
   colorList = ['Blanco', 'Negro', 'Gris', 'Azul', 'Rojo', 'Verde', 'Granate', 'Amarillo', 'Rosa', 'Beige'];
+  carTypeList = ['Diesel', 'Gasolina', 'Eléctrico', 'Híbrido', 'GLP'];
   // name, email, password, city
   setACar = new FormGroup({
     plateNum: new FormControl('', [
