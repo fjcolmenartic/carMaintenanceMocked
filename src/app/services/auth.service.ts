@@ -8,6 +8,14 @@ interface User {
   password: string;
 }
 
+/**
+ * Authentication service 
+ *
+ * This service works with json-auth as module of json-server to 
+ * mock a database, in json format, on your localhost
+ * inside the project folder. 
+ * 
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -17,15 +25,12 @@ export class AuthService {
 
   // json-server-auth
   // login endpoings: /login  /signin
-  // Must register first cause password are encripted otherwise won't work
-
+  // Must register (check sign-in service) first cause password are encripted otherwise won't work
   public login(email: string, password: string): Observable<any> {
     const body = { email, password };
 
     return this.http.post<User>(`${environment.api}/login`, body);
 
-    // ?name=email
   }
 
-  // getUser/s
 }
