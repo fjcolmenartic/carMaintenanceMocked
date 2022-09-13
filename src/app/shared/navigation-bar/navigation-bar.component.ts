@@ -13,6 +13,7 @@ export class NavigationBarComponent implements OnInit, OnChanges {
 
   // Value from parent if session started on browser or not
   @Input() userSession = false;
+  @Input() userName = '';
   @Output() eventData = new EventEmitter<boolean>();
 
   data$: Observable<UserSession>;
