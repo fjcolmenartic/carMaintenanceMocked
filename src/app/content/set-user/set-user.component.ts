@@ -13,7 +13,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./set-user.component.css']
 })
 export class SetUserComponent implements OnInit {
-  title = "Editar usuario";
+  title = "Perfil de usuario";
   dataSession: any;
   isCheck: any;
   checkHuman: Array<any> =  [];
