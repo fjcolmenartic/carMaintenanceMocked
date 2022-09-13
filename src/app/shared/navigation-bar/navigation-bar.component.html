@@ -1,27 +1,21 @@
-<div class="row text-center">
-    <div class="col">     
-        session staus service {{data$ | async | json}} 
-        <ng-container *ngIf="(data$ | async)">
-            WORKING!!!
-        </ng-container>
-            <ng-container *ngIf="userSession">
-            <a routerLink="user">Usuario</a> | 
-            <a routerLink="car">Coche</a> | 
-            <a routerLink="dashboard">Dashboard</a> | 
-            <a routerLink="maintenances">Mantenimiento</a> | 
-            <a routerLink="repairs">Reparación</a> | 
-            <a routerLink="logout" (click)="logout()">Logout</a>
-        </ng-container>
-    </div>
-</div>
+session staus service (navbar) {{data$ | async | json}} 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2 rounded-2">
+    <a class="navbar-brand" routerLink="">Home</a>
 
-<div class="row text-center">
-    <div class="col">      
-        <ng-container *ngIf="userSession">
-            <a routerLink="set-car">set car</a> | 
-            <a routerLink="set-maintenance">set maintenance</a> | 
-            <a routerLink="set-repair">set repair</a> | 
-            <a routerLink="set-user">set user</a> | 
+    <div class="col">     
+            <ng-container *ngIf="userSession">
+            <a class="navbar-brand" routerLink="user">Usuario</a> 
+            <a class="navbar-brand" routerLink="car">Coche</a> 
+            <a class="navbar-brand" routerLink="dashboard">Dashboard</a>  
+            <a class="navbar-brand" routerLink="maintenances">Mantenimiento</a> 
+            <a class="navbar-brand" routerLink="repairs">Reparación</a>  
+            <a class="navbar-brand" routerLink="logout" (click)="logout()">Logout</a>
+
+            <a class="navbar-brand" routerLink="set-car">set car</a> 
+            <a class="navbar-brand" routerLink="set-maintenance">set maintenance</a>  
+            <a class="navbar-brand" routerLink="set-repair">set repair</a>  
+            <a class="navbar-brand" routerLink="set-user">set user</a>
         </ng-container>
     </div>
-</div>
+
+  </nav>
