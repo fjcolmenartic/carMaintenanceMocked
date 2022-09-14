@@ -38,6 +38,7 @@ export class NavigationBarComponent implements OnInit {
   logout() {
     // Remove browser session and redirect
     this.sessionService.removeData('user-session');
+    this.userName = '';
     this.router.navigateByUrl('/login');
   }
 
