@@ -155,10 +155,48 @@
       "dateIn": "01/01/2022",
       "fixDescription": "Pulimentado de faros",
       "fixedOn": "06/01/2022",
-      "status": "Reparado",
-      "repeat": true,
+      "fixed": true,
       "cost": 18,
       "minutes": 30
+    },
+    {
+      "plateNumber": "1562DVG",
+      "userId": 9,
+      "faultyPart": "Retrovisor izquierdo",
+      "faultyDescription": "Retrovisor arrancado por completo y roto, reparación no viable.",
+      "dateIn": "2022-09-01",
+      "fixDescription": "Sutitución por pieza de segunda mano.",
+      "fixedOn": "2022-09-14",
+      "fixed": true,
+      "cost": 60,
+      "minutes": 40,
+      "id": 2
+    },
+    {
+      "plateNumber": "1562DVG",
+      "userId": 9,
+      "faultyPart": "Luna frontal",
+      "faultyDescription": "Rotura parcial en la esquina superior derecha de marco lateral a superior.",
+      "dateIn": "2022-09-12",
+      "fixDescription": "Sustitución completa de la luna.",
+      "fixedOn": "2022-09-14",
+      "fixed": true,
+      "cost": 350,
+      "minutes": 30,
+      "id": 3
+    },
+    {
+      "plateNumber": "8396WXS",
+      "userId": 9,
+      "faultyPart": "Neumáticos delanteros",
+      "faultyDescription": "Desgaste por uso",
+      "dateIn": "2022-09-07",
+      "fixDescription": "Sustitución por nuevos.",
+      "fixedOn": "2022-09-14",
+      "fixed": false,
+      "cost": 160,
+      "minutes": 30,
+      "id": 4
     }
   ]
 }
