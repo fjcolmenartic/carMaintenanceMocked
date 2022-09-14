@@ -5,13 +5,14 @@ import { Injectable } from '@angular/core';
 })
 export class SessionService {
 
-  checkStatus() {
-    let loggedIn = this.getData('user-session');
-    if(loggedIn) {
-      console.log('TRUEEE')
-    } else {
-      console.log('FALSEEE')
-    }
+  sessionStart = false;
+
+  setStatus(bool: boolean) {
+    this.sessionStart = bool;
+  }
+
+  getStatus(): boolean {
+    return this.sessionStart;
   }
 
   // BROWSER SESSION STORAGE SERVICE
