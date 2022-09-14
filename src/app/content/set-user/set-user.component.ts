@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from 'src/app/services/data.service';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { PasswordsMatch } from 'src/app/validators/passwords-match';
@@ -26,7 +25,7 @@ export class SetUserComponent implements OnInit {
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(15),
-      Validators.pattern(/^[A-Za-z]+$/ )
+      Validators.pattern(/^[A-Za-z ]+$/ )
     ]),
     email:new FormControl('', [
       Validators.required,
@@ -53,7 +52,6 @@ export class SetUserComponent implements OnInit {
   });
 
   constructor(
-    private dataService: DataService,
     private storageService: StorageService,
     private sessionService: SessionService,
     private PasswordsMatch: PasswordsMatch,

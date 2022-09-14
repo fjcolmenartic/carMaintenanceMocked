@@ -25,6 +25,9 @@
                 class="form bg-white mb-5">
                 <fieldset class="form-group border p-3">
                     <legend><h2 class="fst-italic">{{title}}</h2></legend>
+                    <div class="alert-info">
+                        Para realizar modificaciones debes volver a escribir la contraseña.
+                    </div>
                     <div class="form-group">
                         <label class="fw-bold">Name</label>
                         <input class="form-control" type="text" placeholder="" 
@@ -101,18 +104,3 @@
         </div>
     </div>
 </div>
-
-<!-- <hr>
-Form values: {{ userEditForm.value| json }}<br>
-Name errors: {{ userEditForm.controls['name'].errors | json }}<br>
-Name value: {{ userEditForm.controls['name'].value | json }}<br>
-Email errors: {{ userEditForm.controls['email'].errors | json }}<br>
-Email value: {{ userEditForm.controls['email'].value | json }}<br>
-Password errors: {{ userEditForm.controls['password'].errors | json }}<br>
-Password value: {{ userEditForm.controls['password'].value | json }}<br>
-confirmPassword errors: {{ userEditForm.controls['confirmPassword'].errors | json }}<br>
-confirmPassword value: {{ userEditForm.controls['confirmPassword'].value | json }}<br>
-City errors: {{ userEditForm.controls['city'].errors | json }}<br>
-City value: {{ userEditForm.controls['city'].value | json }}<br>
-Form valid: {{ userEditForm.valid }}<br>
-Form invalid: {{ userEditForm.invalid }} -->
