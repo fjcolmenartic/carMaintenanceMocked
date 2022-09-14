@@ -106,8 +106,7 @@ export class StorageService {
     dateIn: string,
     fixDescription: string,
     fixedOn: string,
-    status: string,
-    repeat: boolean,
+    fixed: boolean,
     cost: number,
     minutes: number
   ): Observable<any> {
@@ -119,12 +118,11 @@ export class StorageService {
       dateIn,
       fixDescription,
       fixedOn,
-      status,
-      repeat,
+      fixed,
       cost,
       minutes
     };
-    return this.http.post<CarModel>(`${environment.api}/cars`, body);
+    return this.http.post<RepairModel>(`${environment.api}/repairs`, body);
   }
 
   getRepair(id: string) {
