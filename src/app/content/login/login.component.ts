@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
-import { SessionStatusService, UserSession } from 'src/app/services/session-status.service';
 import { SessionService } from 'src/app/services/session.service';
 
 @Component({
@@ -27,25 +25,19 @@ export class LoginComponent implements OnInit {
   items: Array<any> =  [];
   isNaN: Function = Number.isNaN;
 
-  data$: Observable<UserSession>;
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService, // Login http
     private sessionService: SessionService,
     private router: Router,
-    private sessionStatus: SessionStatusService,
     private dataService: DataService // Mathmatics
     ) { 
-      this.data$ = sessionStatus.sessionStatusObservable;
     }
 
   ngOnInit(): void {
-    // console.log("%c ************ ngOnInit", "color:lightblue");
       // Check if session is stored on browser (started)
     
       let sessionLoggedIn = this.sessionService.getData('user-session');
-      console.log('sessionstarted login', sessionLoggedIn);
 
     // If session starte update userSession value
     if(sessionLoggedIn) {
@@ -73,7 +65,6 @@ export class LoginComponent implements OnInit {
 
   sendLogin(): void {
     this.isCheck = null; // Prev = { user: 1 } - only this param
-    console.log('ON SEND LOGIN ------')
 
     const [numberA, numberB] = this.checkHuman; // [1,2]
     const result = this.form.value.result;
@@ -92,14 +83,13 @@ export class LoginComponent implements OnInit {
         res => {
           this.dataSession = res;
           this.isCheck = 'SUCCESS';
-          console.log('auth service login res', this.dataSession)
-          console.log('auth service login res', this.dataSession.user)
-          console.log('auth service login res', this.dataSession.user.id)
-          console.log('setting user details sesion')
+
           this.sessionService.saveData('user-session', 'logged-in');
+          this.sessionService.saveData('user-logged', true);
           this.sessionService.saveData('user-id', this.dataSession.user.id);
-          console.log('login emit//////////////////')
-          this.sessionStatus.sessionStatusObservableData = { userSessionService: true };
+          this.sessionService.saveData('user-name', this.dataSession.user.name);
+
+
           this.router.navigateByUrl('/car');
         },
         (err: any) => {
