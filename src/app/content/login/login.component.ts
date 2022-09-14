@@ -13,7 +13,6 @@ import { SessionService } from 'src/app/services/session.service';
 export class LoginComponent implements OnInit {
   
   userSession = false;
-
   showEmoji: boolean = false;
   title = 'Acceso';
   subtitle = 'Estamos creando este ejercicio para comenzar a aprender sobre pruebas unitarias en Componentes'; 
@@ -84,12 +83,15 @@ export class LoginComponent implements OnInit {
           this.dataSession = res;
           this.isCheck = 'SUCCESS';
 
+          // Browser session storage
           this.sessionService.saveData('user-session', 'logged-in');
           this.sessionService.saveData('user-logged', true);
           this.sessionService.saveData('user-id', this.dataSession.user.id);
           this.sessionService.saveData('user-name', this.dataSession.user.name);
 
-
+          // Global session var
+          this.sessionService.setStatus(true);
+          
           this.router.navigateByUrl('/car');
         },
         (err: any) => {
