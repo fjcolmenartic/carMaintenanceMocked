@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { PlateNumber } from 'src/app/validators/plate-number';
@@ -26,56 +27,41 @@ export class SetRepairComponent implements OnInit {
     ]),
     faultyPart:new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[A-Za-z]+$/),
+      Validators.pattern(/^[A-Za-z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöü]+$/),
       Validators.minLength(3),
-      Validators.maxLength(20)
+      Validators.maxLength(50)
     ]),
     faultyDescription:new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[A-Za-z0-9]+[`!_,¿?=)(/&%$·"ªº\\^*+)]$/),
       Validators.minLength(5),
-      Validators.maxLength(15)
+      Validators.maxLength(255),
+      Validators.pattern(/^[a-zA-Z -ÁÉÍÓÚáéíóúÄËÏÖÜäëïöü][^/\·$=+*{}\[_\]]+$/)
     ]),
     dateIn:new FormControl('', [
-      Validators.required,
-      Validators.minLength(1),
-      Validators.maxLength(1),
-      Validators.pattern(/^[\d]{1}$/)
+      Validators.required
     ]),
     fixDescription:new FormControl('', [
       Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-      Validators.pattern(/^[a-zA-Z -ÁÉÍÓÚáéíóúÄËÏÖÜäëïöü]+\D[^/\()@!¡"·$%&()=+*\^{}\[_ªº\]]$/) // diesel, gasolina
+      Validators.minLength(5),
+      Validators.maxLength(255),
+      Validators.pattern(/^[a-zA-Z -ÁÉÍÓÚáéíóúÄËÏÖÜäëïöü][^/\·$=+*{}\[_\]]+$/)
     ]),
     fixedOn:new FormControl('', [
-      Validators.required,
-      Validators.minLength(1),
-      Validators.maxLength(6),
-      Validators.pattern(/^[\d]{1,6}$/)
+      Validators.required
     ]),
-    status:new FormControl('', [
+    fixed:new FormControl('', [
       Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(4),
-      Validators.pattern(/^[\d]{4}$/)
-    ]),
-    repeat:new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-      Validators.pattern(/^[\d.]+$/) // diesel, gaslina....
     ]),
     cost:new FormControl('', [
       Validators.required,
       Validators.minLength(1),
       Validators.maxLength(4),
-      Validators.pattern(/^[\d]+$/)
+      Validators.pattern(/^[\d.]+$/)
     ]),
     minutes:new FormControl('', [
       Validators.required,
       Validators.minLength(1),
-      Validators.maxLength(3),
+      Validators.maxLength(4),
       Validators.pattern(/^[\d]+$/)
     ])
   });
@@ -83,13 +69,16 @@ export class SetRepairComponent implements OnInit {
   constructor(
     private plateNumber: PlateNumber,
     private sessionService: SessionService,
-    private storageService: StorageService
+    private storageService: StorageService, 
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-  // Get the user id from storage
-  let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
-  userId = userId.toString();
+
+    // GET THE PLATE NUMBER LIST OF USER'S CARS
+    // Get the user id from storage
+    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+    userId = userId.toString();
 
     // Get the user data
     this.storageService.getCar(userId)
@@ -111,6 +100,51 @@ export class SetRepairComponent implements OnInit {
   }
   
   onSubmit(e: any) {
+    let plateNumber = this.setRepair.controls['plateNum'].value;
+    let faultyPart = this.setRepair.controls['faultyPart'].value;
+    let faultyDescription = this.setRepair.controls['faultyDescription'].value;
+    let dateIn = this.setRepair.controls['dateIn'].value;
+    let fixDescription = this.setRepair.controls['fixDescription'].value;
+    let fixedOn = this.setRepair.controls['fixedOn'].value;
+    let fixed = this.setRepair.controls['fixed'].value;
+    let cost = this.setRepair.controls['cost'].value;
+    let minutes = this.setRepair.controls['minutes'].value;
+    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+
+    (fixed == 'Reparado') ? fixed = true : fixed = false;
+
+    if(
+      plateNumber != '' &&
+      faultyPart != '' &&
+      faultyDescription != '' &&
+      dateIn != '' &&
+      fixDescription != '' &&
+      fixedOn != '' &&
+      typeof fixed == 'boolean' &&
+      cost != '' &&
+      minutes != ''     
+    ) {
+      // Update user data
+      this.storageService
+        .setRepair(plateNumber, userId, faultyPart, faultyDescription, dateIn, fixDescription,
+          fixedOn, fixed, cost, minutes)
+        .subscribe(
+          res => {
+            this.dataSession = res;
+            this.isCheck = 'INSERT_SUCCESS';
+            console.warn(this.isCheck)    
+            this.router.navigateByUrl('/repairs');
+          },
+          (err: any) => {
+            this.isCheck = 'INSERT_ERROR'; 
+            console.error(this.isCheck)
+          });
+
+    } else {
+      // TODO retornar un toast ???
+      this.isCheck = 'EMPTY_FIELDS_ERROR';
+      console.error(this.isCheck)
+    }
 
   }
 
