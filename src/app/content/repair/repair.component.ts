@@ -42,4 +42,12 @@ export class RepairComponent implements OnInit {
 
   }
 
+  onEdit(id:number) {
+
+  }
+
+  onDelete(id:number) {
+    
+  }
+
 }
