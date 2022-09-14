@@ -143,6 +143,19 @@
       "engine": "1.5",
       "userId": 9,
       "id": 5
+    },
+    {
+      "plateNumber": "1562DVG",
+      "brand": "Renault",
+      "model": "Megane",
+      "color": "Negro",
+      "doors": 5,
+      "type": "Diesel",
+      "kilometers": 230000,
+      "year": "2005",
+      "engine": "1.5",
+      "userId": 9,
+      "id": 6
     }
   ],
   "repairs": [
