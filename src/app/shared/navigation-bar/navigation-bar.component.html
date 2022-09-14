@@ -1,26 +1,39 @@
-session staus service (navbar) {{data$ | async | json}} 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2 rounded-2">
-    <img class="navbar-brand cursor-pointer ms-3"src="./assets/images/home.png" width="30px" routerLink="" />
-    <div class="col">     
-            <ng-container *ngIf="userSession">
-            <!-- <a class="navbar-brand" routerLink="user">Usuario</a>  -->
-            <a class="navbar-brand" routerLink="car">Coche</a> 
-            <a class="navbar-brand" routerLink="repairs">Reparación</a>  
-           
-
-            <a class="navbar-brand" routerLink="set-car">set car</a> 
-            <a class="navbar-brand" routerLink="set-repair">set repair</a>  
-            <div class="float-end">
-                <a class="navbar-brand text-info bg-light bg-opacity-10 rounded p-2" routerLink="set-user">
-                    {{userName}}
-                </a>
-                <a class="navbar-brand" routerLink="logout" (click)="logout()">
-                    <img src="./assets/images/logout.png" width="20px" />
-                </a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">    
+    <div class="col">
+        <ng-container *ngIf="userSession">
+            <div class="row">
+                <div class="col-3">
+                    <!-- <img class="navbar-brand cursor-pointer ms-3"src="./assets/images/home.png" width="30px" routerLink="" /> -->
+                    <p class="text-white fs-3 mt-1"><img class="navbar-brand cursor-pointer ms-3"src="./assets/images/home.png" width="30px" routerLink="" /> 
+                        {{appTitle}}</p>
+                </div>
+                <div class="col-2 mt-2">
+                    <div ngbDropdown class="d-inline-block col-12">
+                        <button type="button" class="btn btn-outline-primary col-12" id="dropdownBasic1" ngbDropdownToggle>Coches</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem routerLink="/car">Listado de coches</button>
+                            <button ngbDropdownItem routerLink="/set-car">Nuevo coche</button>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-2 mt-2">
+                    <div ngbDropdown class="d-inline-block col-12">
+                        <button type="button" class="btn btn-outline-primary col-12" id="dropdownBasic1" ngbDropdownToggle>Reparaciones</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem routerLink="/repairs">Listado de reparaciones</button>
+                            <button ngbDropdownItem routerLink="/set-repair">Nueva reparación</button>
+                        </div>
+                    </div>
+                </div>            
+                <div class="col align-content-end mt-2">
+                    <a class="navbar-brand float-end" routerLink="logout" (click)="logout()">
+                        <img src="./assets/images/logout.png" width="20px" />
+                    </a>
+                    <a class="navbar-brand text-info bg-light bg-opacity-10 rounded p-2 float-end" routerLink="set-user">
+                        {{userName}}
+                    </a>                                        
+                </div>
             </div>
-            
-
         </ng-container>
     </div>
-
   </nav>
