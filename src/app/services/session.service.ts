@@ -14,6 +14,7 @@ export class SessionService {
     }
   }
 
+  // BROWSER SESSION STORAGE SERVICE
   // Save one item
   saveData(key:string,value:string | number | boolean) {
     sessionStorage.setItem(key,JSON.stringify(value));
