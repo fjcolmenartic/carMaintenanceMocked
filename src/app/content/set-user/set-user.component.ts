@@ -139,25 +139,89 @@ export class SetUserComponent implements OnInit {
   }
 
   onDelete() {
+    // Get the user id
     let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
     userId = userId.toString();
 
-    // Update user data
-    this.storageService.removeUser(userId)
+    // Get all the user's repairs (dependent of cars)
+    this.storageService.getAllRepairs(userId)
       .subscribe(
-        res => {
-          this.dataSession = res;
-          this.updateSuccess = true;
-          this.isCheck = 'DELETE_SUCCESS';
-          this.sessionService.clearData();
-          // Close modal
-          this.modalService.dismissAll();
+        repairs => {
+          console.info('repairs', repairs)
 
-          this.router.navigateByUrl('/login');
+
+
+          // Delete all these repairs
+          for(let i = 0; i < repairs.length; i++) {
+            console.warn(repairs[i].plateNumber, repairs[i].id, repairs[i].faultyPart)      
+                        
+            this.storageService.removeRepair(repairs[i].id)
+              .subscribe(
+                repairDeletion => {
+                  console.log('REPAIR DELETE SUCCESS', repairDeletion)
+                },
+                error => {
+                  console.error('FAIL on REPAIR delete', error)
+              });
+          }
+
+          // Get all the user's cars
+          this.storageService.getAllCars(userId)
+            .subscribe(
+              cars => {
+                console.info('cars', cars)
+                for(let i = 0; i < cars.length; i++) {
+                  this.storageService.removeCar(cars[i].id)
+                    .subscribe(
+                      carDeletion => {
+                        console.info('Car deletion', carDeletion)
+                      },
+                      error => {
+                        console.error('Error while deleting cars')
+                      }
+                    )                    
+                }
+              },
+              error => {
+                console.error('Error retrieving all cars')
+              }
+            );
+
+            // Delete the user
+            this.storageService.removeUser(userId)
+              .subscribe(
+                user => {
+                  this.dataSession = user;
+                  this.updateSuccess = true;
+                  this.isCheck = 'DELETE_SUCCESS';
+                  this.sessionService.clearData();
+                  // Close modal
+                  this.modalService.dismissAll();
+                  console.log(user.id, user)
+
+                  // // Clear cars
+                  // this.storageService.getAllCars(user.id)
+                  //   .subscribe(
+                  //     cars => {
+                  //       console.info(cars)
+                  //     },
+                  //     error => {
+                  //       console.error(error)
+                  //     }
+                  //   );
+
+                  this.router.navigateByUrl('/login');
+                },
+                (err: any) => {
+                  this.isCheck = 'DELETE_ERROR';
+                });
+            
         },
-        (err: any) => {
-          this.isCheck = 'DELETE_ERROR';
-        });
+        error => {
+          console.error('error retrieving repairs')
+        }
+      );
+
   }
 
 }
