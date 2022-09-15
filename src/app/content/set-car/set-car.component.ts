@@ -85,7 +85,7 @@ export class SetCarComponent implements OnInit {
   ngOnInit(): void {
 
     // Create an populate a year list for the input year select
-    let iniYear: number = 1900;
+    let iniYear: number = 2000;
     let lastYear: any = new Date((new Date()).getTime() + 24*60*60*1000);
     lastYear = lastYear.getFullYear();
 
