@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { PlateNumber } from 'src/app/validators/plate-number';
@@ -34,7 +35,7 @@ export class SetCarComponent implements OnInit {
     ]),
     model:new FormControl('', [
       Validators.required,
-      Validators.pattern(/^[A-Za-z0-9]+$/),
+      Validators.pattern(/^[A-Za-z0-9 ]+$/),
       Validators.minLength(3),
       Validators.maxLength(15)
     ]),
@@ -79,7 +80,8 @@ export class SetCarComponent implements OnInit {
   constructor(
     private plateNumber: PlateNumber,
     private sessionService: SessionService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -127,7 +129,8 @@ export class SetCarComponent implements OnInit {
           res => {
             this.dataSession = res;
             this.isCheck = 'INSERT_SUCCESS';
-            console.warn(this.isCheck)    
+            console.warn(this.isCheck)  
+            this.router.navigateByUrl('/car');  
           },
           (err: any) => {
             this.isCheck = 'INSERT_ERROR'; 
