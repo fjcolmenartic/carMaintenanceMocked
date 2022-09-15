@@ -27,13 +27,16 @@ export class AppComponent implements OnInit {
     
     // Check if session is stored on browser (started)
     let sessionStarted = this.sessionService.getData('user-session');    
-
+    let sessionStartedT = this.sessionService.getData('user-logged');    
+console.log('UUUUU', sessionStartedT, typeof sessionStartedT)
     // If session starte update userSession value
     if(sessionStarted) {
       this.userSession = true;
     } else {
       this.userSession = false;
     }
+
+    this.userSession = this.sessionService.getStatus();
 
     let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
     userId = userId.toString();
