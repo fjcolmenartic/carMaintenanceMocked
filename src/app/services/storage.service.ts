@@ -89,8 +89,8 @@ export class StorageService {
   }
 
   // Get all the cars of an user id
-  getAllCars(id:number) {
-    return this.http.get<CarModel>(`${environment.api}/cars?userId=${id}`);
+  getAllCars(userId:number) {
+    return this.http.get<CarModel[]>(`${environment.api}/cars?userId=${userId}`);
   }
 
   // Get the whole cars on db to check if present while registering a new one
@@ -167,8 +167,8 @@ export class StorageService {
   }
 
   // Get all car repairs from an user
-  getAllRepairs(id:number) {
-    return this.http.get<RepairModel>(`${environment.api}/repairs?userId=${id}`);
+  getAllRepairs(userId:number) {
+    return this.http.get<RepairModel[]>(`${environment.api}/repairs?userId=${userId}`);
   }
 
   // Get all repair records of a particular car - just for on delete car for example or
