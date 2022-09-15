@@ -16,8 +16,12 @@ export class SetCarComponent implements OnInit {
   colorList = ['Blanco', 'Negro', 'Gris', 'Azul', 'Rojo', 'Verde', 'Granate', 'Amarillo', 'Rosa', 'Beige'];
   carTypeList = ['Diesel', 'Gasolina', 'Eléctrico', 'Híbrido', 'GLP'];
   yearList: string[] = [];
+  // To store query results
   dataSession: any;
+  // To inform some error and success
   isCheck: any;
+  // To check if plate number stored on db
+  carIsTaken: undefined | boolean;
 
   // name, email, password, city
   setACar = new FormGroup({
@@ -71,8 +75,8 @@ export class SetCarComponent implements OnInit {
     ]),
     engine:new FormControl('', [
       Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
+      Validators.minLength(2),
+      Validators.maxLength(4),
       Validators.pattern(/^[\d.]+$/) // diesel, gaslina....
     ])
   });
@@ -122,20 +126,33 @@ export class SetCarComponent implements OnInit {
         year != '' &&
         engine != ''     
     ) {
-      // Update user data
-      this.storageService
-        .setCar(plateNum, brand, model, color, doors, type, kilometers,year, engine, userId, id)
+
+      // Check if the plate number is already stored
+      this.storageService.checkCar(plateNum)
         .subscribe(
-          res => {
-            this.dataSession = res;
-            this.isCheck = 'INSERT_SUCCESS';
-            console.warn(this.isCheck)  
-            this.router.navigateByUrl('/car');  
+          (check: any) => {
+            // If no records about this plate number you are free to store the car
+            if(check.length == 0) {
+              this.carIsTaken = false;
+              this.storageService
+                .setCar(plateNum, brand, model, color, doors, type, kilometers,year, engine, userId, id)
+                .subscribe(
+                  res => {
+                    this.dataSession = res;
+                    this.isCheck = 'INSERT_SUCCESS';
+                    this.router.navigateByUrl('/car');  
+                  },
+                  (err: any) => {
+                    this.isCheck = 'INSERT_ERROR'; 
+              });
+            } else {
+              this.carIsTaken = true;
+            }
           },
-          (err: any) => {
-            this.isCheck = 'INSERT_ERROR'; 
-            console.error(this.isCheck)
-          });
+          error => {
+            console.error('ERROR', plateNum, error)
+          }
+        );
 
     } else {
       // TODO retornar un toast ???
