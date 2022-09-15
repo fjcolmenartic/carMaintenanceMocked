@@ -83,12 +83,17 @@ export class StorageService {
       return this.http.post<CarModel>(`${environment.api}/cars`, body);
     }
 
-  getCar(id:string) {
+  getCar(id:number) {
     return this.http.get<CarModel>(`${environment.api}/cars/${id}`);
   }
 
-  getAllCars(id:string) {
+  getAllCars(id:number) {
     return this.http.get<CarModel>(`${environment.api}/cars?userId=${id}`);
+  }
+
+  // The whole car list to avoid duplicates for example...
+  getEveryoneCars() {
+    return this.http.get<CarModel>(`${environment.api}/cars`);
   }
 
   updateCar( 
@@ -126,6 +131,11 @@ export class StorageService {
     return this.http.delete(`${environment.api}/cars/${id}`);
   }
 
+  removeAllCars(userId: number): Observable<any> {
+    console.log('on storage service delete')
+    return this.http.delete(`${environment.api}/cars?userId=${userId}`);
+  }
+
   // REPAIR STORAGE METHODS -----------------
   setRepair(
     plateNumber: string,
@@ -154,12 +164,16 @@ export class StorageService {
     return this.http.post<RepairModel>(`${environment.api}/repairs`, body);
   }
 
-  getRepair(id: string) {
+  getRepair(id: number) {
     return this.http.get<RepairModel>(`${environment.api}/repairs/${id}`);
   }
 
-  getAllRepairs(id:string) {
+  getAllRepairs(id:number) {
     return this.http.get<RepairModel>(`${environment.api}/repairs?userId=${id}`);
+  }
+
+  getAllCarRepairs(plateNum: string) {
+    return this.http.get<RepairModel[]>(`${environment.api}/repairs?plateNumber=${plateNum}`);
   }
 
   updateRepair(
@@ -191,6 +205,10 @@ export class StorageService {
 
   removeRepair(id:number): Observable<any> {
     return this.http.delete(`${environment.api}/repairs/${id}`);
+  }
+
+  removeAllRepairs(plateNumber:string): Observable<any> {
+    return this.http.delete(`${environment.api}/repairs?plateNumber=${plateNumber}`);
   }
 
 }
