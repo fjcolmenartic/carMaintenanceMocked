@@ -17,34 +17,42 @@
                         <th class="col">Acciones</th>
                     </thead>
                     <tbody>
-                        <tr class="" *ngFor="let repair of repairList; let i=index" >
-                            <td class="cursor-pointer"><a class="text-decoration-none cursor-pointer" 
-                                routerLink="/set-repair/{{repair.id}}">{{repair.plateNumber}}</a></td>
-                            <td class="cursor-pointer">{{repair.faultyPart}}</td>
-                            <td class="cursor-pointer">{{repair.faultyDescription}}</td>
-                            <td class="cursor-pointer">{{repair.dateIn}}</td>
-                            <td class="cursor-pointer">{{repair.fixDescription}}</td>
-                            <td class="cursor-pointer">{{repair.fixedOn}}</td>
-                            <td class="cursor-pointer">
-                            <ng-container *ngIf="repair.fixed == true">
-                                Reparado
-                            </ng-container>
-                            <ng-container *ngIf="repair.fixed == false">
-                                No reparado
-                            </ng-container>
-                             </td>
-                            <!-- <td  class="cursor-pointer">{{repair.fixed}}</td> -->
+                        <ng-container *ngIf="repairList.length > 0">
+                            <tr class="" *ngFor="let repair of repairList; let i=index" >
+                                <td class="cursor-pointer"><a class="text-decoration-none cursor-pointer" 
+                                    routerLink="/set-repair/{{repair.id}}">{{repair.plateNumber}}</a></td>
+                                <td class="cursor-pointer">{{repair.faultyPart}}</td>
+                                <td class="cursor-pointer">{{repair.faultyDescription}}</td>
+                                <td class="cursor-pointer">{{repair.dateIn}}</td>
+                                <td class="cursor-pointer">{{repair.fixDescription}}</td>
+                                <td class="cursor-pointer">{{repair.fixedOn}}</td>
+                                <td class="cursor-pointer" [ngClass]="{'text-success':repair.fixed == true, 'text-danger': repair.fixed == false}">
+                                <ng-container *ngIf="repair.fixed == true">
+                                    Reparado
+                                </ng-container>
+                                <ng-container *ngIf="repair.fixed == false">
+                                    No reparado
+                                </ng-container>
+                                </td>
+                                <!-- <td  class="cursor-pointer">{{repair.fixed}}</td> -->
 
-                            <td class="cursor-pointer">{{repair.cost}}</td>
-                            <td class="cursor-pointer">{{repair.minutes}}</td>
-                            <td class="">
-                                <img class="cursor-pointer" src="./assets/images/edit.png" width="20px" (click)="onEdit(repair.id)" />
-                                <img class="cursor-pointer" src="./assets/images/delete.png" width="20px" (click)="onDelete(repair.id)" />
-                            </td>
-                        </tr>
+                                <td class="cursor-pointer">{{repair.cost}}</td>
+                                <td class="cursor-pointer">{{repair.minutes}}</td>
+                                <td class="">
+                                    <img class="cursor-pointer" src="./assets/images/edit.png" width="20px" (click)="onEdit(repair.id)" />
+                                    <img class="cursor-pointer" src="./assets/images/delete.png" width="20px" (click)="onDelete(repair.id)" />
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="repairList.length == 0">
+                            <tr>
+                                <td colspan="11"><p class="alert alert-info text-center">
+                                    Todavía no tienes ningún registro.</p></td>
+                            </tr>                                
+                        </ng-container>
                     </tbody>
                 </table>
-            </ng-container>
+            </ng-container>            
         </div>
     </div>
 </div>
