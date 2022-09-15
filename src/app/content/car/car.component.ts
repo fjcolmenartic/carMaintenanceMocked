@@ -42,7 +42,7 @@ export class CarComponent implements OnInit, OnDestroy {
     let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
     userId = userId.toString();
     // Get the user data
-    this.storageService.getCar(userId)
+    this.storageService.getAllCars(userId)
     .subscribe(
       res => {
         this.dataSession = res;
@@ -66,7 +66,7 @@ export class CarComponent implements OnInit, OnDestroy {
         let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
         userId = userId.toString();
         // Get the user data
-        this.storageService.getCar(userId)
+        this.storageService.getAllCars(userId)
         .subscribe(
           res => {
             this.dataSession = res;
