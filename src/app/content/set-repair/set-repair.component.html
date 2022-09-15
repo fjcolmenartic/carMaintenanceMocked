@@ -1,39 +1,54 @@
 <div class="container mt-5">
-    <div class="row align-items-center justify-content-center">
+    <div class="row align-items-center justify-content-center mb-5">
         <div class="col-6 loginHeight">
             <form 
                 id="registerForm" 
                 [formGroup]="setRepair" 
                 (submit)="onSubmit($event)" 
-                class="form bg-white mb-5">                
-                <fieldset class="form-group border p-3 loginHeight">
+                class="form bg-white">                
+                <fieldset class="form-group border p-3 loginHeight rounded-3">
                     <legend> <h2 class="fst-italic">{{title}}</h2></legend>
-                    <div class="form-group">
-                        <app-list-box 
-                            title="Selecciona la Matrícula"                          
-                            [values]="carList"
-                            selectedValue=""
-                            name="plateNum"
-                            [control]="setRepair.get('plateNum')" required></app-list-box>
+                   
+                    <div class="row">                    
+                        <div class="form-group col-4 me-0">
+                            <app-list-box 
+                                title="Matrícula"                          
+                                [values]="carList"
+                                selectedValue=""
+                                name="plateNum"
+                                [control]="setRepair.get('plateNum')" required></app-list-box>
 
-                        <div class="alert text-danger" 
-                            *ngIf="setRepair.controls['plateNum'].errors && 
-                            setRepair.controls['plateNum'].touched && 
-                            setRepair.controls['plateNum'].dirty">
-                            Por favor, selecciona la matrícula del vehículo afectado.
+                            <div class="alert text-danger" 
+                                *ngIf="setRepair.controls['plateNum'].errors && 
+                                setRepair.controls['plateNum'].touched && 
+                                setRepair.controls['plateNum'].dirty">
+                                Por favor, selecciona la matrícula del vehículo afectado.
+                            </div>
+                        </div>
+                        <div class="form-group col-4 me-0">
+                            <label class="fw-bold">Pieza averiada</label>
+                            <input class="form-control" type="text" placeholder="" 
+                                formControlName="faultyPart" required/>
+                            <div class="alert text-danger" 
+                                *ngIf="setRepair.controls['faultyPart'].errors && 
+                                setRepair.controls['faultyPart'].touched && 
+                                setRepair.controls['faultyPart'].dirty">
+                                Debes especificar la pieza dañada.
+                            </div>
+                        </div>
+                        <div class="form-group col-4 me-0">
+                            <label class="fw-bold">Fecha de ocurrencia</label>
+                            <input class="form-control" type="date" placeholder="" 
+                                formControlName="dateIn" required/>                        
+                            <div class="alert text-danger" 
+                                *ngIf="setRepair.controls['dateIn'].errors && 
+                                setRepair.controls['dateIn'].touched && 
+                                setRepair.controls['dateIn'].dirty">
+                                Debes indicar una fecha aproximada.
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="fw-bold">Pieza averiada</label>
-                        <input class="form-control" type="text" placeholder="" 
-                            formControlName="faultyPart" required/>
-                        <div class="alert text-danger" 
-                            *ngIf="setRepair.controls['faultyPart'].errors && 
-                            setRepair.controls['faultyPart'].touched && 
-                            setRepair.controls['faultyPart'].dirty">
-                            Debes especificar la pieza dañada.
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
                         <label class="fw-bold">Descripción de la avería</label>
                         <textarea class="form-control" formControlName="faultyDescription" placeholder="" 
@@ -46,14 +61,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="fw-bold">Fecha de ocurrencia</label>
+                        <label class="fw-bold">Fecha de reparación</label>
                         <input class="form-control" type="date" placeholder="" 
-                            formControlName="dateIn" required/>                        
+                            formControlName="fixedOn" required/>
                         <div class="alert text-danger" 
-                            *ngIf="setRepair.controls['dateIn'].errors && 
-                            setRepair.controls['dateIn'].touched && 
-                            setRepair.controls['dateIn'].dirty">
-                            Debes indicar una fecha aproximada.
+                            *ngIf="setRepair.controls['fixedOn'].errors && 
+                            setRepair.controls['fixedOn'].touched && 
+                            setRepair.controls['fixedOn'].dirty">
+                            Debes indicar la fecha de reparación.
                         </div>
                     </div>
                     <div class="form-group">
@@ -66,60 +81,58 @@
                             setRepair.controls['fixDescription'].dirty">
                             Debes incluir una pequeña descripción de la reparación.
                         </div>
-                    </div>  
-                    <div class="form-group">
-                        <label class="fw-bold">Fecha de reparación</label>
-                        <input class="form-control" type="date" placeholder="" 
-                            formControlName="fixedOn" required/>
-                        <div class="alert text-danger" 
-                            *ngIf="setRepair.controls['fixedOn'].errors && 
-                            setRepair.controls['fixedOn'].touched && 
-                            setRepair.controls['fixedOn'].dirty">
-                            Debes indicar la fecha de reparación.
-                        </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label class="fw-bold">Estado &nbsp;</label>
-                        <input name="fixed" value="Reparado" class="ms-3" type="radio"  
-                            formControlName="fixed"/> <label for="fixed" required>&nbsp; Reparado</label>
-                        <input name="fixed" value="No-reparado" class="ms-3" type="radio"  
-                            formControlName="fixed" /> <label for="fixed">&nbsp; No reparado</label>
-                        <div class="alert text-danger" 
-                            *ngIf="setRepair.controls['fixed'].errors && 
-                            setRepair.controls['fixed'].touched && 
-                            setRepair.controls['fixed'].dirty">
-                            Debes indicar si la reparación fue satisfactoria.
+                    <div class="row">
+                        <div class="form-group col-3 me-0">
+                            <label class="fw-bold">Coste</label>
+                            <input class="form-control" type="number" placeholder="0" 
+                                formControlName="cost" step=".01" min="0" max="9999.99" required/>
+                            <div class="alert text-danger" 
+                                *ngIf="setRepair.controls['cost'].errors && 
+                                setRepair.controls['cost'].touched && 
+                                setRepair.controls['cost'].dirty">
+                                Debes indicar el coste (en euros).
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="fw-bold">Coste</label>
-                        <input class="form-control" type="number" placeholder="0" 
-                            formControlName="cost" step=".01" min="0" max="9999.99" required/>
-                        <div class="alert text-danger" 
-                            *ngIf="setRepair.controls['cost'].errors && 
-                            setRepair.controls['cost'].touched && 
-                            setRepair.controls['cost'].dirty">
-                            Debes indicar el coste (en euros).
+                        <div class="form-group col-2 me-0">
+                            <label class="fw-bold">Minutaje</label>
+                            <input class="form-control" type="number" placeholder="0" 
+                                formControlName="minutes" step="1" min="0" max="9999"  required/>
+                            <div class="alert text-danger" 
+                                *ngIf="setRepair.controls['minutes'].errors && 
+                                setRepair.controls['minutes'].touched && 
+                                setRepair.controls['minutes'].dirty">
+                                Debes indicar el tiempo de reparación.
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="fw-bold">Tiempo de reparación (minutos)</label>
-                        <input class="form-control" type="number" placeholder="0" 
-                            formControlName="minutes" step="1" min="0" max="9999"  required/>
-                        <div class="alert text-danger" 
-                            *ngIf="setRepair.controls['minutes'].errors && 
-                            setRepair.controls['minutes'].touched && 
-                            setRepair.controls['minutes'].dirty">
-                            Debes indicar el tiempo de reparación.
+                        <div class="form-group col-4 me-0">
+                            <label class="fw-bold">Reparado</label>
+                            <input class="form-control" type="date" placeholder="" 
+                                formControlName="fixedOn" required/>
+                            <div class="alert text-danger" 
+                                *ngIf="setRepair.controls['fixedOn'].errors && 
+                                setRepair.controls['fixedOn'].touched && 
+                                setRepair.controls['fixedOn'].dirty">
+                                Debes indicar la fecha de reparación.
+                            </div>
                         </div>
+                        <div class="form-group col-3 me-0">
+                            <app-list-box 
+                                    title="Estado"                          
+                                    [values]="repaired"
+                                    selectedValue=""
+                                    name="fixed"
+                                    [control]="setRepair.get('fixed')" required></app-list-box>
+                            <div class="alert text-danger" 
+                                *ngIf="setRepair.controls['fixed'].errors && 
+                                setRepair.controls['fixed'].touched && 
+                                setRepair.controls['fixed'].dirty">
+                                Debes indicar si la reparación fue satisfactoria.
+                            </div>
+                        </div>                        
                     </div>
-                    <!-- <div class="form-group">
-                        <input class="form-control" type="hidden" placeholder="" 
-                            formControlName="userId"/>
-                    </div> -->
-                    <div class="form-group">
-                        <button class="btn btn-primary mt-3" [disabled]="setRepair.invalid">Enviar</button>
+                    <div class="form-group mt-2">
+                        <button class="btn btn-primary" [disabled]="setRepair.invalid">Enviar</button>
                     </div>  
                     <div class="alert alert-info text-warning" *ngIf="isCheck == 'INSERT_SUCCESS'">
                         <p class="text-center">
@@ -131,28 +144,3 @@
         </div>
     </div>
 </div>
-<hr>
-Form values: {{ setRepair.value| json }}<br>
-Platenumber errors: {{ setRepair.controls['plateNum'].errors | json }}<br>
-Platenumber value: {{ setRepair.controls['plateNum'].value | json }}<br>
-faultyPart errors: {{ setRepair.controls['faultyPart'].errors | json }}<br>
-faultyPart value: {{ setRepair.controls['faultyPart'].value | json }}<br>
-faultyDescription errors: {{ setRepair.controls['faultyDescription'].errors | json }}<br>
-faultyDescription value: {{ setRepair.controls['faultyDescription'].value | json }}<br>
-dateIn errors: {{ setRepair.controls['dateIn'].errors | json }}<br>
-dateIn value: {{ setRepair.controls['dateIn'].value | json }}<br>
-fixDescription errors: {{ setRepair.controls['fixDescription'].errors | json }}<br>
-fixDescription value: {{ setRepair.controls['fixDescription'].value | json }}<br>
-
-fixedOn errors: {{ setRepair.controls['fixedOn'].errors | json }}<br>
-fixedOn value: {{ setRepair.controls['fixedOn'].value | json }}<br>
-fixed errors: {{ setRepair.controls['fixed'].errors | json }}<br>
-fixed value: {{ setRepair.controls['fixed'].value | json }}<br>
-cost errors: {{ setRepair.controls['cost'].errors | json }}<br>
-cost value: {{ setRepair.controls['cost'].value | json }}<br>
-
-minutes errors: {{ setRepair.controls['minutes'].errors | json }}<br>
-minutes value: {{ setRepair.controls['minutes'].value | json }}<br>
-
-Form valid: {{ setRepair.valid }}<br>
-Form invalid: {{ setRepair.invalid }}
