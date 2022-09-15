@@ -14,6 +14,7 @@ export class SetRepairComponent implements OnInit {
 
   title = 'Añadir/editar reparación';
   carList: string[] = [];
+  repaired = ['Reparado', 'No reparado'];
   dataSession: any;
   isCheck: any;
 
@@ -81,7 +82,7 @@ export class SetRepairComponent implements OnInit {
     userId = userId.toString();
 
     // Get the user data
-    this.storageService.getCar(userId)
+    this.storageService.getAllCars(userId)
     .subscribe(
       res => {
         this.dataSession = res;
