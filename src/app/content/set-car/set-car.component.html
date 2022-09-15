@@ -100,7 +100,7 @@
                             </div>
                         </div>                                         
                         <div class="form-group col-4 me-0">
-                            <label class="fw-bold">Kilometers</label>
+                            <label class="fw-bold">Kilometros</label>
                             <input class="form-control" type="number" placeholder="" 
                                 min="0" step="1" formControlName="kilometers"/>
                             <div class="alert text-danger" 
@@ -131,7 +131,7 @@
                     <div class="form-group">
                         <button class="btn btn-primary mt-3" [disabled]="setACar.invalid">Enviar</button>
                     </div>  
-                    <div class="alert alert-info text-warning" *ngIf="isCheck == 'INSERT_SUCCESS'">
+                    <div class="alert alert-info text-warning mt-3" *ngIf="isCheck == 'INSERT_SUCCESS'">
                         <p class="text-primary text-center">
                             Coche añadido éxitosamente.                        
                         </p>                                        
@@ -141,27 +141,3 @@
         </div>
     </div>
 </div>
-<!-- <hr>
-Form values: {{ setACar.value| json }}<br>
-Platenumber errors: {{ setACar.controls['plateNum'].errors | json }}<br>
-Platenumber value: {{ setACar.controls['plateNum'].value | json }}<br>
-brand errors: {{ setACar.controls['brand'].errors | json }}<br>
-brand value: {{ setACar.controls['brand'].value | json }}<br>
-model errors: {{ setACar.controls['model'].errors | json }}<br>
-model value: {{ setACar.controls['model'].value | json }}<br>
-color errors: {{ setACar.controls['color'].errors | json }}<br>
-color value: {{ setACar.controls['color'].value | json }}<br>
-doors errors: {{ setACar.controls['doors'].errors | json }}<br>
-doors value: {{ setACar.controls['doors'].value | json }}<br>
-
-type errors: {{ setACar.controls['type'].errors | json }}<br>
-type value: {{ setACar.controls['type'].value | json }}<br>
-kilometers errors: {{ setACar.controls['kilometers'].errors | json }}<br>
-kilometers value: {{ setACar.controls['kilometers'].value | json }}<br>
-year errors: {{ setACar.controls['year'].errors | json }}<br>
-year value: {{ setACar.controls['year'].value | json }}<br>
-engine errors: {{ setACar.controls['engine'].errors | json }}<br>
-engine value: {{ setACar.controls['engine'].value | json }}<br>
-
-Form valid: {{ setACar.valid }}<br>
-Form invalid: {{ setACar.invalid }} -->
