@@ -131,11 +131,6 @@ export class StorageService {
     return this.http.delete(`${environment.api}/cars/${id}`);
   }
 
-  removeAllCars(userId: number): Observable<any> {
-    console.log('on storage service delete')
-    return this.http.delete(`${environment.api}/cars?userId=${userId}`);
-  }
-
   // REPAIR STORAGE METHODS -----------------
   setRepair(
     plateNumber: string,
@@ -205,10 +200,6 @@ export class StorageService {
 
   removeRepair(id:number): Observable<any> {
     return this.http.delete(`${environment.api}/repairs/${id}`);
-  }
-
-  removeAllRepairs(plateNumber:string): Observable<any> {
-    return this.http.delete(`${environment.api}/repairs?plateNumber=${plateNumber}`);
   }
 
 }
