@@ -202,6 +202,19 @@
       "engine": "115",
       "userId": 14,
       "id": 9
+    },
+    {
+      "plateNumber": "2186DMZ",
+      "brand": "Mercedes",
+      "model": "Benz",
+      "color": "Blanco",
+      "doors": 5,
+      "type": "Eléctrico",
+      "kilometers": 10000,
+      "year": "2019",
+      "engine": "120",
+      "userId": 14,
+      "id": 10
     }
   ],
   "repairs": [
