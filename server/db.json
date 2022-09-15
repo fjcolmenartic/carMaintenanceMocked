@@ -76,6 +76,13 @@
       "name": "palmero",
       "city": "123456",
       "id": 13
+    },
+    {
+      "email": "josevi@mail.es",
+      "password": "$2a$10$h5uIf5qxJM1UII.tofLTgeWN/1wC88B3eiz5JAR49sa7h5dsgvuXC",
+      "name": "Josevi",
+      "city": "Ciempozuelos",
+      "id": 14
     }
   ],
   "cars": [
@@ -145,7 +152,7 @@
       "id": 5
     },
     {
-      "plateNumber": "1562DVG",
+      "plateNumber": "7542DMT",
       "brand": "Renault",
       "model": "Megane",
       "color": "Negro",
@@ -156,6 +163,45 @@
       "engine": "1.5",
       "userId": 9,
       "id": 6
+    },
+    {
+      "plateNumber": "6598GHJ",
+      "brand": "Toyota",
+      "model": "Land Cruiser",
+      "color": "Verde",
+      "doors": 5,
+      "type": "Eléctrico",
+      "kilometers": 125000,
+      "year": "2018",
+      "engine": "2.1",
+      "userId": 13,
+      "id": 7
+    },
+    {
+      "plateNumber": "9851KDF",
+      "brand": "Mitshubisi",
+      "model": "Montero",
+      "color": "Granate",
+      "doors": 5,
+      "type": "Híbrido",
+      "kilometers": 100000,
+      "year": "2019",
+      "engine": "2.3",
+      "userId": 13,
+      "id": 8
+    },
+    {
+      "plateNumber": "2186DMT",
+      "brand": "Ford",
+      "model": "Mondeo",
+      "color": "Beige",
+      "doors": 5,
+      "type": "Diesel",
+      "kilometers": 208000,
+      "year": "2005",
+      "engine": "115",
+      "userId": 14,
+      "id": 9
     }
   ],
   "repairs": [
@@ -223,6 +269,45 @@
       "cost": 0.02,
       "minutes": 1,
       "id": 5
+    },
+    {
+      "plateNumber": "6598GHJ",
+      "userId": 13,
+      "faultyPart": "Prueba",
+      "faultyDescription": "Prueba...",
+      "dateIn": "2022-09-01",
+      "fixDescription": "Prueba....",
+      "fixedOn": "2022-09-15",
+      "fixed": false,
+      "cost": 30,
+      "minutes": 10,
+      "id": 6
+    },
+    {
+      "plateNumber": "9851KDF",
+      "userId": 13,
+      "faultyPart": "Blala",
+      "faultyDescription": "Lorem ipsum dolot est...",
+      "dateIn": "2022-09-12",
+      "fixDescription": "Lorem ipsum dolot est...",
+      "fixedOn": "2022-09-15",
+      "fixed": true,
+      "cost": 60,
+      "minutes": 40,
+      "id": 7
+    },
+    {
+      "plateNumber": "2186DMT",
+      "userId": 14,
+      "faultyPart": "Puerta trasera derecha",
+      "faultyDescription": "Golpe contra columna al estacionar, abollado",
+      "dateIn": "2022-09-08",
+      "fixDescription": "Ajustar la chap",
+      "fixedOn": "2022-09-15",
+      "fixed": false,
+      "cost": 200,
+      "minutes": 60,
+      "id": 8
     }
   ]
 }
