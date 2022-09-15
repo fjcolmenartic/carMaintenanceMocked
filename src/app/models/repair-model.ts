@@ -8,6 +8,7 @@ interface Repair {
     fixedOn: string;
     fixed: boolean;
     cost: number;
+    id: number;
 }
 
 export class RepairModel implements Repair {
@@ -21,6 +22,7 @@ export class RepairModel implements Repair {
     fixedOn = '';
     fixed = false;
     cost = 0;
+    id = 0;
 
     constructor() {}    
     
