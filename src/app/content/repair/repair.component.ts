@@ -11,7 +11,7 @@ import { StorageService } from 'src/app/services/storage.service';
 export class RepairComponent implements OnInit {
 
   title = 'Listado de reparaciones';
-  repairList: any;
+  repairList: any = [];
   dataSession: any;
   isCheck: any;
   userSession = false;
@@ -32,7 +32,6 @@ export class RepairComponent implements OnInit {
       res => {
         this.dataSession = res;
         this.repairList = res;
-        console.warn(res)
         this.isCheck = 'SUCCESS';
 
       },
