@@ -11,7 +11,7 @@ import { StorageService } from 'src/app/services/storage.service';
 export class CarComponent implements OnInit, OnDestroy {
 
   title = 'Listado de coches';
-  carList: any;
+  carList: any = [];
   dataSession: any;
   isCheck: any;
   userSession = false;
@@ -47,7 +47,6 @@ export class CarComponent implements OnInit, OnDestroy {
       res => {
         this.dataSession = res;
         this.carList = res;
-        console.warn(res)
         this.isCheck = 'SUCCESS';
 
       },
@@ -71,7 +70,6 @@ export class CarComponent implements OnInit, OnDestroy {
           res => {
             this.dataSession = res;
             this.carList = res;
-            console.warn(res)
             this.isCheck = 'SUCCESS';
     
           },
@@ -82,18 +80,57 @@ export class CarComponent implements OnInit, OnDestroy {
 
   onDelete(id:number) {
     console.info('ON DELETE', id)
-    this.storageService.removeCar(id)
+
+    // Get the platenumber of this id car
+    this.storageService.getCar(id)
       .subscribe({
-        next: data => {
-          console.log('DELETE SUCCESS')
-          this.reloadCarList();
+        next: car => {
+          console.log('data from car', car)
+
+
+          // Get all repairs for this plate number car
+          this.storageService.getAllCarRepairs(car.plateNumber)
+            .subscribe({
+              next: carRepairs => {
+
+                console.info(carRepairs)
+                console.log(car.plateNumber, car.id, car.brand)
+                
+                // Remove these car repairs
+                for(let i = 0; i < carRepairs.length; i++) {
+                  console.warn(carRepairs[i].plateNumber, carRepairs[i].id, carRepairs[i].faultyPart)
+                  this.storageService.removeRepair(carRepairs[i].id)
+                    .subscribe({
+                      next: carDeletion => {
+                        console.log('REPAIR DELETE SUCCESS', carDeletion)
+                      },
+                      error: error => {
+                        console.error('FAIL on REPAIR delete', error)
+                      }
+                  });
+                }
+
+                this.storageService.removeCar(car.id)
+                  .subscribe({
+                    next: carRemoved => {
+                      console.log('DELETE CAR SUCCESS', carRemoved)
+                      this.reloadCarList();
+                    },
+                    error: error => {
+                      console.error('FAIL on CAR delete', error)
+                    }
+                });
+              },
+              error: error => {
+                console.error('Error while removing all repairs for ' + car.plateNumber)
+              }
+            });
         },
         error: error => {
-          console.error('FAIL on delete')
+          console.error( 'NO DATA FROM THIS CAR')
         }
-      })
-    //this.router
-    // mus invoke popup & service for deletion
+      });
+
   }
 
   ngOnDestroy() {
