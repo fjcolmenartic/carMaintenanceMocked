@@ -1,121 +1,129 @@
 <div class="container mt-5">
-    <div class="row align-items-center justify-content-center">
+    <div class="row align-items-center justify-content-center mb-5">
         <div class="col-6 loginHeight">
             <form 
                 id="registerForm" 
                 [formGroup]="setACar" 
                 (submit)="onSubmit($event)" 
-                class="form bg-white mb-5">                
-                <fieldset class="form-group border p-3 loginHeight">
+                class="form bg-white">                
+                <fieldset class="form-group border p-3 loginHeight rounded-3">
                     <legend> <h2 class="fst-italic">{{title}}</h2></legend>
-                    <div class="form-group">
-                        <label class="fw-bold">Matrícula</label>
-                        <input class="form-control" type="text" placeholder="" 
-                            formControlName="plateNum" maxlength="7"/>
-                        <div class="alert text-danger" 
-                            *ngIf="setACar.controls['plateNum'].errors && 
-                            setACar.controls['plateNum'].touched && 
-                            setACar.controls['plateNum'].dirty">
-                            Por favor, introduce una mátricula válida (4 números y 3 letras mayúsculas, ej: '8396WXS').
+                    <div class="row">
+                        <div class="form-group col-4 me-0">
+                            <label class="fw-bold">Matrícula</label>
+                            <input class="form-control" type="text" placeholder="" 
+                                formControlName="plateNum" maxlength="7"/>
+                            <div class="alert text-danger" 
+                                *ngIf="setACar.controls['plateNum'].errors && 
+                                setACar.controls['plateNum'].touched && 
+                                setACar.controls['plateNum'].dirty">
+                                Por favor, introduce una mátricula válida (4 números y 3 letras mayúsculas, ej: '8396WXS').
+                            </div>
+                        </div>
+                        <div class="form-group col-4 me-0">
+                            <label class="fw-bold">Marca</label>
+                            <input class="form-control" type="text" placeholder="" 
+                                formControlName="brand"/>
+                            <div class="alert text-danger" 
+                                *ngIf="setACar.controls['brand'].errors && 
+                                setACar.controls['brand'].touched && 
+                                setACar.controls['brand'].dirty">
+                                El campo Marca del vehículo es necesario.
+                            </div>
+                        </div>
+                        <div class="form-group col-4 me-0">
+                            <label class="fw-bold">Modelo</label>
+                            <input class="form-control" type="text" placeholder="" 
+                                formControlName="model"/>
+                            <div class="alert text-danger" 
+                                *ngIf="setACar.controls['model'].errors && 
+                                setACar.controls['model'].touched && 
+                                setACar.controls['model'].dirty">
+                                El Modelo del vehículo es necesario.
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="fw-bold">Marca</label>
-                        <input class="form-control" type="text" placeholder="" 
-                            formControlName="brand"/>
-                        <div class="alert text-danger" 
-                            *ngIf="setACar.controls['brand'].errors && 
-                            setACar.controls['brand'].touched && 
-                            setACar.controls['brand'].dirty">
-                            El campo Marca del vehículo es necesario.
+                    <div class="row">
+                        <div class="form-group col-4 me-0">
+                            <app-list-box 
+                                title="Color"   
+                                [values]="colorList"
+                                selectedValue=""
+                                name="color"
+                                [control]="setACar.get('color')"></app-list-box>
+                            <div class="alert text-danger" 
+                                *ngIf="setACar.controls['color'].errors && 
+                                setACar.controls['color'].touched && 
+                                setACar.controls['color'].dirty">
+                                Debes seleccionar un color.
+                            </div>
+                        </div>
+                        <div class="form-group col-4 me-0">
+                            <app-list-box 
+                                title="Combustible"                          
+                                [values]="carTypeList"
+                                selectedValue=""
+                                name="type"
+                                [control]="setACar.get('type')"></app-list-box> 
+                            <div class="alert text-danger" 
+                                *ngIf="setACar.controls['type'].errors && 
+                                setACar.controls['type'].touched && 
+                                setACar.controls['type'].dirty">
+                                Debes seleccionar un tipo de combustible.
+                            </div>
+                        </div> 
+                        <div class="form-group col-4 me-0">
+                            <app-list-box 
+                                title="Año matriculación"                          
+                                [values]="yearList"
+                                selectedValue=""
+                                name="year"
+                                [control]="setACar.get('year')"></app-list-box>
+                            <div class="alert text-danger" 
+                                *ngIf="setACar.controls['year'].errors && 
+                                setACar.controls['year'].touched && 
+                                setACar.controls['year'].dirty">
+                                Debes indicar el año de primera matriculación.
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="fw-bold">Modelo</label>
-                        <input class="form-control" type="text" placeholder="" 
-                            formControlName="model"/>
-                        <div class="alert text-danger" 
-                            *ngIf="setACar.controls['model'].errors && 
-                            setACar.controls['model'].touched && 
-                            setACar.controls['model'].dirty">
-                            El Modelo del vehículo es necesario.
+                    <div class="row">
+                        <div class="form-group col-4 me-0">
+                            <label class="fw-bold">Puertas</label>
+                            <input class="form-control" type="number" placeholder="" 
+                                formControlName="doors" step="2" min="3" max="5"/>
+                            <div class="alert text-danger" 
+                                *ngIf="setACar.controls['doors'].errors && 
+                                setACar.controls['doors'].touched && 
+                                setACar.controls['doors'].dirty">
+                                Debes indicar el número de puertas.
+                            </div>
+                        </div>                                         
+                        <div class="form-group col-4 me-0">
+                            <label class="fw-bold">Kilometers</label>
+                            <input class="form-control" type="number" placeholder="" 
+                                min="0" step="1" formControlName="kilometers"/>
+                            <div class="alert text-danger" 
+                                *ngIf="setACar.controls['kilometers'].errors && 
+                                setACar.controls['kilometers'].touched && 
+                                setACar.controls['kilometers'].dirty">
+                                Debes indicar el kilometraje
+                            </div>
+                        </div>                    
+                        <div class="form-group col-4 me-0">
+                            <label class="fw-bold">Motorización</label>
+                            <input class="form-control" type="text" placeholder="" 
+                                formControlName="engine"/>
+                            <div class="alert text-danger" 
+                                *ngIf="setACar.controls['engine'].errors && 
+                                setACar.controls['engine'].touched && 
+                                setACar.controls['engine'].dirty">
+                                Debes indicar la potencia del motor.
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <app-list-box 
-                            title="Color"   
-                            [values]="colorList"
-                            selectedValue=""
-                            name="color"
-                            [control]="setACar.get('color')"></app-list-box>
-                        <div class="alert text-danger" 
-                            *ngIf="setACar.controls['color'].errors && 
-                            setACar.controls['color'].touched && 
-                            setACar.controls['color'].dirty">
-                            Debes seleccionar un color.
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="fw-bold">Puertas</label>
-                        <input class="form-control" type="number" placeholder="" 
-                            formControlName="doors" step="2" min="3" max="5"/>
-                        <div class="alert text-danger" 
-                            *ngIf="setACar.controls['doors'].errors && 
-                            setACar.controls['doors'].touched && 
-                            setACar.controls['doors'].dirty">
-                            Debes indicar el número de puertas.
-                        </div>
-                    </div>  
-                    <div class="form-group">
-                        <app-list-box 
-                            title="Combustible"                          
-                            [values]="carTypeList"
-                            selectedValue=""
-                            name="type"
-                            [control]="setACar.get('type')"></app-list-box> 
-                        <div class="alert text-danger" 
-                            *ngIf="setACar.controls['type'].errors && 
-                            setACar.controls['type'].touched && 
-                            setACar.controls['type'].dirty">
-                            Debes seleccionar un tipo de combustible.
-                        </div>
-                    </div>                    
-                    <div class="form-group">
-                        <label class="fw-bold">Kilometers</label>
-                        <input class="form-control" type="number" placeholder="" 
-                            formControlName="kilometers"/>
-                        <div class="alert text-danger" 
-                            *ngIf="setACar.controls['kilometers'].errors && 
-                            setACar.controls['kilometers'].touched && 
-                            setACar.controls['kilometers'].dirty">
-                            Debes indicar el kilometraje
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <app-list-box 
-                            title="Primera matriculación"                          
-                            [values]="yearList"
-                            selectedValue=""
-                            name="year"
-                            [control]="setACar.get('year')"></app-list-box>
-                        <div class="alert text-danger" 
-                            *ngIf="setACar.controls['year'].errors && 
-                            setACar.controls['year'].touched && 
-                            setACar.controls['year'].dirty">
-                            Debes indicar el año de primera matriculación.
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="fw-bold">Motorización</label>
-                        <input class="form-control" type="text" placeholder="" 
-                            formControlName="engine"/>
-                        <div class="alert text-danger" 
-                            *ngIf="setACar.controls['engine'].errors && 
-                            setACar.controls['engine'].touched && 
-                            setACar.controls['engine'].dirty">
-                            Debes indicar la potencia del motor.
-                        </div>
-                    </div>
+
+                    
                     <!-- <div class="form-group">
                         <input class="form-control" type="hidden" placeholder="" 
                             formControlName="userId"/>
