@@ -99,8 +99,8 @@ export class SetUserComponent implements OnInit {
       let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
       userId = userId.toString();
 
-      // Update user data
-      this.storageService.setUser(name, email, password, city, userId)
+        // Update user data
+        this.storageService.setUser(name, email, password, city, userId)
         .subscribe(
           res => {
             this.dataSession = res;
