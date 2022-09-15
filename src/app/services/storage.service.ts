@@ -83,7 +83,7 @@ export class StorageService {
       return this.http.post<CarModel>(`${environment.api}/cars`, body);
   }
 
-  // Get a particular car by id
+  // Get a particular car by id for editing
   getCar(id:number) {
     return this.http.get<CarModel>(`${environment.api}/cars/${id}`);
   }
@@ -161,14 +161,18 @@ export class StorageService {
     return this.http.post<RepairModel>(`${environment.api}/repairs`, body);
   }
 
+  // Get a particular repair by id for editing
   getRepair(id: number) {
     return this.http.get<RepairModel>(`${environment.api}/repairs/${id}`);
   }
 
+  // Get all car repairs from an user
   getAllRepairs(id:number) {
     return this.http.get<RepairModel>(`${environment.api}/repairs?userId=${id}`);
   }
 
+  // Get all repair records of a particular car - just for on delete car for example or
+  // to filter repairs
   getAllCarRepairs(plateNum: string) {
     return this.http.get<RepairModel[]>(`${environment.api}/repairs?plateNumber=${plateNum}`);
   }
