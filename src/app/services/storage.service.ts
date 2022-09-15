@@ -81,19 +81,21 @@ export class StorageService {
       };
 
       return this.http.post<CarModel>(`${environment.api}/cars`, body);
-    }
+  }
 
+  // Get a particular car by id
   getCar(id:number) {
     return this.http.get<CarModel>(`${environment.api}/cars/${id}`);
   }
 
+  // Get all the cars of an user id
   getAllCars(id:number) {
     return this.http.get<CarModel>(`${environment.api}/cars?userId=${id}`);
   }
 
-  // The whole car list to avoid duplicates for example...
-  getEveryoneCars() {
-    return this.http.get<CarModel>(`${environment.api}/cars`);
+  // Get the whole cars on db to check if present while registering a new one
+  checkCar(plateNumber: string) {
+    return this.http.get<CarModel>(`${environment.api}/cars?plateNumber=${plateNumber}`);
   }
 
   updateCar( 
