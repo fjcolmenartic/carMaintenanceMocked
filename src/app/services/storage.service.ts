@@ -31,8 +31,7 @@ export class StorageService {
   constructor(private http: HttpClient) { }
 
   // USER STORAGE METHODS ---------------
-  // -- doesn't have insert cause is in sign-in service
-  // neither get cause is in auth service
+  // Update process (Insert is caming from sign-in-service)
   setUser(
     name: string, 
     email: string, 
@@ -85,15 +84,45 @@ export class StorageService {
     }
 
   getCar(id:string) {
+    return this.http.get<CarModel>(`${environment.api}/cars/${id}`);
+  }
+
+  getAllCars(id:string) {
     return this.http.get<CarModel>(`${environment.api}/cars?userId=${id}`);
   }
 
-  // editCar(id: number): Observable<any> {
-  //   const body = {};
-  //   return this.http.put<UserModel>(`${environment.api}/users/${id}`);
-  // }
+  updateCar( 
+    plateNumber: string,
+    brand: string,
+    model: string,
+    color: string,
+    doors: number,
+    type: string,
+    kilometers: number,
+    year: number,
+    engine: number,
+    userId: number,
+    id: number
+    ): Observable<any> {
+      const body = { 
+        plateNumber, 
+        brand, 
+        model, 
+        color, 
+        doors, 
+        type, 
+        kilometers, 
+        year, 
+        engine, 
+        userId, 
+        id
+    };
+
+    return this.http.put<CarModel>(`${environment.api}/cars`, body);
+  }
 
   removeCar(id: number): Observable<any> {
+    console.log('on storage service delete')
     return this.http.delete(`${environment.api}/cars/${id}`);
   }
 
@@ -126,15 +155,39 @@ export class StorageService {
   }
 
   getRepair(id: string) {
-    return this.http.get<RepairModel>(`${environment.api}/repairs?userId=${id}`);
-
+    return this.http.get<RepairModel>(`${environment.api}/repairs/${id}`);
   }
 
   getAllRepairs(id:string) {
     return this.http.get<RepairModel>(`${environment.api}/repairs?userId=${id}`);
   }
 
-  editRepair() {}
+  updateRepair(
+    plateNumber: string,
+    userId: number,
+    faultyPart: string,
+    faultyDescription: string,
+    dateIn: string,
+    fixDescription: string,
+    fixedOn: string,
+    fixed: boolean,
+    cost: number,
+    minutes: number
+  ): Observable<any> {
+    const body = { 
+      plateNumber, 
+      userId,
+      faultyPart,
+      faultyDescription,
+      dateIn,
+      fixDescription,
+      fixedOn,
+      fixed,
+      cost,
+      minutes
+    };
+    return this.http.put<RepairModel>(`${environment.api}/repairs`, body);
+  }
 
   removeRepair(id:number): Observable<any> {
     return this.http.delete(`${environment.api}/repairs/${id}`);
