@@ -17,9 +17,10 @@ export const routes: Routes = [
   { path: 'repairs', component: RepairComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'logout', component: LoginComponent },
-
   { path: 'set-car', component: SetCarComponent },
+  { path: 'set-car/:id', component: SetCarComponent },
   { path: 'set-repair', component: SetRepairComponent },
+  { path: 'set-repair/:id', component: SetRepairComponent },
   { path: 'set-user', component: SetUserComponent },
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
