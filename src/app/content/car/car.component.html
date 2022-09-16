@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="row align-items-center justify-content-center">
         <div class="col-10 loginHeight">
-            <h2 class="fst-italic">{{title}}</h2>
+            <h2 class="">{{title}}</h2>
             <ng-container>
                 <table class="table table-light table-striped table-hover">
                     <thead class="bg-black text-white">
@@ -14,13 +14,17 @@
                         <th class="col">Año</th>
                         <th class="col">Motor</th>
                         <th class="col">Kilometraje</th>
-                        <th class="col">Acciones</th>
+                        <th class="col"></th>
                     </thead>
                     <tbody>
                         <ng-container *ngIf="carList.length > 0">
                             <tr class="" *ngFor="let car of carList; let i=index">
-                                <td class=""><a class="text-decoration-none cursor-pointer" 
-                                    routerLink="/set-car/{{car.id}}">{{car.plateNumber}}</a></td>
+                                <td class="">
+                                    <a class="text-decoration-none cursor-pointer" 
+                                    routerLink="/set-car/{{car.id}}">{{car.plateNumber}} 
+                                    <img class="cursor-pointer mb-1" src="./assets/images/edit.png" width="15px" 
+                                    (click)="onEdit(car.id)" /></a>
+                                </td>
                                 <td class="">{{car.brand}}</td>
                                 <td class="">{{car.model}}</td>
                                 <td class="">{{car.color}}</td>
@@ -30,8 +34,6 @@
                                 <td class="">{{car.engine}}</td>
                                 <td class="">{{car.kilometers}} km</td>
                                 <td class="">
-                                    <img class="cursor-pointer" src="./assets/images/edit.png" width="20px" 
-                                    (click)="onEdit(car.id)" />
                                     <img class="cursor-pointer" src="./assets/images/delete.png" width="20px" 
                                     (click)="onDelete(car.id)" />
                                 </td>
