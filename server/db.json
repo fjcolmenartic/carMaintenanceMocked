@@ -57,10 +57,10 @@
       "id": 9
     },
     {
+      "name": "ManganesoL",
       "email": "manganeso@mail.es",
-      "password": "$2a$10$jRXM4R.l/Q77oQofIi/oROs6wOYPQWUY8uW.HIVUEgHN9nWE3JK3S",
-      "name": "Manganeso",
-      "city": "123456",
+      "password": "$2a$10$0nn1IPsxI4qsiIGYGnZ3HuJvfZIF86RrGyn1wV4o3RgjTO5Cct.y6",
+      "city": "City",
       "id": 11
     }
   ],
@@ -142,6 +142,45 @@
       "engine": "1.5",
       "userId": 9,
       "id": 6
+    },
+    {
+      "plateNumber": "4430BTM",
+      "brand": "Renault",
+      "model": "Clio",
+      "color": "Negro",
+      "doors": 3,
+      "type": "Gasolina",
+      "kilometers": 250000,
+      "year": "2003",
+      "engine": "82",
+      "userId": 11,
+      "id": 7
+    },
+    {
+      "plateNumber": "7988RLW",
+      "brand": "Nissan",
+      "model": "Almera",
+      "color": "Verde",
+      "doors": 5,
+      "type": "Diesel",
+      "kilometers": 245000,
+      "year": "2008",
+      "engine": "2.5",
+      "userId": 11,
+      "id": 8
+    },
+    {
+      "plateNumber": "4563THG",
+      "brand": "Dacia",
+      "model": "Sandero",
+      "color": "Amarillo",
+      "doors": 5,
+      "type": "Híbrido",
+      "kilometers": 100000,
+      "year": "2020",
+      "engine": "115",
+      "userId": 11,
+      "id": 9
     }
   ],
   "repairs": [
@@ -209,6 +248,32 @@
       "cost": 0.02,
       "minutes": 1,
       "id": 5
+    },
+    {
+      "plateNumber": "4430BTM",
+      "userId": 11,
+      "faultyPart": "Matrícula",
+      "faultyDescription": "Descuelgue parcial, abollada y número dañado",
+      "dateIn": "2022-09-15",
+      "fixDescription": "Sustitución por acrílica",
+      "fixedOn": "2022-09-16",
+      "fixed": true,
+      "cost": 25,
+      "minutes": 10,
+      "id": 6
+    },
+    {
+      "plateNumber": "4563THG",
+      "userId": 11,
+      "faultyPart": "Luna frontal",
+      "faultyDescription": "Rotura por granizo",
+      "dateIn": "2022-09-09",
+      "fixDescription": "Sutitución por nueva clónica",
+      "fixedOn": "2022-09-16",
+      "fixed": true,
+      "cost": 200,
+      "minutes": 30,
+      "id": 7
     }
   ]
 }
