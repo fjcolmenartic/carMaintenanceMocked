@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { PlateNumber } from 'src/app/validators/plate-number';
@@ -12,7 +12,7 @@ import { PlateNumber } from 'src/app/validators/plate-number';
 })
 export class SetCarComponent implements OnInit {
 
-  title = 'Editar coche';
+  title = 'Añadir coche';
   colorList = ['Blanco', 'Negro', 'Gris', 'Azul', 'Rojo', 'Verde', 'Granate', 'Amarillo', 'Rosa', 'Beige'];
   carTypeList = ['Diesel', 'Gasolina', 'Eléctrico', 'Híbrido', 'GLP'];
   yearList: string[] = [];
@@ -23,9 +23,14 @@ export class SetCarComponent implements OnInit {
   // To check if plate number stored on db
   carIsTaken: undefined | boolean;
 
+  submited = false;
+  loading = false;
+  id: string | null;
+  buttonText = 'Añadir';
+
   // name, email, password, city
   setACar = new FormGroup({
-    plateNum: new FormControl('', [
+    plateNumber: new FormControl('', [
       Validators.required,
       Validators.minLength(7),
       Validators.maxLength(7),
@@ -85,8 +90,11 @@ export class SetCarComponent implements OnInit {
     private plateNumber: PlateNumber,
     private sessionService: SessionService,
     private storageService: StorageService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private aRoute: ActivatedRoute
+  ) { 
+    this.id = this.aRoute.snapshot.paramMap.get('id');
+  }
 
   ngOnInit(): void {
 
@@ -99,11 +107,92 @@ export class SetCarComponent implements OnInit {
       this.yearList.push(i.toString());
     }
 
+    // On edit mode change title and button texts
+    if(this.id != null) {
+      this.title = 'Editar coche';
+      this.buttonText = 'Editar';
+      let id = parseInt(this.id);
+
+      // Get storage data
+      this.storageService.getCar(id)
+        .subscribe(
+            car => {
+              this.dataSession = car;
+
+              // Set storage data on the view fields
+              this.setACar.controls['plateNumber'].setValue(this.dataSession['plateNumber']);
+              this.setACar.controls['brand'].setValue(this.dataSession['brand']);
+              this.setACar.controls['model'].setValue(this.dataSession['model']);
+              this.setACar.controls['color'].setValue(this.dataSession['color']);
+              this.setACar.controls['type'].setValue(this.dataSession['type']);
+              this.setACar.controls['year'].setValue(this.dataSession['year']);
+              this.setACar.controls['doors'].setValue(this.dataSession['doors']);
+              this.setACar.controls['kilometers'].setValue(this.dataSession['kilometers']);
+              this.setACar.controls['engine'].setValue(this.dataSession['engine']);
+
+            },
+            error => {
+              console.error('NO data session retrieved')
+            }          
+        )
+    }
+
   }
 
-  onSubmit(e: any) {
+  // Update the record by id
+  editCar() {
+    this.submited = true;
 
-    let plateNum = this.setACar.controls['plateNum'].value;
+    let plateNumber = this.setACar.controls['plateNumber'].value;
+    let brand = this.setACar.controls['brand'].value;
+    let model = this.setACar.controls['model'].value;
+    let color = this.setACar.controls['color'].value;
+    let doors = this.setACar.controls['doors'].value;
+    let type = this.setACar.controls['type'].value;
+    let kilometers = this.setACar.controls['kilometers'].value;
+    let year = this.setACar.controls['year'].value;
+    let engine = this.setACar.controls['engine'].value;
+    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+    let id = JSON.parse(this.id || '0');
+
+    if(
+        plateNumber != '' &&
+        brand != '' &&
+        model != '' &&
+        color != '' &&
+        doors != '' &&
+        type != '' &&
+        kilometers != '' &&
+        year != '' &&
+        engine != ''     
+    ) {
+
+      this.storageService
+        .updateCar(plateNumber, brand, model, color, doors, type, kilometers,year, engine, userId, id)
+        .subscribe(
+          res => {
+            this.dataSession = res;
+            this.isCheck = 'INSERT_SUCCESS';
+            this.router.navigateByUrl('/car');  
+          },
+          (err: any) => {
+            this.isCheck = 'INSERT_ERROR'; 
+      });
+
+
+    } else {
+      // TODO retornar un toast ???
+      this.isCheck = 'EMPTY_FIELDS_ERROR';
+      console.error(this.isCheck)
+    }
+
+  }
+
+  // Insert a new record
+  addCar() {
+    this.submited = true;
+
+    let plateNumber = this.setACar.controls['plateNumber'].value;
     let brand = this.setACar.controls['brand'].value;
     let model = this.setACar.controls['model'].value;
     let color = this.setACar.controls['color'].value;
@@ -116,7 +205,7 @@ export class SetCarComponent implements OnInit {
     let id = 0;
 
     if(
-        plateNum != '' &&
+        plateNumber != '' &&
         brand != '' &&
         model != '' &&
         color != '' &&
@@ -128,14 +217,14 @@ export class SetCarComponent implements OnInit {
     ) {
 
       // Check if the plate number is already stored
-      this.storageService.checkCar(plateNum)
+      this.storageService.checkCar(plateNumber)
         .subscribe(
           (check: any) => {
             // If no records about this plate number you are free to store the car
             if(check.length == 0) {
               this.carIsTaken = false;
               this.storageService
-                .setCar(plateNum, brand, model, color, doors, type, kilometers,year, engine, userId, id)
+                .setCar(plateNumber, brand, model, color, doors, type, kilometers,year, engine, userId, id)
                 .subscribe(
                   res => {
                     this.dataSession = res;
@@ -150,7 +239,7 @@ export class SetCarComponent implements OnInit {
             }
           },
           error => {
-            console.error('ERROR', plateNum, error)
+            console.error('ERROR', plateNumber, error)
           }
         );
 
@@ -158,6 +247,23 @@ export class SetCarComponent implements OnInit {
       // TODO retornar un toast ???
       this.isCheck = 'EMPTY_FIELDS_ERROR';
       console.error(this.isCheck)
+    }
+
+  }
+
+  // Deal if this operation is an Edit or an Insert record by id url param
+  onSubmit(e: any) {
+
+    this.submited = true;
+
+    if(this.setACar.invalid) {
+      return;
+    }
+
+    if(this.id != null) {
+      this.editCar();
+    } else {
+      this.addCar();
     }
 
   }
