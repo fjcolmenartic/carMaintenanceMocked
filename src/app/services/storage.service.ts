@@ -48,6 +48,11 @@ export class StorageService {
     return this.http.get<UserModel>(`${environment.api}/users/${userId}`);
   }
 
+   // Get the whole cars on db to check if present while registering a new one
+   checkUser(name: string) {
+    return this.http.get<UserModel>(`${environment.api}/users?name=${name}`);
+  }
+
   removeUser(userId: number): Observable<any> {
     return this.http.delete(`${environment.api}/users/${userId}`);
   }
