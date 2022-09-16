@@ -121,11 +121,12 @@ export class StorageService {
         kilometers, 
         year, 
         engine, 
-        userId, 
-        id
-    };
+        userId
+      };
 
-    return this.http.put<CarModel>(`${environment.api}/cars`, body);
+      console.info(body, id)
+
+    return this.http.put<CarModel>(`${environment.api}/cars/${id}`, body);
   }
 
   removeCar(id: number): Observable<any> {
