@@ -265,15 +265,28 @@
     {
       "plateNumber": "4563THG",
       "userId": 11,
-      "faultyPart": "Luna frontal",
-      "faultyDescription": "Rotura por granizo",
-      "dateIn": "2022-09-09",
-      "fixDescription": "Sutitución por nueva clónica",
-      "fixedOn": "2022-09-16",
+      "faultyPart": "Luna trasera",
+      "faultyDescription": "Rotura en circulación",
+      "dateIn": "2022-09-05",
+      "fixDescription": "Sutitución por nueva de marca",
+      "fixedOn": "2022-09-15",
       "fixed": true,
-      "cost": 200,
+      "cost": 400,
       "minutes": 30,
       "id": 7
+    },
+    {
+      "plateNumber": "4563THG",
+      "userId": 11,
+      "faultyPart": "Cerradura del conductor",
+      "faultyDescription": "Intento de robo, forzada no rota",
+      "dateIn": "2022-09-15",
+      "fixDescription": "Por determinar.",
+      "fixedOn": "2022-09-16",
+      "fixed": false,
+      "cost": 60,
+      "minutes": 1,
+      "id": 8
     }
   ]
 }
