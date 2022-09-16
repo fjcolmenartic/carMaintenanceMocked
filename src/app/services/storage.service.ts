@@ -124,8 +124,6 @@ export class StorageService {
         userId
       };
 
-      console.info(body, id)
-
     return this.http.put<CarModel>(`${environment.api}/cars/${id}`, body);
   }
 
@@ -188,7 +186,8 @@ export class StorageService {
     fixedOn: string,
     fixed: boolean,
     cost: number,
-    minutes: number
+    minutes: number,
+    id: number
   ): Observable<any> {
     const body = { 
       plateNumber, 
@@ -202,7 +201,7 @@ export class StorageService {
       cost,
       minutes
     };
-    return this.http.put<RepairModel>(`${environment.api}/repairs`, body);
+    return this.http.put<RepairModel>(`${environment.api}/repairs/${id}`, body);
   }
 
   removeRepair(id:number): Observable<any> {
