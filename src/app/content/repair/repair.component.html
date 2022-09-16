@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="row align-items-center justify-content-center mb-5">
         <div class="col-10 loginHeight">
-            <h2 class="fst-italic">{{title}}</h2>
+            <h2 class="">{{title}}</h2>
             <ng-container>
                 <table class="table table-light table-striped table-hover">
                     <thead class="bg-black text-white">
@@ -9,23 +9,23 @@
                         <th>Pieza</th>
                         <th>Avería</th>
                         <th>Fecha avería</th>
-                        <th>Reparación</th>
-                        <th>Fecha reparación</th>
                         <th>Estado</th>
                         <th>Coste</th>
-                        <th>Duración</th>
-                        <th class="col">Acciones</th>
+                        <th>Tiempo</th>
+                        <th class="col"></th>
                     </thead>
                     <tbody>
                         <ng-container *ngIf="repairList.length > 0">
                             <tr class="" *ngFor="let repair of repairList; let i=index" >
-                                <td class="cursor-pointer"><a class="text-decoration-none cursor-pointer" 
-                                    routerLink="/set-repair/{{repair.id}}">{{repair.plateNumber}}</a></td>
+                                <td class="cursor-pointer">
+                                    <a class="text-decoration-none cursor-pointer" 
+                                    routerLink="/set-repair/{{repair.id}}">{{repair.plateNumber}}
+                                    <img class="cursor-pointer mb-1" src="./assets/images/edit.png" width="15px" (click)="onEdit(repair.id)" />
+                                    </a>
+                                </td>
                                 <td class="cursor-pointer">{{repair.faultyPart}}</td>
                                 <td class="cursor-pointer">{{repair.faultyDescription}}</td>
-                                <td class="cursor-pointer">{{repair.dateIn}}</td>
-                                <td class="cursor-pointer">{{repair.fixDescription}}</td>
-                                <td class="cursor-pointer">{{repair.fixedOn}}</td>
+                                <td class="cursor-pointer">{{repair.dateIn | EUDate}}</td>
                                 <td class="cursor-pointer" [ngClass]="{'text-success':repair.fixed == true, 'text-danger': repair.fixed == false}">
                                 <ng-container *ngIf="repair.fixed == true">
                                     Reparado
@@ -36,10 +36,9 @@
                                 </td>
                                 <!-- <td  class="cursor-pointer">{{repair.fixed}}</td> -->
 
-                                <td class="cursor-pointer">{{repair.cost}}</td>
-                                <td class="cursor-pointer">{{repair.minutes}}</td>
+                                <td class="cursor-pointer">{{repair.cost}} €</td>
+                                <td class="cursor-pointer">{{repair.minutes}}'</td>
                                 <td class="">
-                                    <img class="cursor-pointer" src="./assets/images/edit.png" width="20px" (click)="onEdit(repair.id)" />
                                     <img class="cursor-pointer" src="./assets/images/delete.png" width="20px" (click)="onDelete(repair.id)" />
                                 </td>
                             </tr>
