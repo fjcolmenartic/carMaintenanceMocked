@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 import { SessionStatusService } from './services/session-status.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EuropeanDatePipe } from './pipes/european-date.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterComponent,
     SetUserComponent,
     SetRepairComponent,
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    EuropeanDatePipe
   ],
   imports: [
     BrowserModule,
