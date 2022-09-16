@@ -15,13 +15,12 @@
                                 title="Matrícula"                          
                                 [values]="carList"
                                 selectedValue=""
-                                name="plateNum"
-                                [control]="setRepair.get('plateNum')" required></app-list-box>
-
+                                name="plateNumber"
+                                [control]="setRepair.get('plateNumber')" required></app-list-box>
                             <div class="alert text-danger" 
-                                *ngIf="setRepair.controls['plateNum'].errors && 
-                                setRepair.controls['plateNum'].touched && 
-                                setRepair.controls['plateNum'].dirty">
+                                *ngIf="setRepair.controls['plateNumber'].errors && 
+                                setRepair.controls['plateNumber'].touched && 
+                                setRepair.controls['plateNumber'].dirty">
                                 Por favor, selecciona la matrícula del vehículo afectado.
                             </div>
                         </div>
@@ -121,7 +120,9 @@
                         </div>                        
                     </div>
                     <div class="form-group mt-2">
-                        <button class="btn btn-primary" [disabled]="setRepair.invalid">Enviar</button>
+                        <button class="btn btn-primary" [disabled]="setRepair.invalid">
+                            {{buttonText}}
+                        </button>
                     </div>  
                     <div class="alert alert-info text-warning" *ngIf="isCheck == 'INSERT_SUCCESS'">
                         <p class="text-center">

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { PlateNumber } from 'src/app/validators/plate-number';
@@ -12,15 +12,20 @@ import { PlateNumber } from 'src/app/validators/plate-number';
 })
 export class SetRepairComponent implements OnInit {
 
-  title = 'Añadir/editar reparación';
+  title = 'Añadir reparación';
   carList: string[] = [];
   repaired = ['Reparado', 'No reparado'];
   dataSession: any;
   isCheck: any;
 
+  submited = false;
+  loading = false;
+  id: string | null;
+  buttonText = 'Añadir';
+
 
   setRepair = new FormGroup({
-    plateNum: new FormControl('', [
+    plateNumber: new FormControl('', [
       Validators.required,
       Validators.minLength(7),
       Validators.maxLength(7),
@@ -71,37 +76,133 @@ export class SetRepairComponent implements OnInit {
     private plateNumber: PlateNumber,
     private sessionService: SessionService,
     private storageService: StorageService, 
-    private router: Router
-  ) { }
+    private router: Router,
+    private aRoute: ActivatedRoute
+  ) { 
+    this.id = this.aRoute.snapshot.paramMap.get('id');
+  }
 
   ngOnInit(): void {
 
-    // GET THE PLATE NUMBER LIST OF USER'S CARS
-    // Get the user id from storage
-    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
-    userId = userId.toString();
+    // On edit mode
+    if (this.id != null) {
 
-    // Get the user data
-    this.storageService.getAllCars(userId)
-    .subscribe(
-      res => {
-        this.dataSession = res;
-        this.isCheck = 'SUCCESS';
+      this.title = 'Editar reparación';
+      this.buttonText = 'Editar';
+      let id = parseInt(this.id);
 
-        for (let i = 0; i < this.dataSession.length; i++) {
-          this.carList.push(this.dataSession[i]['plateNumber']);
-        }
+      this.storageService.getRepair(id)
+        .subscribe(
+          repair => {
+            this.dataSession = repair;
 
-      },
-      (err: any) => {
-        this.isCheck = 'ERROR_USER';
-      });
+            // Set new data for the array carList
+            this.carList = [repair['plateNumber']];
+            // & assign the unique value for editing
+            this.setRepair.controls['plateNumber'].setValue(this.dataSession['plateNumber']);
 
+            this.setRepair.controls['faultyPart'].setValue(this.dataSession['faultyPart']);
+            this.setRepair.controls['dateIn'].setValue(this.dataSession['dateIn']);
+            this.setRepair.controls['faultyDescription'].setValue(this.dataSession['faultyDescription']);
+            this.setRepair.controls['fixDescription'].setValue(this.dataSession['fixDescription']);
+            this.setRepair.controls['fixedOn'].setValue(this.dataSession['fixedOn']);
+            this.setRepair.controls['cost'].setValue(this.dataSession['cost']);
+            this.setRepair.controls['minutes'].setValue(this.dataSession['minutes']);
+            
+            // Fixed status is stored as boolean - need to convert to string data
+            let fixed = null;
+            (this.dataSession['fixed'] == true) ? fixed = 'Reparado' : fixed = 'No reparado';
+            // Set the string
+            this.setRepair.controls['fixed'].setValue(fixed);
+
+          },
+          error => {
+            console.error('ERROR - retrieving the repair data.')
+          }
+        )
+
+    } else {
+
+      // GET THE PLATE NUMBER LIST OF USER'S CARS TO SELECT THE CAR
+      // Get the user id from storage
+      let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+      userId = userId.toString();
+
+      // Get the user data
+      this.storageService.getAllCars(userId)
+      .subscribe(
+        res => {
+          this.dataSession = res;
+          this.isCheck = 'SUCCESS';
+
+          for (let i = 0; i < this.dataSession.length; i++) {
+            this.carList.push(this.dataSession[i]['plateNumber']);
+          }
+
+          console.log(this.carList)
+
+        },
+        (err: any) => {
+          this.isCheck = 'ERROR_USER';
+        });
+    }
 
   }
-  
-  onSubmit(e: any) {
-    let plateNumber = this.setRepair.controls['plateNum'].value;
+
+  editRepair() {
+    console.warn('on edit repair')
+
+    let plateNumber = this.setRepair.controls['plateNumber'].value;
+    let faultyPart = this.setRepair.controls['faultyPart'].value;
+    let faultyDescription = this.setRepair.controls['faultyDescription'].value;
+    let dateIn = this.setRepair.controls['dateIn'].value;
+    let fixDescription = this.setRepair.controls['fixDescription'].value;
+    let fixedOn = this.setRepair.controls['fixedOn'].value;
+    let fixed = this.setRepair.controls['fixed'].value;
+    let cost = this.setRepair.controls['cost'].value;
+    let minutes = this.setRepair.controls['minutes'].value;
+    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+    let id = JSON.parse(this.id || '0');
+
+    (fixed == 'Reparado') ? fixed = true : fixed = false;
+
+    if(
+      plateNumber != '' &&
+      faultyPart != '' &&
+      faultyDescription != '' &&
+      dateIn != '' &&
+      fixDescription != '' &&
+      fixedOn != '' &&
+      typeof fixed == 'boolean' &&
+      cost != '' &&
+      minutes != ''     
+    ) {
+      // Update user data
+      this.storageService
+        .updateRepair(plateNumber, userId, faultyPart, faultyDescription, dateIn, fixDescription,
+          fixedOn, fixed, cost, minutes, id)
+        .subscribe(
+          res => {
+            this.dataSession = res;
+            this.isCheck = 'INSERT_SUCCESS';
+            this.router.navigateByUrl('/repairs');
+          },
+          (err: any) => {
+            this.isCheck = 'INSERT_ERROR'; 
+            console.error(this.isCheck)
+          });
+
+    } else {
+      // TODO retornar un toast ???
+      this.isCheck = 'EMPTY_FIELDS_ERROR';
+      console.error(this.isCheck)
+    }
+
+  }
+
+  addRepair() {
+
+    let plateNumber = this.setRepair.controls['plateNumber'].value;
     let faultyPart = this.setRepair.controls['faultyPart'].value;
     let faultyDescription = this.setRepair.controls['faultyDescription'].value;
     let dateIn = this.setRepair.controls['dateIn'].value;
@@ -114,6 +215,7 @@ export class SetRepairComponent implements OnInit {
 
     (fixed == 'Reparado') ? fixed = true : fixed = false;
 
+    // Todo minutes as 0 minutes fails on if
     if(
       plateNumber != '' &&
       faultyPart != '' &&
@@ -145,6 +247,22 @@ export class SetRepairComponent implements OnInit {
       // TODO retornar un toast ???
       this.isCheck = 'EMPTY_FIELDS_ERROR';
       console.error(this.isCheck)
+    }
+
+  }
+  
+  onSubmit(e: any) {
+
+    this.submited = true;
+
+    if (this.setRepair.invalid) {
+      return;
+    }
+
+    if (this.id != null) {
+      this.editRepair();
+    } else {
+      this.addRepair();
     }
 
   }
