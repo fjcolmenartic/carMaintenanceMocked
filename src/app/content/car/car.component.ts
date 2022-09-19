@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SessionStatusService } from 'src/app/services/session-status.service';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -19,24 +20,19 @@ export class CarComponent implements OnInit, OnDestroy {
   constructor(
     private sessionService: SessionService,
     private storageService: StorageService,
+    private sessionStatusService: SessionStatusService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    // Check if session is stored on browser (started)
-    // This is the home page on logged in
-    let sessionStarted = this.sessionService.getData('user-session');
 
-    // If session starte update userSession value
-    if(sessionStarted) {
-      this.userSession = true;
-    } else {
-      this.userSession = false;
+    // Get the Observable of session status
+    this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
+
+    // Deny access if no session
+    if (!this.userSession) {
       this.router.navigateByUrl('/login');
     }
-
-    // userid
-    // sotrag get car
 
     // Get the user id from storage
     let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
