@@ -67,6 +67,11 @@
                     </div>     
                     <div class="form-group">
                         <button class="btn btn-primary mt-3" [disabled]="registerForm.invalid">Enviar</button>
+                    </div>
+                    <div class="mt-2" *ngIf="userIsTaken == true">
+                        <p class="alert alert-danger">
+                            El nombre de usuario indicado ya se encuentra registrado.
+                        </p>
                     </div>  
                     <div class="alert text-warning" *ngIf="registerSuccess">
                         <p class="text-primary">
