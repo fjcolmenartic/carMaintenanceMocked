@@ -62,6 +62,20 @@
       "password": "$2a$10$0nn1IPsxI4qsiIGYGnZ3HuJvfZIF86RrGyn1wV4o3RgjTO5Cct.y6",
       "city": "City",
       "id": 11
+    },
+    {
+      "email": "piruca@mail.es",
+      "password": "$2a$10$NNAGtP9jy5BzhoRm1hqsdupXOWE3IqxB4VD36HferVHVW9N.wzBqu",
+      "name": "Piruca",
+      "city": "Leganés",
+      "id": 12
+    },
+    {
+      "email": "pili@mail.es",
+      "password": "$2a$10$9VcDMc3ykz5PZCsyL5BmtOo39ucOMIjBAoFeJUrwHSacT9mcpLYyO",
+      "name": "pili",
+      "city": "Uno",
+      "id": 13
     }
   ],
   "cars": [
@@ -129,19 +143,6 @@
       "engine": "1.5",
       "userId": 9,
       "id": 5
-    },
-    {
-      "plateNumber": "7542DMT",
-      "brand": "Renault",
-      "model": "Megane",
-      "color": "Negro",
-      "doors": 5,
-      "type": "Diesel",
-      "kilometers": 230000,
-      "year": "2005",
-      "engine": "1.5",
-      "userId": 9,
-      "id": 6
     },
     {
       "plateNumber": "4430BTM",
@@ -235,19 +236,6 @@
       "cost": 160,
       "minutes": 30,
       "id": 4
-    },
-    {
-      "plateNumber": "8396WXS",
-      "userId": 9,
-      "faultyPart": "asfasdf",
-      "faultyDescription": "asfsdfas",
-      "dateIn": "2022-08-31",
-      "fixDescription": "asdfasdf",
-      "fixedOn": "2022-09-14",
-      "fixed": true,
-      "cost": 0.02,
-      "minutes": 1,
-      "id": 5
     },
     {
       "plateNumber": "4430BTM",
