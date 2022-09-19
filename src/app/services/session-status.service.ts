@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 // import { BehaviorSubject } from 'rxjs';
 
 interface UserSession {
@@ -7,60 +8,48 @@ interface UserSession {
   name: string;
 }
 
-// export interface UserSession {
-//   userSessionService: boolean;
-// }
-
 @Injectable({
   providedIn: 'root'
 })
 export class SessionStatusService {
 
-  // private _sessionStatusObservable: BehaviorSubject<UserSession> = 
-  // new BehaviorSubject<UserSession>({ userSessionService: false });
+  private sessionStart$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  // TODO return an object with id, name etc
 
-  // get sessionStatusObservable() {
-  //   return this._sessionStatusObservable.asObservable();
+  getSessionStart(): Observable<boolean> {
+    return this.sessionStart$.asObservable();
+  }
+
+  setSessionStart(value: boolean) {
+    this.sessionStart$.next(value);
+  }
+
+
+  // private sessionStatus$: BehaviorSubject<UserSession> = new BehaviorSubject<UserSession>({
+  //   "loggedIn": false,
+  //   "userId": 0,
+  //   "name": ''
+  // });
+
+  // getSession(): Observable<UserSession> {
+  //   return this.sessionStatus$.asObservable();
   // }
 
-  // set sessionStatusObservableData(data: UserSession) {
-  //   this._sessionStatusObservable.next(data);
+  // setSession(value: UserSession) {
+  //   this.sessionStatus$.next(value);
   // }
 
-  user: UserSession = {
-    "loggedIn": false,
-    "userId": 0,
-    "name": ''
-  }
+  // sessionStatus() {
+  //   return this.sessionStatus$.value.loggedIn;
+  // }
 
-  setUserSessionData(userId: number, name:string) {
-    this.user['loggedIn'] = true;
-    this.user['userId'] = userId;
-    this.user['name'] = name;
-  }
-
-  getUserSessionData() {
-    return this.user;
-  }
-
-  removeSession() {
-    this.user['loggedIn'] = false;
-    this.user['name'] = '';
-    this.user['userId'] = 0;
-  }
-
-  checkSessionStatus() {
-    let loggedIn = this.user['loggedIn'];
-
-    if(loggedIn) {
-      console.log('SESSION TRUE')
-      return true;
-    } else {
-      console.log('SESSION FALSE')
-      return false;
-    }
-
-  }
+  // removeSession() {
+  //   this.sessionStatus$.next({
+  //     "loggedIn": false,
+  //     "userId": 0,
+  //     "name": ''
+  //   });
+  // }
 
 
 }
