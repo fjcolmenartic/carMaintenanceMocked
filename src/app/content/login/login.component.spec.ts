@@ -2,6 +2,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppRoutingModule, routes } from 'src/app/app-routing.module';
 import { CustomTranslatePipe } from 'src/app/pipes/custom-translate.pipe';
 import { LoginComponent } from './login.component';
 
@@ -18,8 +20,10 @@ describe('(1) LoginComponent test (component test)', () => {
     await TestBed.configureTestingModule({
       // configs for spec test file
       imports: [
+        AppRoutingModule,
         ReactiveFormsModule,
         FormsModule,
+        RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule // vs HttpClientModule
       ],
       declarations: [
@@ -117,7 +121,6 @@ describe('(1) LoginComponent test (component test)', () => {
 
     // expect(app.isCheck).toEqual(testData);
     expect(isCheck.nativeNode.innerHTML).toEqual('SUCCESS')
-    console.log('------------------------------', isCheck.nativeNode.innerHTML)
   });
 
 });
@@ -137,8 +140,10 @@ describe('(5) LoginComponent Custom test', () => {
     await TestBed.configureTestingModule({
       // configs for spec test file
       imports: [
+        AppRoutingModule,
         ReactiveFormsModule,
         FormsModule,
+        RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule // vs HttpClientModule
       ],
       declarations: [
@@ -179,7 +184,7 @@ describe('(5) LoginComponent Custom test', () => {
   });
 
   it(`should have as title 'leifer-login'`, () => {
-    expect(app.title).toEqual('Log in');
+    expect(app.title).toEqual('Acceso');
   });
 
   it('Must have a checkHuman variable with an "[]" as default value', () => {

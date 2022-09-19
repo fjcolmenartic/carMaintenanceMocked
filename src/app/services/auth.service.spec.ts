@@ -57,7 +57,6 @@ describe('(3) Auth Service test ', () => {
       .subscribe(resultado => { 
         // Assert ``````````
         expect(resultado).toEqual(mockUserCredentials);
-        console.log(resultado, mockResultLogin)
         done();
       });
   });

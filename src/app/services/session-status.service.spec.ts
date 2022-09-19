@@ -13,4 +13,14 @@ describe('SessionStatusService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('Must set a new boolean value - true', () => {
+    service.setSessionStart(true);
+
+    service.getSessionStart().subscribe( res => {
+      console.warn(res);
+      expect(res).toBeTrue();
+    });
+  });
+  
 });
