@@ -1,20 +1,11 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
-
-  sessionStart = false;
-
-  setStatus(bool: boolean) {
-    this.sessionStart = bool;
-  }
-
-  getStatus(): boolean {
-    return this.sessionStart;
-  }
-
+ 
   // BROWSER SESSION STORAGE SERVICE
   // Save one item
   saveData(key:string,value:string | number | boolean) {
