@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionStatusService } from 'src/app/services/session-status.service';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { PlateNumber } from 'src/app/validators/plate-number';
@@ -12,12 +13,12 @@ import { PlateNumber } from 'src/app/validators/plate-number';
 })
 export class SetRepairComponent implements OnInit {
 
+  userSession = false;
   title = 'Añadir reparación';
   carList: string[] = [];
   repaired = ['Reparado', 'No reparado'];
   dataSession: any;
   isCheck: any;
-
   submited = false;
   loading = false;
   id: string | null;
@@ -76,6 +77,7 @@ export class SetRepairComponent implements OnInit {
     private plateNumber: PlateNumber,
     private sessionService: SessionService,
     private storageService: StorageService, 
+    private sessionStatusService: SessionStatusService,
     private router: Router,
     private aRoute: ActivatedRoute
   ) { 
@@ -83,6 +85,14 @@ export class SetRepairComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    // Get the Observable of session status
+    this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
+
+    // Deny access if no session
+    if (!this.userSession) {
+      this.router.navigateByUrl('/login');
+    }
 
     // On edit mode
     if (this.id != null) {

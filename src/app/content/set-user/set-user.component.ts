@@ -5,6 +5,7 @@ import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { PasswordsMatch } from 'src/app/validators/passwords-match';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { SessionStatusService } from 'src/app/services/session-status.service';
 
 @Component({
   selector: 'app-set-user',
@@ -12,13 +13,14 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./set-user.component.css']
 })
 export class SetUserComponent implements OnInit {
+  
+  userSession = false;
   title = "Perfil de usuario";
   dataSession: any;
   isCheck: any;
   checkHuman: Array<any> =  [];
   updateSuccess = false;
   closeResult = '';
-  //PasswordsMatch: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null | undefined;
 
   userEditForm = new FormGroup({
     name: new FormControl('', [
@@ -54,12 +56,22 @@ export class SetUserComponent implements OnInit {
   constructor(
     private storageService: StorageService,
     private sessionService: SessionService,
+    private sessionStatusService: SessionStatusService,
     private PasswordsMatch: PasswordsMatch,
     private router: Router,
     private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
+
+    // Get the Observable of session status
+    this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
+
+    // Deny access if no session
+    if (!this.userSession) {
+      this.router.navigateByUrl('/login');
+    }
+
     // Get the user id from storage
     let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
     userId = userId.toString();
@@ -198,17 +210,6 @@ export class SetUserComponent implements OnInit {
                   // Close modal
                   this.modalService.dismissAll();
                   console.log(user.id, user)
-
-                  // // Clear cars
-                  // this.storageService.getAllCars(user.id)
-                  //   .subscribe(
-                  //     cars => {
-                  //       console.info(cars)
-                  //     },
-                  //     error => {
-                  //       console.error(error)
-                  //     }
-                  //   );
 
                   this.router.navigateByUrl('/login');
                 },

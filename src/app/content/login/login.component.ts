@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
+import { SessionStatusService } from 'src/app/services/session-status.service';
 import { SessionService } from 'src/app/services/session.service';
 
 @Component({
@@ -13,10 +14,7 @@ import { SessionService } from 'src/app/services/session.service';
 export class LoginComponent implements OnInit {
   
   userSession = false;
-  showEmoji: boolean = false;
   title = 'Acceso';
-  subtitle = 'Estamos creando este ejercicio para comenzar a aprender sobre pruebas unitarias en Componentes'; 
-  contentEmoji = '';
   dataSession: any;
   form: FormGroup = new FormGroup({}); 
   isCheck: any;
@@ -28,22 +26,20 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService, // Login http
     private sessionService: SessionService,
+    private sessionStatusService: SessionStatusService,
     private router: Router,
     private dataService: DataService // Mathmatics
     ) { 
     }
 
   ngOnInit(): void {
-      // Check if session is stored on browser (started)
     
-      let sessionLoggedIn = this.sessionService.getData('user-session');
+    // Subscribe to user Session and assign to internal var
+    this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
 
-    // If session starte update userSession value
-    if(sessionLoggedIn) {
-      this.userSession = true;
+    // While session can entry to logged home
+    if(this.userSession) {
       this.router.navigateByUrl('/car');
-    } else {
-      this.userSession = false;
     }
 
     this.items = [
@@ -89,14 +85,15 @@ export class LoginComponent implements OnInit {
           this.sessionService.saveData('user-id', this.dataSession.user.id);
           this.sessionService.saveData('user-name', this.dataSession.user.name);
 
-          // Global session var
-          this.sessionService.setStatus(true);
-          
+          // Set user session to true           
+          this.sessionStatusService.setSessionStart(true);
+
           this.router.navigateByUrl('/car');
         },
         (err: any) => {
           this.isCheck = 'ERROR_USER';
         });
+
   }
 
 

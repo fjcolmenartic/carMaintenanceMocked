@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SessionStatusService } from 'src/app/services/session-status.service';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { PlateNumber } from 'src/app/validators/plate-number';
@@ -12,6 +13,7 @@ import { PlateNumber } from 'src/app/validators/plate-number';
 })
 export class SetCarComponent implements OnInit {
 
+  userSession = false;
   title = 'Añadir coche';
   colorList = ['Blanco', 'Negro', 'Gris', 'Azul', 'Rojo', 'Verde', 'Granate', 'Amarillo', 'Rosa', 'Beige'];
   carTypeList = ['Diesel', 'Gasolina', 'Eléctrico', 'Híbrido', 'GLP'];
@@ -22,7 +24,6 @@ export class SetCarComponent implements OnInit {
   isCheck: any;
   // To check if plate number stored on db
   carIsTaken: undefined | boolean;
-
   submited = false;
   loading = false;
   id: string | null;
@@ -90,6 +91,7 @@ export class SetCarComponent implements OnInit {
     private plateNumber: PlateNumber,
     private sessionService: SessionService,
     private storageService: StorageService,
+    private sessionStatusService: SessionStatusService,
     private router: Router,
     private aRoute: ActivatedRoute
   ) { 
@@ -97,6 +99,14 @@ export class SetCarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    // Get the Observable of session status
+    this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
+
+    // Deny access if no session
+    if (!this.userSession) {
+      this.router.navigateByUrl('/login');
+    }
 
     // Create an populate a year list for the input year select
     let iniYear: number = 2000;

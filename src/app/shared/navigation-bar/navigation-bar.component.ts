@@ -18,27 +18,25 @@ export class NavigationBarComponent implements OnInit {
   
   constructor(
     private sessionService: SessionService,
+    private sessionStatusService: SessionStatusService,
     private router: Router,
   ) {
    }
 
   ngOnInit(): void {
-    let sessionStarted = this.sessionService.getData('user-session');
 
-    // If session starte update userSession value
-    if(sessionStarted) {
-      this.userSession = true;
-    } else {
-      this.userSession = false;
-      this.router.navigateByUrl('/login');
-    }
+    this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
 
   }
 
   logout() {
-    // Remove browser session and redirect
-    this.sessionService.removeData('user-session');
+    // Remove browser session
+    this.sessionService.clearData();
+    // Reset vars
     this.userName = '';
+    this.userSession = false;
+    // Reset service
+    this.sessionStatusService.setSessionStart(false);
     this.router.navigateByUrl('/login');
   }
 
