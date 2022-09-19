@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DataService } from 'src/app/services/data.service';
-import { SessionService } from 'src/app/services/session.service';
 import { SignInService } from 'src/app/services/sig-in.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { PasswordsMatch } from 'src/app/validators/passwords-match';
@@ -19,6 +17,7 @@ export class RegisterComponent implements OnInit {
   isCheck: any;
   checkHuman: Array<any> =  [];
   registerSuccess = false;
+  userIsTaken = false;
   
   //PasswordsMatch: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null | undefined;
 
@@ -56,11 +55,9 @@ export class RegisterComponent implements OnInit {
 
 
   constructor(
-    private dataService: DataService, // Captcha
-    private storageService: StorageService, // session navegador
+    private storageService: StorageService,
     private signinService: SignInService,
     private PasswordsMatch: PasswordsMatch,
-    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -68,39 +65,68 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(e:any) {
 
+    // Check if password matchs
     let passwordsMatch = this.PasswordsMatch.validate(
         this.registerForm.controls['password'].value, 
         this.registerForm.controls['confirmPassword'].value);
-
-        console.log('####', this.registerForm, this.registerForm.controls)
-        // todo implements validator and sent this.registerForm.controls
-        debugger;
 
     if(!!!passwordsMatch) {
 
       let name = this.registerForm.controls['name'].value;
       let email = this.registerForm.controls['email'].value;
       let password = this.registerForm.controls['password'].value;
-      let confirmPassword = this.registerForm.controls['confirmPassword'].value;
       let city = this.registerForm.controls['city'].value;
 
-      this.signinService.register(
-        name, email, password, city
-        )
-        .subscribe(
-          res => {
-            this.dataSession = res;
-            console.info('register SUCCESS')
-            this.registerSuccess = true;
-          },
-          (err: any) => {
-            console.warn('ERROR ON POST - REGISTER')
-          });
+            // Check if username already exists
+            this.storageService.checkUser(name)
+            .subscribe(
+              (check: any) => {
+                // If no records about this plate number you are free to store the car
+                if(check.length == 0) {
+                  this.userIsTaken = false;
+                  console.warn('user not stored')
+                  
+                  this.signinService.register(
+                    name, email, password, city
+                    )
+                    .subscribe(
+                      res => {
+                        this.dataSession = res;
+                        console.info('register SUCCESS')
+                        this.registerSuccess = true;
+                        console.warn(this.dataSession, res)
+                      },
+                      (err: any) => {
+                        console.warn('ERROR ON POST - REGISTER')
+                      });
 
-          // todo toast success
+                } else {
+                  this.userIsTaken = true;
+                  console.error('user exists', check)
+                }
+              },
+              error => {
+                console.error('ERROR while checking if user exists on db', error)
+              }
+            );
+
+
+      // this.signinService.register(
+      //   name, email, password, city
+      //   )
+      //   .subscribe(
+      //     res => {
+      //       this.dataSession = res;
+      //       console.info('register SUCCESS')
+      //       this.registerSuccess = true;
+      //     },
+      //     (err: any) => {
+      //       console.warn('ERROR ON POST - REGISTER')
+      //     });
 
     } else {
       // TODO retornar un toast ???
+      console.error('Passwords dont match')
     }
 
    
