@@ -52,10 +52,6 @@ export class CarComponent implements OnInit, OnDestroy {
 
   }
 
-  onEdit(id:number) {
-    console.info('ON EDIT', id)
-  }
-
   reloadCarList() {
         // Get the user id from storage
         let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
