@@ -76,6 +76,13 @@
       "name": "pili",
       "city": "Uno",
       "id": 13
+    },
+    {
+      "email": "alamnao@email.com",
+      "password": "$2a$10$fmJxotHT4R.I5lDyrjNcuO7UBfB.1958t.HuC9W6JijWcj8vYNlOa",
+      "name": "Alamano",
+      "city": "City",
+      "id": 14
     }
   ],
   "cars": [
