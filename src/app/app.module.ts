@@ -8,7 +8,6 @@ import { CarComponent } from './content/car/car.component';
 import { LoginComponent } from './content/login/login.component';
 import { NotFoundComponent } from './content/not-found/not-found.component';
 import { RepairComponent } from './content/repair/repair.component';
-import { UserComponent } from './content/user/user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomTranslatePipe } from './pipes/custom-translate.pipe';
 import { SharedModule } from './shared/shared.module';
@@ -30,7 +29,6 @@ import { EuropeanDatePipe } from './pipes/european-date.pipe';
     LoginComponent,
     NotFoundComponent,
     RepairComponent,
-    UserComponent,
     CustomTranslatePipe,
     SetCarComponent,
     RegisterComponent,
