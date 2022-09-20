@@ -82,7 +82,6 @@ describe('(3) Auth Service test ', () => {
       .subscribe(res => { },
         error => {
           expect(error.status).toEqual(409);
-          console.log(error.status)
           done()
         })
   });

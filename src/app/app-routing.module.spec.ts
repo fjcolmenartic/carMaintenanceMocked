@@ -16,8 +16,6 @@ import { LoginComponent } from './content/login/login.component';
 import { CarComponent } from './content/car/car.component';
 import { NotFoundComponent } from './content/not-found/not-found.component';
 import { RepairComponent } from './content/repair/repair.component';
-import { UserComponent } from './content/user/user.component';
-
 
 xdescribe('(02) App Routing', () => {
   let appComponent: AppComponent;
@@ -34,7 +32,7 @@ xdescribe('(02) App Routing', () => {
         CarComponent, 
         NotFoundComponent, 
         RepairComponent, 
-        UserComponent],
+      ],
       // (1) import the RouterTestingModule with own routes
       imports: [
         AppRoutingModule, 

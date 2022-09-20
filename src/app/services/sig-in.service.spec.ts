@@ -45,7 +45,6 @@ describe('SigInService', () => {
     	
     service.register(name, email, password, city)
       .subscribe( res => {
-        console.warn(res, mockResult, mockCredentials)
         expect(res).toEqual(mockResult);
         
         done();

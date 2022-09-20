@@ -22,7 +22,6 @@ describe('PlateNumber', () => {
     let plateNumber: FormControl;
 
     plateNumber = new FormControl('DVG1562');
-    console.log(plateNumber.value.length)
     let validation = validator.validate(plateNumber);
 
     expect(validation).toEqual({ modernPlateNumberNoValidLetter: false });

@@ -25,4 +25,15 @@ describe('CarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Must trigger on Delete method', () => {
+    fixture = TestBed.createComponent(CarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    component.onDelete(1);
+
+
+  });
+
 });

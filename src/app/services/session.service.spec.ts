@@ -33,13 +33,6 @@ describe('SessionService', () => {
     service.saveData('Testing value 4', true);
     service.saveData('Testing value 5', false);
 
-    // Throw values from console to check they exists
-    console.info(service.getData('Testing value 1'));
-    console.info(service.getData('Testing value 2'));
-    console.info(service.getData('Testing value 3'));
-    console.info(service.getData('Testing value 4'));
-    console.info(service.getData('Testing value 5'));
-
     // Remove all
     service.clearData();
 

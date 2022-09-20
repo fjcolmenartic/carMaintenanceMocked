@@ -65,6 +65,9 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(e:any) {
 
+    console.warn('on submit', e);
+    debugger;
+
     // Check if password matchs
     let passwordsMatch = this.PasswordsMatch.validate(
         this.registerForm.controls['password'].value, 
@@ -109,20 +112,6 @@ export class RegisterComponent implements OnInit {
                 console.error('ERROR while checking if user exists on db', error)
               }
             );
-
-
-      // this.signinService.register(
-      //   name, email, password, city
-      //   )
-      //   .subscribe(
-      //     res => {
-      //       this.dataSession = res;
-      //       console.info('register SUCCESS')
-      //       this.registerSuccess = true;
-      //     },
-      //     (err: any) => {
-      //       console.warn('ERROR ON POST - REGISTER')
-      //     });
 
     } else {
       // TODO retornar un toast ???

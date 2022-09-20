@@ -1,13 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ListBoxComponent } from './list-box.component';
 
-describe('ListBoxComponent', () => {
+xdescribe('ListBoxComponent', () => {
   let component: ListBoxComponent;
   let fixture: ComponentFixture<ListBoxComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        FormControl
+      ],
       declarations: [ ListBoxComponent ]
     })
     .compileComponents();

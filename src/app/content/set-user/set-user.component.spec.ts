@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppRoutingModule, routes } from 'src/app/app-routing.module';
 
@@ -11,8 +12,15 @@ describe('SetUserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule, AppRoutingModule, RouterTestingModule.withRoutes(routes) ],
-      declarations: [ SetUserComponent ]
+      imports: [ 
+        HttpClientTestingModule, 
+        AppRoutingModule, 
+        RouterTestingModule.withRoutes(routes),
+        ReactiveFormsModule 
+      ],
+      declarations: [ 
+        SetUserComponent 
+      ]
     })
     .compileComponents();
   });

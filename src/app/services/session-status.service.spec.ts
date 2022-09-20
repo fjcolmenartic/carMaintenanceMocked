@@ -18,7 +18,6 @@ describe('SessionStatusService', () => {
     service.setSessionStart(true);
 
     service.getSessionStart().subscribe( res => {
-      console.warn(res);
       expect(res).toBeTrue();
     });
   });

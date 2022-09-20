@@ -1,20 +1,18 @@
-import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { SessionService } from './services/session.service';
-import { StorageService } from './services/storage.service';
+import { NavigationBarComponent } from './shared/navigation-bar/navigation-bar.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        HttpClientTestingModule
-      ],
+        HttpClientTestingModule      ],
       declarations: [
-        AppComponent
+        AppComponent,
+        NavigationBarComponent
       ]
     }).compileComponents();
   });
@@ -22,6 +20,7 @@ describe('AppComponent', () => {
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
+    fixture.detectChanges(); // Run the ngOnInit
     expect(app).toBeTruthy();
   });
 
@@ -31,7 +30,17 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('Car Maintenance');
   });
 
-  xit('session service to "user-session" value must be called"', () => {
+  xit('Mus execute ngOninit', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    let triggerOnInit = app.ngOnInit();
+    fixture.detectChanges();
+
+
+    // expect(triggerOnInit).toHaveBeenCalled();
+
+   
 
   });
 
