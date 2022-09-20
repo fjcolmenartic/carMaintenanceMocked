@@ -71,22 +71,16 @@ export class CarComponent implements OnInit, OnDestroy {
   }
 
   onDelete(id:number) {
-    console.info('ON DELETE', id)
 
     // Get the platenumber of this id car
     this.storageService.getCar(id)
       .subscribe({
         next: car => {
-          console.log('data from car', car)
-
 
           // Get all repairs for this plate number car
           this.storageService.getAllCarRepairs(car.plateNumber)
             .subscribe({
               next: carRepairs => {
-
-                console.info(carRepairs)
-                console.log(car.plateNumber, car.id, car.brand)
                 
                 // Remove these car repairs
                 for(let i = 0; i < carRepairs.length; i++) {
