@@ -8,11 +8,9 @@ import { RepairComponent } from './content/repair/repair.component';
 import { SetCarComponent } from './content/set-car/set-car.component';
 import { SetRepairComponent } from './content/set-repair/set-repair.component';
 import { SetUserComponent } from './content/set-user/set-user.component';
-import { UserComponent } from './content/user/user.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'user', component: UserComponent },
   { path: 'car', component: CarComponent },
   { path: 'repairs', component: RepairComponent },
   { path: 'register', component: RegisterComponent },
