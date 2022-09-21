@@ -133,7 +133,6 @@ export class StorageService {
   }
 
   removeCar(id: number): Observable<any> {
-    console.log('on storage service delete')
     return this.http.delete(`${environment.api}/cars/${id}`);
   }
 
