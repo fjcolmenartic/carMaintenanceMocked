@@ -26,7 +26,7 @@ export class CarModel implements Car {
     userId = 0;
     id = 0;
     
-    constructo() {}
+    constructor() {}
     
 
 }
