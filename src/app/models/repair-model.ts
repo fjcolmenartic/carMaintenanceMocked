@@ -1,5 +1,5 @@
 interface Repair {
-    fixingId: number;
+    
     plateNumber: string;
     faultyPart: string;
     faultyDescription: string;
@@ -8,12 +8,12 @@ interface Repair {
     fixedOn: string;
     fixed: boolean;
     cost: number;
+    minutes: number; // new one
     id: number;
 }
 
 export class RepairModel implements Repair {
 
-    fixingId = 0;
     plateNumber = '';
     faultyPart = '';
     faultyDescription = '';
@@ -22,6 +22,7 @@ export class RepairModel implements Repair {
     fixedOn = '';
     fixed = false;
     cost = 0;
+    minutes = 0; // new one
     id = 0;
 
     constructor() {}    
