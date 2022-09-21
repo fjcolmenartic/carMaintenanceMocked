@@ -65,17 +65,12 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(e:any) {
 
-    console.warn('on submit', e);
-
     // Check if password matchs
     let passwordsMatch = this.PasswordsMatch.validate(
         this.registerForm.controls['password'].value, 
         this.registerForm.controls['confirmPassword'].value);
 
     if(!!!passwordsMatch) {
-
-      console.info('passwords matchs', this.registerForm.controls['password'].value, 
-      this.registerForm.controls['confirmPassword'].value)
 
       let name = this.registerForm.controls['name'].value;
       let email = this.registerForm.controls['email'].value;
@@ -89,7 +84,6 @@ export class RegisterComponent implements OnInit {
                 // If no records about this plate number you are free to store the car
                 if(check.length == 0) {
                   this.userIsTaken = false;
-                  console.warn('user not stored')
                   
                   this.signinService.register(
                     name, email, password, city
@@ -97,32 +91,26 @@ export class RegisterComponent implements OnInit {
                     .subscribe(
                       res => {
                         this.dataSession = res;
-                        console.info('register SUCCESS')
                         this.registerSuccess = true;
                         this.isCheck = 'REGISTER_SUCCESS';
-                        console.warn(this.dataSession, res)
                       },
                       (err: any) => {
-                        console.warn('ERROR ON POST - REGISTER')
                         this.isCheck = 'ERROR_ON_REGISTER_POST';
                       });
 
                 } else {
                   this.userIsTaken = true;
                   this.isCheck = 'ERROR_USER_IS_TAKEN';
-                  console.error('user exists', check)
                 }
               },
               error => {
                 this.isCheck = 'ERROR_WHILE_CONNECTING_TO_DB';
-                console.error('ERROR while checking if user exists on db', error)
               }
             );
 
     } else {
       // TODO retornar un toast ???
       this.isCheck = 'ERROR_PASSWORDS_DONT_MATCH';
-      console.error('Passwords dont match')
     }
 
    
