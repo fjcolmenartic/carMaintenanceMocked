@@ -21,6 +21,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
 
+    // Doubles: stub data service
     sessionServiceStub = jasmine.createSpyObj(['getData']);
     sessionServiceStub.getData.and.returnValue('true');
 
@@ -45,6 +46,7 @@ describe('AppComponent', () => {
         NavigationBarComponent
       ],
       providers: [
+        // Need to double the service with the Stubed one
         { provide: SessionService, useValue: sessionServiceStub }, // Provides a Stub mock // TODO GET DATA FOR USER ID
         { provide: StorageService, useValue: storageServiceStub },
         SessionStatusService
@@ -54,6 +56,7 @@ describe('AppComponent', () => {
   });
 
   beforeEach(() => {
+    // Must inject the service
     sessionService = TestBed.inject(SessionService);
     storageService = TestBed.inject(StorageService);
     sessionStatusService = TestBed.inject(SessionStatusService);
