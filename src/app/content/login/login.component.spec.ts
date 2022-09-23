@@ -15,7 +15,7 @@ import { LoginComponent } from './login.component';
 
 // JASMINE TEST SUITE (describe())
 // describe = title or topic - Testing group pack
-describe('(1) LoginComponent test (component test)', () => {
+describe('LoginComponent test (component test)', () => {
   // For the pipe
   let customTranslate: CustomTranslatePipe;
 
@@ -132,7 +132,7 @@ describe('(1) LoginComponent test (component test)', () => {
 });
 
 // # Another custom of mine -------------------------------------------------
-describe('(5) LoginComponent Custom test', () => {
+describe('LoginComponent Custom test', () => {
   // Make the fixture and the app on the top level and instance on beforeEach
   let fixture: ComponentFixture<LoginComponent>;
   let app: LoginComponent;

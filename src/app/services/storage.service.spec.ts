@@ -3,20 +3,24 @@ import { TestBed } from '@angular/core/testing';
 
 import { StorageService } from './storage.service';
 
-describe('StorageService', () => {
+describe('StorageService - Http (ATB + inject)', () => {
+  // Declare vars to test controller and service
   let httpTestingController: HttpTestingController;
   let service: StorageService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      // Import testing module class for httpClient
       imports: [ HttpClientTestingModule ],
       providers: [ StorageService ]
     });
+    // Inject controller and service
     httpTestingController = TestBed.inject(HttpTestingController);
-    service = TestBed.inject(StorageService);
+    service = TestBed.inject(StorageService); // inject() new way vs get() old way
   });
 
   afterEach(() => {
+    // Verify that there are no pending http requests
     httpTestingController.verify();
   })
 
@@ -27,7 +31,7 @@ describe('StorageService', () => {
   describe('Storage for User', () => {
 
     it('Edit an user - setUser()', () => {
-      
+      // Create a mock
       const mockUserDb = {
         "name": "my-Name",
         "email": "email@email.es",
@@ -38,16 +42,20 @@ describe('StorageService', () => {
 
       const { name, email, password, city, userId } = mockUserDb;
 
+      // Run the service method
       service.setUser(name, email, password, city, userId)
         .subscribe(
           userData => {
             expect(userData.userId).toEqual(mockUserDb.userId);
           });
       
+      // Check theres is only one request
       const req = httpTestingController.expectOne(`http://localhost:3000/users/${userId}`);
 
+      // Check the VERB of request
       expect(req.request.method).toEqual('PUT');
 
+      // Flush or respond with mocked data to resolve observable inside the service runner
       req.flush(mockUserDb);
 
     });

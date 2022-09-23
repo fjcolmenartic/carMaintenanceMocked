@@ -6,7 +6,7 @@ import { DataService } from './data.service';
   // To check an api you can mock it local on node or json-server BUT for the testing you 
   // must mock the data and the conection (not a real one even local) because Unit testing
   // is for checking the behivoour rather than integration of single parts of code
-describe('(2) Data Service testing', () => {
+describe('Data Service testing - general service', () => {
 
   // (0) Type a service
   let service: DataService;
@@ -15,7 +15,7 @@ describe('(2) Data Service testing', () => {
     // ATB
     TestBed.configureTestingModule({});
     // (1) Inject the service
-    service = TestBed.inject(DataService); // Previous versions: TestBed.get (deprecated)
+    service = TestBed.inject(DataService); 
   });
 
   it('should be created', () => {
@@ -38,7 +38,6 @@ describe('(2) Data Service testing', () => {
     const numberB = 4;
     const check = service.checkOperation(numberA, numberB, 9);
     expect(check).toBeTrue();
-    // expect(check).toBeFalse(); // This one to fail the test if the adding is correct
   })
 
 });

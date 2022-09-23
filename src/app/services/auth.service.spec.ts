@@ -5,7 +5,7 @@ import { of, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 
 // SERVICE TESTING WITH A SPY
-describe('(3) Auth Service test ', () => {
+describe('Auth Service test - Http (instanciated and Spied) ', () => {
   // (0) Type the service
   let service: AuthService;
   // (1) Type an http client object as spy to mock an http client (to isolate UT to check behivour - otherwise you 
@@ -16,7 +16,7 @@ describe('(3) Auth Service test ', () => {
 
     // (2) Create the spy
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
-    // (3) Create the service as spy
+    // (3) Create the service as spy (no ATB also means no DOM)
     service = new AuthService(httpClientSpy as any);
   });
 
