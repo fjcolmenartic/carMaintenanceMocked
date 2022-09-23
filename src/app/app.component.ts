@@ -17,6 +17,9 @@ export class AppComponent implements OnInit {
   dataSession:any;
   isCheck = '';
 
+  sessionStarted: boolean | null = null;
+  userId = 0;
+
   constructor(
     private sessionService: SessionService,
     private storageService: StorageService,
@@ -24,22 +27,28 @@ export class AppComponent implements OnInit {
     ) {
     }
 
-  ngOnInit() {
-    
-    // Check if session is stored on browser (started)
-    let sessionStarted = this.sessionService.getData('user-session');    
+  checkSessionStarted() {
+    // Storage service always keeps data on string - need to transform
+    let userLogged = this.sessionService.getData('user-logged');
 
-    // If session started update userSession value
-    if(sessionStarted) {
-      // Set value in observable for all components      
-      this.sessionStatusService.setSessionStart(true);
-      // Assign to internal variable
-      this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
-    } 
+    if (userLogged == 'true') {
+      this.sessionStarted = true;
+    } else if (userLogged == 'false') {
+      this.sessionStarted = false;
+    } else {
+      this.sessionStarted = null;
+    }
+
+    return this.sessionStarted;
+    
+  }
+
+  getUserId() {
 
     // Get user data & set user's name on internal var
-    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
-    userId = userId.toString();
+    this.userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+    let userId = this.userId.toString();
+
     this.storageService.getUser(userId)
       .subscribe(
       res => {
@@ -52,5 +61,25 @@ export class AppComponent implements OnInit {
       });
 
   }
+
+  ngOnInit() {
+    
+    // Check if session is stored on browser (started)
+    let sessionStarted = this.checkSessionStarted();
+
+    // If session started update userSession value
+    if(sessionStarted) {
+      // Set value in observable for all components      
+      this.sessionStatusService.setSessionStart(true);
+      // Assign to internal variable
+      this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
+    } 
+
+    this.getUserId();
+
+  }
+
+
+
 
 }
