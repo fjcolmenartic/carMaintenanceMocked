@@ -27,7 +27,15 @@ export class CarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     // Get the Observable of session status
-    this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
+    this.sessionStatusService.getSessionStart()
+      .subscribe(
+        res => {
+          this.userSession = res
+        },
+        (err:any) => {
+          this.isCheck = 'ERROR_CANNOT_CHECK_USER_SESSION_STATUS';
+        }
+    );
 
     // Deny access if no session
     if (!this.userSession) {
