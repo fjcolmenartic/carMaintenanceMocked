@@ -17,6 +17,7 @@ export class DataService {
   checkOperation(numberA: number, numberB: number, result: number): boolean {
     const check = (Number(numberA) + Number(numberB)) === Number(result);
     return check;
+
   }
 
 }

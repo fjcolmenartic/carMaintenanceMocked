@@ -65,7 +65,8 @@ export class LoginComponent implements OnInit {
     const result = this.form.value.result;
     const check = this.dataService.checkOperation(numberA, numberB, result);
 
-    if (!check) {
+    // if (!check) {
+      if (check == false) {
       this.isCheck = 'ERROR_CHECK';
       return;
     }

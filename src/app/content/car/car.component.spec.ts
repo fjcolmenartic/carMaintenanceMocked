@@ -3,7 +3,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable, of, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
+import { routes } from 'src/app/app-routing.module';
 import { SessionStatusService } from 'src/app/services/session-status.service';
 import { SessionService } from 'src/app/services/session.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -152,7 +153,7 @@ describe('CarComponent', () => {
     sessionStatusServiceStub.getSessionStart.and.returnValue(of(true));
     
     await TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, HttpClientTestingModule ],
+      imports: [ RouterTestingModule.withRoutes(routes), HttpClientTestingModule ],
       declarations: [ CarComponent ],
       providers: [
         { provide: SessionService, useValue: sessionServiceStub },
@@ -172,21 +173,22 @@ describe('CarComponent', () => {
     fixture = TestBed.createComponent(CarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    router.initialNavigation();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Should create & cannot check session status', () => {
+  xit('Should create & cannot check session status', () => {
     sessionStatusServiceStub.getSessionStart.and.returnValue(throwError({status: 404})); // throwError(() => error);
     // sessionStatusServiceStub.getSessionStart.and.returnValue( throwError(() => error)); // throwError(() => error);
     component.ngOnInit(); // To test subscriber errors inside ngOnInit this method must be called 
-    console.error(sessionStatusServiceStub.getSessionStart());
+    // console.error(sessionStatusServiceStub.getSessionStart());
     expect(component).toBeTruthy;
     // expect(sessionStatusServiceStub).toThrowError('404')
     //Usage: expect(function() {<expectation>}).toThrowError(<ErrorConstructor>, <message>)
-    console.log('fail on sess status', component.isCheck)
+    // console.log('fail on sess status', component.isCheck)
   });
 
   xit('Should create but if no session status redirect to /login', () => {
@@ -197,7 +199,7 @@ describe('CarComponent', () => {
     storageServiceStub.getAllCars.and.returnValue(throwError({status: 404}));
 
     component.ngOnInit(); // To test subscriber errors inside ngOnInit this method must be called 
-    console.error(sessionStatusServiceStub.getSessionStart());
+    // console.error(sessionStatusServiceStub.getSessionStart());
     expect(component).toBeTruthy;
     // expect(storageServiceStub).toThrowError('404')
     expect(component.isCheck).toEqual('ERROR_USER');

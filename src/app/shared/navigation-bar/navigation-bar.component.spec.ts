@@ -49,19 +49,21 @@ describe('NavigationBarComponent', () => {
   })
 
   // Must navigate to login
-  it('on logout() Must redirect to "/login"', () => {
+  it('on logout() Must redirect to "/login"', (done) => {
     fixture.detectChanges();
     component.logout();
     fixture.whenStable().then(() => {
       expect(location.path()).toEqual('/login')
+      done();
     })
   });
 
-  it('on logout() Must not redirect to random path "/xxx"', () => {
+  it('on logout() Must not redirect to random path "/xxx"', (done) => {
     fixture.detectChanges();
     component.logout();
     fixture.whenStable().then(() => {
       expect(location.path()).not.toEqual('/xxx')
+      done();
     })
   });
 

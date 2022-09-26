@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { AppRoutingModule, routes } from 'src/app/app-routing.module';
 import { CustomTranslatePipe } from 'src/app/pipes/custom-translate.pipe';
 import { AuthService } from 'src/app/services/auth.service';
@@ -100,7 +100,7 @@ describe('LoginComponent test (component test)', () => {
   });
 
   
-  xdescribe('LoginComponent testing services (DI)', () => {
+  describe('LoginComponent testing services (DI)', () => {
 
     // Make the fixture and the app on the top level and instance on beforeEach
     let fixture: ComponentFixture<LoginComponent>;
@@ -120,24 +120,31 @@ describe('LoginComponent test (component test)', () => {
     let sessionStatusService: SessionStatusService;
     let sessionStatusServiceStub: Partial<SessionStatusService> | any;
 
-    let RouterSpy = jasmine.createSpyObj('Router', ['navigate']);
+    // let routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']); // ???
 
     // Previous configurations before each 'it' like external modules as Reactive forms
     // This is our Testing Module to set up and run the needed enviroment by TESTBED
     beforeEach(async () => {
 
-      dataServiceStub = jasmine.createSpyObj('checkOperation');
+      dataServiceStub = jasmine.createSpyObj(['checkOperation', 'generateNumbers']);
       dataServiceStub.checkOperation.and.returnValue(true);
-      authServiceStub = jasmine.createSpyObj('login');
+      dataServiceStub.generateNumbers.and.returnValue([2, 4]);
+      authServiceStub = jasmine.createSpyObj(['login']);
       authServiceStub.login.and.returnValue(of({
-        email: 'mockedMail@mail.es',
-        password: '123456'
+        user: {
+          email: 'mockedMail@mail.es',
+          password: '123456',
+          id: 0,
+          name: 'mockedName'
+        }
       }));
-      sessionServiceStub = jasmine.createSpyObj('saveData');
-      sessionServiceStub.saveData.and.returnValue('user-session', 'logged-in');
-      sessionStatusServiceStub = jasmine.createSpyObj('setSessionStart', 'getSessionStart');
+      sessionServiceStub = jasmine.createSpyObj(['saveData']);
+      sessionServiceStub.saveData.and.returnValue(['user-session', 'logged-in']);
+      sessionStatusServiceStub = jasmine.createSpyObj(['setSessionStart', 'getSessionStart']);
       sessionStatusServiceStub.setSessionStart.and.returnValue(true);
-      sessionStatusServiceStub.getSessionStart.and.returnValue(true);
+      // sessionStatusServiceStub.getSessionStart.and.returnValue({subscribe: () => {true}}); // A. way
+      sessionStatusServiceStub.getSessionStart.and.returnValue(of(true)); // B way
+      // sessionStatusServiceStub.getSessionStart.and.returnValue(true); // NOT VALID
 
       // Like an @NgModule
       await TestBed.configureTestingModule({
@@ -147,14 +154,13 @@ describe('LoginComponent test (component test)', () => {
           ReactiveFormsModule,
           FormsModule,
           RouterTestingModule.withRoutes(routes),
-          HttpClientTestingModule // vs HttpClientModule
+          HttpClientTestingModule 
         ],
         declarations: [
           LoginComponent,
           CustomTranslatePipe // Get the pipe
         ],
         providers:[
-          { provide: Router, useValue: RouterSpy },
           { provide: DataService, useValue: dataServiceStub },
           { provide: AuthService, useValue: authServiceStub },
           { provide: SessionService, useValue: sessionServiceStub },
@@ -168,8 +174,9 @@ describe('LoginComponent test (component test)', () => {
   
     // Instance of fixture and app
     beforeEach(() => {
-      RouterSpy = TestBed.inject(Router);
+      router = TestBed.inject(Router);
       location = TestBed.inject(Location);
+
       // create the component
       fixture = TestBed.createComponent(LoginComponent);
       // instance the component
@@ -179,74 +186,33 @@ describe('LoginComponent test (component test)', () => {
       dataService = TestBed.inject(DataService);
       sessionService = TestBed.inject(SessionService);
       authService = TestBed.inject(AuthService);
+
+      router.initialNavigation();
     });
   
-    it('ngOnInit should be "STEP_1" and "STEP_2"', () => {
-      console.warn(app.userSession)
-      // const navigateSpy = spyOn(router, 'navigate');
-      // const mockData = [
-      //   'STEP_1',
-      //   'STEP_2'
-      // ];
-      // // app.ngOnInit();
-      // fixture.detectChanges();
-      // console.warn(app.userSession)
-      // expect(app.items).toEqual(mockData); // Expectations
-    });
-  
-    xit('ngOnInit should initialize this.form - not be empty object', () => {
+    it('ngOnInit should be "STEP_1" and "STEP_2"', (done) => {
+      const mockData = [
+        'STEP_1',
+        'STEP_2'
+      ];
+
       app.ngOnInit();
-      expect(app.form.controls).not.toBe({}); // Expectations
-    });
-  
-    xit('ngOnInit should initialize this.checkHum to return an array of two random numbers - not be empty array', () => {
-      app.ngOnInit();
-      expect(app.checkHuman).not.toBe([]); // Expectations
-    });
-  
-    xit(`should have as title 'leifer-login'`, () => {
-      expect(app.title).toEqual('Acceso');
-    });
-  
-    xit('Must have a checkHuman variable with an "[]" as default value', () => {
-      expect(app.checkHuman).toEqual([]);
-    });
-  
-    xit('On first load if there is a Session must navigate to "/car"', () => {
-      
-      // Need to inject this service and true value to enter in router path on ngOninit
-      sessionStatusService.setSessionStart(true)
-      fixture.detectChanges(); // Run ngOnInit
-  
-      fixture.whenStable().then((done) => {
+      expect(app.userSession).toBeTrue();
+      expect(app.checkHuman).not.toEqual([]);
+      expect(app.items).toEqual(mockData); 
+
+      fixture.whenStable().then(() => {
         expect(location.path()).toEqual('/car')
         done();
       });
-  
-    });
-  
-    xit('On sendLogin() must take you outside of method for wrong result on math operation', () => {
       
-      fixture.detectChanges();
-  
-      // Need invalid check math operation
-      const numAmocked = 8;
-      const numBmocked = 2;    
-      const result = app.form.controls['result'];
-            result.setValue(15);
-      let res = app.form.value.result;
-       
-      dataService.checkOperation(numAmocked, numBmocked, res);    
-      app.sendLogin();
-  
-      expect(app.isCheck).toEqual('ERROR_CHECK');
-  
     });
   
-    xit('On sendlogin must do a valid authentification', () => {
-  
+    it('On sendLogin() fail on math operation - return ERROR_CHECK', () => {
+      const button = fixture.debugElement.query(By.css('button'));
+
       fixture.detectChanges();
-  
+
       // Get and set form values
       let email = app.form.controls['email'];
       let password = app.form.controls['password'];
@@ -256,25 +222,71 @@ describe('LoginComponent test (component test)', () => {
   
       email.setValue('spidy@mail.es');
       password.setValue('13456');
-      result.setValue(numA + numB);
+      result.setValue((numA + 1) + (numB + 1));
+      dataServiceStub.checkOperation.and.returnValue(false);
+
+      fixture.detectChanges();
+      button.nativeElement.click();
+
+      expect(app.isCheck).toEqual('ERROR_CHECK');  
+    });
   
+    it('On sendlogin must do a valid authentification', (done) => {
   
-      const mockResultLogin = {
-        "email": "leifer33@gmail.com",
-        "password": "123456",
-        "id": 9
-      };
+      const button = fixture.debugElement.query(By.css('button'));
+
+      fixture.detectChanges();
+
+      // Get and set form values
+      let email = app.form.controls['email'];
+      let password = app.form.controls['password'];
+      let numA = parseInt(app.checkHuman[0]);
+      let numB = parseInt(app.checkHuman[1]);
+      let result = app.form.controls['result']; 
   
-      spyOn(authService, 'login').and.returnValue(of(mockResultLogin));
-  
-      app.sendLogin();
-      // console.warn('TESTING', app.sendLogin())
+      email.setValue('spidy@mail.es');
+      password.setValue('13456');
+      result.setValue((numA + 1) + (numB + 1));
+      dataServiceStub.checkOperation.and.returnValue(true);
+
+      fixture.detectChanges();
+      button.nativeElement.click();
   
       expect(app.isCheck).toEqual('SUCCESS');
+
+      fixture.whenStable().then(() => {
+        expect(location.path()).toEqual('/car')
+        done();
+      });
+  
+    }); 
+    
+    it('On sendlogin must fail on authservice - ERROR_USER', () => {
+  
+      const button = fixture.debugElement.query(By.css('button'));
+
+      fixture.detectChanges();
+
+      // Get and set form values
+      let email = app.form.controls['email'];
+      let password = app.form.controls['password'];
+      let numA = parseInt(app.checkHuman[0]);
+      let numB = parseInt(app.checkHuman[1]);
+      let result = app.form.controls['result']; 
+  
+      email.setValue('spidy@mail.es');
+      password.setValue('13456');
+      result.setValue((numA + 1) + (numB + 1));
+      dataServiceStub.checkOperation.and.returnValue(true);
+      authServiceStub.login.and.returnValue(throwError({status: 404}));
+
+      fixture.detectChanges();
+      button.nativeElement.click();
+  
+      expect(app.isCheck).toEqual('ERROR_USER');
   
     });  
   
   });
-
 
 });

@@ -62,7 +62,8 @@ export class RepairComponent implements OnInit {
           this.isCheck = 'SUCCESS';
         },
         error => {
-          console.error('ERROR_ON_DELETE', error)
+          console.error('ERROR_ON_RELOADING', error);
+          this.isCheck = 'ERROR_ON_RELOADING';
         }
       );
   }
@@ -74,9 +75,11 @@ export class RepairComponent implements OnInit {
         next: repair => {
           console.info(repair)
           this.reloadRepairList(id);
-        },
+          this.isCheck = 'SUCCESS_ON_DELETE';
+        }, 
         error: error => {
           console.error('ERROR querying on deleting repair')
+          this.isCheck = 'ERROR_ON_DELETE';
         }
       })
   }
