@@ -127,8 +127,4 @@ export class CarComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy() {
-    // this.mySubscription.unsubscribe();
-  }
-
 }
