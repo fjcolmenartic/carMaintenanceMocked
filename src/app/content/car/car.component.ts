@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStatusService } from 'src/app/services/session-status.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -9,7 +9,7 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './car.component.html',
   styleUrls: ['./car.component.css']
 })
-export class CarComponent implements OnInit, OnDestroy {
+export class CarComponent implements OnInit {
 
   title = 'Listado de coches';
   carList: any = [];
