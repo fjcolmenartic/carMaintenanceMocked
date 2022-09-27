@@ -245,6 +245,7 @@ export class SetCarComponent implements OnInit {
               });
             } else {
               this.carIsTaken = true;
+              this.isCheck = 'ERROR_CAR_IS_ALREADY_REGISTERED';
             }
           },
           error => {
