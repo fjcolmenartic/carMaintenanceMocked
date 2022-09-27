@@ -166,6 +166,8 @@ describe('CarComponent', () => {
   });
 
   beforeEach(() => {
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
     sessionService = TestBed.inject(SessionService);
     storageService = TestBed.inject(StorageService);
     sessionStatusService = TestBed.inject(SessionStatusService);
@@ -184,32 +186,45 @@ describe('CarComponent', () => {
     sessionStatusServiceStub.getSessionStart.and.returnValue(throwError({status: 404})); // throwError(() => error);
     // sessionStatusServiceStub.getSessionStart.and.returnValue( throwError(() => error)); // throwError(() => error);
     component.ngOnInit(); // To test subscriber errors inside ngOnInit this method must be called 
-    // console.error(sessionStatusServiceStub.getSessionStart());
     expect(component).toBeTruthy;
     // expect(sessionStatusServiceStub).toThrowError('404')
     //Usage: expect(function() {<expectation>}).toThrowError(<ErrorConstructor>, <message>)
-    // console.log('fail on sess status', component.isCheck)
   });
 
   xit('Should create but if no session status redirect to /login', () => {
 
   });
 
-  it('Should create but cannot getAllCars from user - error on userId', () => {
+  xit('Should create but cannot getAllCars from user - error on userId', () => {
     storageServiceStub.getAllCars.and.returnValue(throwError({status: 404}));
 
     component.ngOnInit(); // To test subscriber errors inside ngOnInit this method must be called 
-    // console.error(sessionStatusServiceStub.getSessionStart());
     expect(component).toBeTruthy;
     // expect(storageServiceStub).toThrowError('404')
     expect(component.isCheck).toEqual('ERROR_USER');
   });
 
-  xit('ReloadListCar', () => {
+  it('ReloadListCar must be triggered', () => {
+    component.reloadCarList();
+    fixture.detectChanges();
+
+    expect(component.isCheck).toEqual('SUCCESS');
+
+  });
+
+  it('ReloadListCar must fail', () => {
+    storageServiceStub.getAllCars.and.returnValue(throwError({status: 404}));
+
+    component.reloadCarList();
+    fixture.detectChanges();
+
+    expect(component.isCheck).toEqual('ERROR_RELOADING_ALL_CARS');
 
   });
 
   xit('On delete(id)', () => {
+    component.onDelete(0);
+    // expect(component.isCheck).toEqual('')
 
   });
 
