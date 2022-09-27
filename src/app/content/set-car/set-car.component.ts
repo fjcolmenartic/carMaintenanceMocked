@@ -142,7 +142,7 @@ export class SetCarComponent implements OnInit {
 
             },
             error => {
-              console.error('NO data session retrieved')
+              this.isCheck = 'ERROR_RETRIEVING_CAR_DATA';
             }          
         )
     }
@@ -193,7 +193,6 @@ export class SetCarComponent implements OnInit {
     } else {
       // TODO retornar un toast ???
       this.isCheck = 'EMPTY_FIELDS_ERROR';
-      console.error(this.isCheck)
     }
 
   }
@@ -249,14 +248,13 @@ export class SetCarComponent implements OnInit {
             }
           },
           error => {
-            console.error('ERROR', plateNumber, error)
+            this.isCheck = 'ERROR_RETRIEVING_CHECKING_CAR';
           }
         );
 
     } else {
       // TODO retornar un toast ???
       this.isCheck = 'EMPTY_FIELDS_ERROR';
-      console.error(this.isCheck)
     }
 
   }
@@ -267,6 +265,7 @@ export class SetCarComponent implements OnInit {
     this.submited = true;
 
     if(this.setACar.invalid) {
+      this.isCheck = 'ERROR_INVALID_FORM';
       return;
     }
 

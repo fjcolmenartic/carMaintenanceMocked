@@ -125,7 +125,7 @@ export class SetUserComponent implements OnInit {
 
     } else {
       // TODO retornar un toast ???
-      console.error('passwords do not match')
+      this.isCheck = 'ERROR_PASSWORDS_DO_NOT_MATCH';
     }
 
    
@@ -159,21 +159,16 @@ export class SetUserComponent implements OnInit {
     this.storageService.getAllRepairs(userId)
       .subscribe(
         repairs => {
-          console.info('repairs', repairs)
-
-
-
           // Delete all these repairs
           for(let i = 0; i < repairs.length; i++) {
-            console.warn(repairs[i].plateNumber, repairs[i].id, repairs[i].faultyPart)      
                         
             this.storageService.removeRepair(repairs[i].id)
               .subscribe(
                 repairDeletion => {
-                  console.log('REPAIR DELETE SUCCESS', repairDeletion)
+                  this.isCheck = 'SUCCESS_REPAIR_DELETION';
                 },
                 error => {
-                  console.error('FAIL on REPAIR delete', error)
+                  this.isCheck = 'ERROR_REPAIR_DELETION';
               });
           }
 
@@ -181,21 +176,20 @@ export class SetUserComponent implements OnInit {
           this.storageService.getAllCars(userId)
             .subscribe(
               cars => {
-                console.info('cars', cars)
                 for(let i = 0; i < cars.length; i++) {
                   this.storageService.removeCar(cars[i].id)
                     .subscribe(
                       carDeletion => {
-                        console.info('Car deletion', carDeletion)
+                        this.isCheck = 'SUCCESS_CAR_DELETION';
                       },
                       error => {
-                        console.error('Error while deleting cars')
+                        this.isCheck = 'ERORR_CAR_DELETION';
                       }
                     )                    
                 }
               },
               error => {
-                console.error('Error retrieving all cars')
+                this.isCheck = 'ERROR_RETRIEVING_ALL_CARS';
               }
             );
 
@@ -209,8 +203,6 @@ export class SetUserComponent implements OnInit {
                   this.sessionService.clearData();
                   // Close modal
                   this.modalService.dismissAll();
-                  console.log(user.id, user)
-
                   this.router.navigateByUrl('/login');
                 },
                 (err: any) => {
@@ -219,7 +211,7 @@ export class SetUserComponent implements OnInit {
             
         },
         error => {
-          console.error('error retrieving repairs')
+          this.isCheck = 'ERROR_RETRIEVING_REPAIRS';
         }
       );
 

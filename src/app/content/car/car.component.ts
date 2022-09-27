@@ -74,7 +74,7 @@ export class CarComponent implements OnInit {
     
           },
           (err: any) => {
-            this.isCheck = 'ERROR_USER';
+            this.isCheck = 'ERROR_RELOADING_ALL_CARS';
           });
   }
 
@@ -92,14 +92,13 @@ export class CarComponent implements OnInit {
                 
                 // Remove these car repairs
                 for(let i = 0; i < carRepairs.length; i++) {
-                  console.warn(carRepairs[i].plateNumber, carRepairs[i].id, carRepairs[i].faultyPart)
                   this.storageService.removeRepair(carRepairs[i].id)
                     .subscribe({
                       next: carDeletion => {
-                        console.log('REPAIR DELETE SUCCESS', carDeletion)
+                        this.isCheck = 'SUCCESS_REPAIR_DELETE';
                       },
                       error: error => {
-                        console.error('FAIL on REPAIR delete', error)
+                        this.isCheck = 'ERROR_REPAIR_DELETION';
                       }
                   });
                 }
@@ -107,21 +106,21 @@ export class CarComponent implements OnInit {
                 this.storageService.removeCar(car.id)
                   .subscribe({
                     next: carRemoved => {
-                      console.log('DELETE CAR SUCCESS', carRemoved)
+                      this.isCheck = 'SUCCESS_CAR_DELETEION';
                       this.reloadCarList();
                     },
                     error: error => {
-                      console.error('FAIL on CAR delete', error)
+                      this.isCheck = 'ERROR_CAR_DELETION';
                     }
                 });
               },
               error: error => {
-                console.error('Error while removing all repairs for ' + car.plateNumber)
+                this.isCheck = 'ERROR_RETRIVING_ALL_CAR_REPAIRS';
               }
             });
         },
         error: error => {
-          console.error( 'NO DATA FROM THIS CAR')
+          this.isCheck = 'ERROR_GETTING_CAR_DATA';
         }
       });
 

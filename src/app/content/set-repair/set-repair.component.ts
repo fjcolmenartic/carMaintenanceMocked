@@ -127,7 +127,7 @@ export class SetRepairComponent implements OnInit {
 
           },
           error => {
-            console.error('ERROR - retrieving the repair data.')
+            this.isCheck = 'ERROR_RETRIEVING_REPAIR_DATA';
           }
         )
 
@@ -149,8 +149,6 @@ export class SetRepairComponent implements OnInit {
             this.carList.push(this.dataSession[i]['plateNumber']);
           }
 
-          console.log(this.carList)
-
         },
         (err: any) => {
           this.isCheck = 'ERROR_USER';
@@ -160,7 +158,6 @@ export class SetRepairComponent implements OnInit {
   }
 
   editRepair() {
-    console.warn('on edit repair')
 
     let plateNumber = this.setRepair.controls['plateNumber'].value;
     let faultyPart = this.setRepair.controls['faultyPart'].value;
@@ -199,13 +196,11 @@ export class SetRepairComponent implements OnInit {
           },
           (err: any) => {
             this.isCheck = 'INSERT_ERROR'; 
-            console.error(this.isCheck)
           });
 
     } else {
       // TODO retornar un toast ???
       this.isCheck = 'EMPTY_FIELDS_ERROR';
-      console.error(this.isCheck)
     }
 
   }
@@ -245,18 +240,15 @@ export class SetRepairComponent implements OnInit {
           res => {
             this.dataSession = res;
             this.isCheck = 'INSERT_SUCCESS';
-            console.warn(this.isCheck)    
             this.router.navigateByUrl('/repairs');
           },
           (err: any) => {
             this.isCheck = 'INSERT_ERROR'; 
-            console.error(this.isCheck)
           });
 
     } else {
       // TODO retornar un toast ???
       this.isCheck = 'EMPTY_FIELDS_ERROR';
-      console.error(this.isCheck)
     }
 
   }

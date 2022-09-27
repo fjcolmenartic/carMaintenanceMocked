@@ -62,23 +62,20 @@ export class RepairComponent implements OnInit {
           this.isCheck = 'SUCCESS';
         },
         error => {
-          console.error('ERROR_ON_RELOADING', error);
           this.isCheck = 'ERROR_ON_RELOADING';
         }
       );
   }
 
   onDelete(id:number) {
-    console.warn('ON DELETE REPAIRS', id)
+
     this.storageService.removeRepair(id)
       .subscribe({
         next: repair => {
-          console.info(repair)
           this.reloadRepairList(id);
           this.isCheck = 'SUCCESS_ON_DELETE';
         }, 
         error: error => {
-          console.error('ERROR querying on deleting repair')
           this.isCheck = 'ERROR_ON_DELETE';
         }
       })
