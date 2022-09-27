@@ -21,6 +21,7 @@ export class SetUserComponent implements OnInit {
   checkHuman: Array<any> =  [];
   updateSuccess = false;
   closeResult = '';
+  userId = 0;
 
   userEditForm = new FormGroup({
     name: new FormControl('', [
@@ -73,8 +74,8 @@ export class SetUserComponent implements OnInit {
     }
 
     // Get the user id from storage
-    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
-    userId = userId.toString();
+    this.userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+    let userId = this.userId.toString();
     // Get the user data
     this.storageService.getUser(userId)
     .subscribe(
@@ -108,11 +109,11 @@ export class SetUserComponent implements OnInit {
       let name = this.userEditForm.controls['name'].value;
       let email = this.userEditForm.controls['email'].value;
       let city = this.userEditForm.controls['city'].value;
-      let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
-      userId = userId.toString();
+      this.userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+      let userId = this.userId.toString();
 
         // Update user data
-        this.storageService.setUser(name, email, password, city, userId)
+        this.storageService.setUser(name, email, password, city, this.userId)
         .subscribe(
           res => {
             this.dataSession = res;
@@ -150,13 +151,15 @@ export class SetUserComponent implements OnInit {
     }
   }
 
+  // TODO Deacouple diff methods, concatenate each call inside of prev + control if error stop deletion on incomplete... 
+  // maybe MUST separate get from delete and if everything ok procced
   onDelete() {
     // Get the user id
-    let userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
-    userId = userId.toString();
+    this.userId = JSON.parse(this.sessionService.getData('user-id') || ' {}');
+    let userId = this.userId.toString();
 
     // Get all the user's repairs (dependent of cars)
-    this.storageService.getAllRepairs(userId)
+    this.storageService.getAllRepairs(this.userId)
       .subscribe(
         repairs => {
           // Delete all these repairs
@@ -173,7 +176,7 @@ export class SetUserComponent implements OnInit {
           }
 
           // Get all the user's cars
-          this.storageService.getAllCars(userId)
+          this.storageService.getAllCars(this.userId)
             .subscribe(
               cars => {
                 for(let i = 0; i < cars.length; i++) {
@@ -194,7 +197,7 @@ export class SetUserComponent implements OnInit {
             );
 
             // Delete the user
-            this.storageService.removeUser(userId)
+            this.storageService.removeUser(this.userId)
               .subscribe(
                 user => {
                   this.dataSession = user;
@@ -206,7 +209,7 @@ export class SetUserComponent implements OnInit {
                   this.router.navigateByUrl('/login');
                 },
                 (err: any) => {
-                  this.isCheck = 'DELETE_ERROR';
+                  this.isCheck = 'ERROR_ON_USER_DELETION';
                 });
             
         },
