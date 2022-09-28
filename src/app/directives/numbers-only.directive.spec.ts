@@ -11,10 +11,7 @@ class MockElementRef extends ElementRef {
 const mockElementNonNumeric = new MockElementRef('829dom');
 const mockElementNumeric = new MockElementRef('829');
 
-// const mockEvent = { stopPropagation: jest.fn() };
-// const mockEvent = { preventDefault: jasmine.createSpy() };
-// const mockEvent = jasmine.createSpyObj('event', ['preventDefault', 'stopPropagation']);
-const mockEvent = jasmine.createSpyObj('event', ['preventDefault']);
+const mockEvent = jasmine.createSpyObj('event', ['stopPropagation']);
 
 describe('NumbersOnlyDirective', () => {
   let directive: NumbersOnlyDirective;
@@ -24,33 +21,13 @@ describe('NumbersOnlyDirective', () => {
     expect(directive).toBeTruthy();
   });
 
-  it('should NOT call stop propagation if the input only contains numbers', () => {
-    directive = new NumbersOnlyDirective(mockElementNumeric);
-    directive.onInputChange(mockEvent as any);
-
-    expect(mockEvent.preventDefault).toHaveBeenCalledTimes(0);
-    // expect(mockEvent.stopPropagation).toHaveBeenCalledTimes(0);
-  });
-
-  xit('should call stop propagation if the input NON contains numbers', () => {
+  it('should remove NON numeric characters from input if there are any', () => {
     directive = new NumbersOnlyDirective(mockElementNonNumeric);
-    directive.onInputChange(mockEvent as any);
-
-    expect(mockEvent.preventDefault).toHaveBeenCalled();
-    // expect(mockEvent.preventDefault).toHaveBeenCalled();
-
-
-    // event = jasmine.createSpyObj('event', ['preventDefault', 'stopPropagation']);
-    // expect(event.preventDefault).toHaveBeenCalled();
-
-  });
-
-  xit('should remove NON numeric characters from input if there are ', () => {
-    directive = new NumbersOnlyDirective(mockElementNonNumeric);
+    // directive.onInputChange(mockEvent as any);
     directive.onInputChange(mockEvent as any);
     const inputValue = directive['elRef'].nativeElement.value;
 
-    expect(inputValue).toBe('');
+    expect(inputValue).toBe('829');
   });
 
 });

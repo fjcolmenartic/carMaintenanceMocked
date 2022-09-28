@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { not } from '@angular/compiler/src/output/output_ast';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
+import { ɵDomSharedStylesHost } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
@@ -112,29 +113,20 @@ describe('RepairComponent', () => {
     router.initialNavigation();
   });
 
+  afterEach(() => {
+    getTestBed().inject(ɵDomSharedStylesHost).ngOnDestroy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
     expect(component.isCheck).toEqual('SUCCESS');
   });
 
-  xit('should create MUST fail on storageService.getAllRepairs', () => {
-    fixture.detectChanges();
-    sessionStatusServiceStub.getSessionStart.and.returnValue(false);
-    // storageServiceStub.getAllRepairs.and.returnValue(throwError({status: 404}));
-    storageServiceStub.getAllRepairs.and.throwError('Error');
-    fixture.detectChanges();
-    // expect(component).not.toBeTruthy();
-    expect(component.isCheck).toEqual('ERROR_USER');
-  });
-
-  xit('Should create must fail on session status and navigate to /login', (done) => {
-    sessionStatusServiceStub.getSessionStart.and.returnValue(false);
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(location.path()).toEqual('/login');
-      expect(component.isCheck).toBeNull();
-      done();
-    });
+  it('Component must redirect to home page (/login) if no sessionStatus (false) has setted', () => {
+    sessionStatusServiceStub.getSessionStart.and.returnValue(of(false));
+    component.ngOnInit();
+    // '' equals to /login by redirect
+    expect(location.path()).toEqual('');
   });
 
   it('reloadRepairList must load new results on demand..', () => {

@@ -1,7 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { By, ɵDomSharedStylesHost } from '@angular/platform-browser';
 import { of, throwError } from 'rxjs';
 import { SignInService } from 'src/app/services/sig-in.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -59,6 +59,10 @@ describe('RegisterComponent', () => {
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    getTestBed().inject(ɵDomSharedStylesHost).ngOnDestroy();
   });
 
   it('should create', () => {

@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
+import { ɵDomSharedStylesHost } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
@@ -177,6 +178,10 @@ describe('CarComponent', () => {
     component = fixture.componentInstance;
     // fixture.detectChanges();
     router.initialNavigation();
+  });
+
+  afterEach(() => {
+    getTestBed().inject(ɵDomSharedStylesHost).ngOnDestroy();
   });
 
   it('should create', () => {

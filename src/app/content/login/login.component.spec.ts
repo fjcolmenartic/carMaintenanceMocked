@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { By, ɵDomSharedStylesHost } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of, throwError } from 'rxjs';
@@ -42,6 +42,10 @@ describe('LoginComponent test (component test)', () => {
       }).compileComponents();
       // Create the pipe
       customTranslate = new CustomTranslatePipe();
+    });
+
+    afterEach(() => {
+      getTestBed().inject(ɵDomSharedStylesHost).ngOnDestroy();
     });
 
     // # COMPONENT TESTING -------------------------------------------------------

@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { By, ɵDomSharedStylesHost } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
@@ -426,6 +426,10 @@ describe('SetUserComponent', () => {
     fixture.detectChanges();
 
     router.initialNavigation();
+  });
+
+  afterEach(() => {
+    getTestBed().inject(ɵDomSharedStylesHost).ngOnDestroy();
   });
 
   it('should create', () => {
