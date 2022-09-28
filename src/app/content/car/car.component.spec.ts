@@ -163,6 +163,7 @@ describe('CarComponent', () => {
       ]
     })
     .compileComponents();
+
   });
 
   beforeEach(() => {
@@ -174,7 +175,7 @@ describe('CarComponent', () => {
 
     fixture = TestBed.createComponent(CarComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // fixture.detectChanges();
     router.initialNavigation();
   });
 
@@ -182,26 +183,27 @@ describe('CarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('Should create & cannot check session status', () => {
-    sessionStatusServiceStub.getSessionStart.and.returnValue(throwError({status: 404})); // throwError(() => error);
-    // sessionStatusServiceStub.getSessionStart.and.returnValue( throwError(() => error)); // throwError(() => error);
-    component.ngOnInit(); // To test subscriber errors inside ngOnInit this method must be called 
+  it('Should create & run ngOniti with user session on true and get all data', () => {
+    sessionStatusServiceStub.getSessionStart.and.returnValue(of(true));
+    component.ngOnInit(); 
     expect(component).toBeTruthy;
-    // expect(sessionStatusServiceStub).toThrowError('404')
-    //Usage: expect(function() {<expectation>}).toThrowError(<ErrorConstructor>, <message>)
+    expect(component.isCheck).toEqual('SUCCESS');
+    expect(component.dataSession).not.toBe([]);
   });
 
-  xit('Should create but if no session status redirect to /login', () => {
-
+  it('Should create & session status false must redirect to Home', () => {
+    sessionStatusServiceStub.getSessionStart.and.returnValue(of(false));
+    component.ngOnInit(); 
+    expect(component).toBeTruthy;
+    expect(location.path()).toEqual('');
   });
 
-  xit('Should create but cannot getAllCars from user - error on userId', () => {
-    storageServiceStub.getAllCars.and.returnValue(throwError({status: 404}));
-
-    component.ngOnInit(); // To test subscriber errors inside ngOnInit this method must be called 
-    expect(component).toBeTruthy;
-    // expect(storageServiceStub).toThrowError('404')
-    expect(component.isCheck).toEqual('ERROR_USER');
+  it('Should create & session status true BUT error retrieving all user cars', () => {
+    sessionStatusServiceStub.getSessionStart.and.returnValue(of(false));
+    storageServiceStub.getAllCars.and.returnValue(throwError({status:400}));
+    fixture.detectChanges();
+    component.ngOnInit(); 
+    expect(component.isCheck).toEqual('ERROR_RETRIEVING_ALL_CARS');
   });
 
   it('ReloadListCar must be triggered', () => {
@@ -209,23 +211,48 @@ describe('CarComponent', () => {
     fixture.detectChanges();
 
     expect(component.isCheck).toEqual('SUCCESS');
-
   });
 
   it('ReloadListCar must fail', () => {
     storageServiceStub.getAllCars.and.returnValue(throwError({status: 404}));
 
     component.reloadCarList();
-    fixture.detectChanges();
+    // fixture.detectChanges();
 
     expect(component.isCheck).toEqual('ERROR_RELOADING_ALL_CARS');
-
   });
 
-  xit('On delete(id)', () => {
+  it('On delete(id)', () => {
     component.onDelete(0);
-    // expect(component.isCheck).toEqual('')
-
+    // After completion of onDelete it calls reloadCarlist()
+    expect(component.isCheck).toEqual('SUCCESS');
   });
 
+  it('On delete(id) MUST fail on repair deletion', () => {
+    storageServiceStub.removeRepair.and.returnValue(throwError({status: 404}));
+    component.onDelete(0);
+    // After completion of onDelete it calls reloadCarlist()
+    expect(component.isCheck).toEqual('SUCCESS');
+  });
+
+  it('On delete(id) MUST fail on car deletion', () => {
+    storageServiceStub.removeCar.and.returnValue(throwError({status: 404}));
+    component.onDelete(0);
+    // After completion of onDelete it calls reloadCarlist()
+    expect(component.isCheck).toEqual('ERROR_CAR_DELETION');
+  });
+  
+  it('On delete(id) MUST fail on getAllCarRepairs deletion', () => {
+    storageServiceStub.getAllCarRepairs.and.returnValue(throwError({status: 404}));
+    component.onDelete(0);
+    // After completion of onDelete it calls reloadCarlist()
+    expect(component.isCheck).toEqual('ERROR_RETRIVING_ALL_CAR_REPAIRS');
+  });
+
+  it('On delete(id) MUST fail on getCar deletion', () => {
+    storageServiceStub.getCar.and.returnValue(throwError({status: 404}));
+    component.onDelete(0);
+    // After completion of onDelete it calls reloadCarlist()
+    expect(component.isCheck).toEqual('ERROR_GETTING_CAR_DATA');
+  });
 });
