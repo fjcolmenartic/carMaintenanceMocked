@@ -55,7 +55,7 @@ export class CarComponent implements OnInit {
 
       },
       (err: any) => {
-        this.isCheck = 'ERROR_USER';
+        this.isCheck = 'ERROR_RETRIEVING_ALL_CARS';
       });
 
   }
