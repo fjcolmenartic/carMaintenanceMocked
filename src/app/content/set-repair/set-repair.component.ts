@@ -124,6 +124,7 @@ export class SetRepairComponent implements OnInit {
             (this.dataSession['fixed'] == true) ? fixed = 'Reparado' : fixed = 'No reparado';
             // Set the string
             this.setRepair.controls['fixed'].setValue(fixed);
+            this.isCheck = 'SUCCESS';
 
           },
           error => {
@@ -151,7 +152,7 @@ export class SetRepairComponent implements OnInit {
 
         },
         (err: any) => {
-          this.isCheck = 'ERROR_USER';
+          this.isCheck = 'ERROR_GETTING_ALL_CARS';
         });
     }
 
