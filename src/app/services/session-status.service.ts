@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-// import { BehaviorSubject } from 'rxjs';
-
-interface UserSession {
-  loggedIn: boolean;
-  userId: number;
-  name: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +7,8 @@ interface UserSession {
 export class SessionStatusService {
 
   private sessionStart$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  // TODO return an object with id, name etc
+  private sessionName$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private sessionId$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   getSessionStart(): Observable<boolean> {
     return this.sessionStart$.asObservable();
@@ -24,32 +18,20 @@ export class SessionStatusService {
     this.sessionStart$.next(value);
   }
 
+  getSessionName(): Observable<string> {
+    return this.sessionName$.asObservable(); 
+  }
 
-  // private sessionStatus$: BehaviorSubject<UserSession> = new BehaviorSubject<UserSession>({
-  //   "loggedIn": false,
-  //   "userId": 0,
-  //   "name": ''
-  // });
+  setSessionName(value: string) {
+    this.sessionName$.next(value);
+  }
 
-  // getSession(): Observable<UserSession> {
-  //   return this.sessionStatus$.asObservable();
-  // }
+  getSessionId(): Observable<number> {
+    return this.sessionId$.asObservable(); 
+  }
 
-  // setSession(value: UserSession) {
-  //   this.sessionStatus$.next(value);
-  // }
-
-  // sessionStatus() {
-  //   return this.sessionStatus$.value.loggedIn;
-  // }
-
-  // removeSession() {
-  //   this.sessionStatus$.next({
-  //     "loggedIn": false,
-  //     "userId": 0,
-  //     "name": ''
-  //   });
-  // }
-
+  setSessionId(value: number) {
+    this.sessionId$.next(value);
+  }
 
 }
