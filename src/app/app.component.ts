@@ -53,8 +53,12 @@ export class AppComponent implements OnInit {
       .subscribe(
       res => {
         this.dataSession = res;
-        this.userName = res.name;
         this.isCheck = 'QUERY_SUCCESS';
+
+        this.sessionStatusService.setSessionName(res.name);
+        this.sessionStatusService.setSessionId(res.userId);
+        this.sessionStatusService.getSessionName().subscribe(uName => this.userName = uName);
+        this.sessionStatusService.getSessionId().subscribe(uId => this.userId = uId);
       },
       (err: any) => {
         this.isCheck = 'QUERY_ERROR';
@@ -73,9 +77,9 @@ export class AppComponent implements OnInit {
       this.sessionStatusService.setSessionStart(true);
       // Assign to internal variable
       this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
-    } 
 
-    this.getUserId();
+      this.getUserId();
+    } 
 
   }
 
