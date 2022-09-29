@@ -26,6 +26,7 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit(): void {
 
     this.sessionStatusService.getSessionStart().subscribe(res => this.userSession = res);
+    this.sessionStatusService.getSessionName().subscribe(uName => this.userName = uName);
 
   }
 
