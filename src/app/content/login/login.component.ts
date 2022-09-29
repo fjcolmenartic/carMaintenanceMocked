@@ -86,8 +86,10 @@ export class LoginComponent implements OnInit {
           this.sessionService.saveData('user-id', this.dataSession.user.id);
           this.sessionService.saveData('user-name', this.dataSession.user.name);
 
-          // Set user session to true           
+          // Set user session to true & name & id 
           this.sessionStatusService.setSessionStart(true);
+          this.sessionStatusService.setSessionName(res.user.name);
+          this.sessionStatusService.setSessionId(res.user.id);
 
           this.router.navigateByUrl('/car');
         },
