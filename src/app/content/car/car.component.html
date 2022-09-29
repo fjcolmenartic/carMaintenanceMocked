@@ -1,0 +1,53 @@
+<div class="container mt-5">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-10 loginHeight">
+            <h2 class="">{{title}}</h2>
+            <ng-container>
+                <table class="table table-light table-striped table-hover">
+                    <thead class="bg-black text-white">
+                        <th class="col">Matrícula</th>
+                        <th class="col">Marca</th>
+                        <th class="col">Modelo</th>
+                        <th class="col">Color</th>
+                        <th class="col">Puertas</th>
+                        <th class="col">Combustible</th>
+                        <th class="col">Año</th>
+                        <th class="col">Motor</th>
+                        <th class="col">Kilometraje</th>
+                        <th class="col"></th>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="carList.length > 0">
+                            <tr class="" *ngFor="let car of carList; let i=index">
+                                <td class="">
+                                    <a class="text-decoration-none cursor-pointer" 
+                                    routerLink="/set-car/{{car.id}}">{{car.plateNumber}} 
+                                    <img class="cursor-pointer mb-1" src="./assets/images/edit.png" width="15px" 
+                                     /></a>
+                                </td>
+                                <td class="">{{car.brand}}</td>
+                                <td class="">{{car.model}}</td>
+                                <td class="">{{car.color}}</td>
+                                <td class="">{{car.doors}}</td>
+                                <td class="">{{car.type}}</td>
+                                <td class="">{{car.year}}</td>
+                                <td class="">{{car.engine}}</td>
+                                <td class="">{{car.kilometers}} km</td>
+                                <td class="">
+                                    <img class="cursor-pointer" src="./assets/images/delete.png" width="20px" 
+                                    (click)="onDelete(car.id)" />
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="carList.length == 0">
+                            <tr>
+                                <td colspan="11"><p class="alert alert-info text-center">
+                                    Todavía no tienes ningún registro.</p></td>
+                            </tr>                                
+                        </ng-container>
+                    </tbody>
+                </table>
+            </ng-container>
+        </div>
+    </div>
+</div>

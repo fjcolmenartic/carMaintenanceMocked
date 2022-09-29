@@ -1,0 +1,112 @@
+<div class="container mt-5">
+    <div class="row align-items-center justify-content-center mb-5">
+        <div class="col-6 loginHeight">
+            <!-- Modal -->
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Eliminar perfil</h4>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <p class="">¿Estas seguro de querer eliminar tu cuenta?</p>
+                    <button class="btn btn-danger mt-3" (click)="onDelete()">Eliminar</button>
+                        </div>
+                    </form>
+                </div>
+            </ng-template>
+            <form 
+                id="userEditForm" 
+                [formGroup]="userEditForm" 
+                (submit)="onSubmit($event)"
+                class="form bg-white mb-5">
+                <fieldset class="form-group border p-3 rounded-3">
+                    <legend><h2 class="fst-italic">{{title}}</h2></legend>
+                    <div class="form-group">
+                        <label class="fw-bold">Name</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="name"/>
+                        <div class="alert text-danger" 
+                            *ngIf="userEditForm.controls['name'].errors && 
+                            userEditForm.controls['name'].touched && 
+                            userEditForm.controls['name'].dirty">
+                            Por favor, introduce un nombre válido de al menos 2 carácteres.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-bold">Email</label>
+                        <input class="form-control" type="email" placeholder="" 
+                            formControlName="email"/>
+                        <div class="alert text-danger" 
+                            *ngIf="userEditForm.controls['email'].errors && 
+                            userEditForm.controls['email'].touched && 
+                            userEditForm.controls['email'].dirty">
+                            La dirección de correo electrónico no tiene un formato válido.
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="fw-bold">Contaseña</label>
+                            <input class="form-control" type="password" placeholder="Contraseña entre 5 y 15 carácters" 
+                                minlength="5" maxlength="15" formControlName="password" required />
+                            <div class="alert text-danger" 
+                                *ngIf="userEditForm.controls['password'].errors && 
+                                userEditForm.controls['password'].touched && 
+                                userEditForm.controls['password'].dirty">
+                                La contraseña debe tener entre 5 y 15 carácteres.
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="fw-bold">Confirmar Contaseña</label>
+                            <input class="form-control" type="password" placeholder="" 
+                                minlength="5" maxlength="15" formControlName="confirmPassword" required />
+                            <div class="alert text-danger" 
+                                *ngIf="userEditForm.controls['confirmPassword'].errors && 
+                                userEditForm.controls['confirmPassword'].touched && 
+                                userEditForm.controls['confirmPassword'].dirty">
+                                Las contraseñas no coinciden.
+                            </div>
+                        </div>
+                        <div class="">
+                            <p class="alert alert-info mt-2 col">Debes introducir la contraseña y 
+                                confirmar para validar la actualización.</p>
+                        </div>
+                    </div>    
+                    <div class="form-group">
+                        <label class="fw-bold">Ciudad</label>
+                        <input class="form-control" type="text" placeholder="" 
+                            formControlName="city"/>
+                        <div class="alert text-danger" 
+                            *ngIf="userEditForm.controls['city'].errors && 
+                            userEditForm.controls['city'].touched && 
+                            userEditForm.controls['city'].dirty">
+                            La ciudad debe tener entre 3 y 20 carácteres.
+                            <!-- length and format -->
+                        </div>
+                    </div>     
+                    <div class="form-group mt-3">
+                        <button class="btn btn-primary mt-3" [disabled]="userEditForm.invalid">Editar</button>
+                    </div> 
+                    <div class="mt-3 alert alert-info" *ngIf="isCheck == 'UPDATE_SUCCESS'">
+                        <p class="">
+                            Usuario actualizado con éxito
+                        </p>                    
+                    </div>
+                    <div class="mt-3 alert alert-danger" *ngIf="isCheck == 'UPDATE_ERROR'">
+                        <p class="">
+                            El usuario no pudo ser actualizado
+                        </p>                    
+                    </div>
+
+                    <!-- Button trigger modal -->
+                    <div class="">
+                        <p id="deletePopUp" class="mt-3 text-danger fw-bold cursor-pointer float-end" (click)="open(content)">Eliminar cuenta</p>                    
+                    </div>
+
+                </fieldset>
+            </form> 
+        </div>
+    </div>
+</div>

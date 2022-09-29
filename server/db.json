@@ -1,69 +1,287 @@
 {
-    "users": [
-        {
-            "userId": 1,
-            "name": "John Doe",
-            "email": "john-doe@mail.es",
-            "password": "123456",
-            "city": "Madrid"
-        }
-    ],
-    "cars": [
-        {
-            "plateNumber": "1234TSJ",
-            "branch": "Porsche",
-            "model": "Cayenne",
-            "color": "Red",
-            "doors": 5,
-            "type": "Diesel",
-            "kilometers": 150000,
-            "year": 2019,
-            "engine": 385,
-            "userId": 1
-        }
-    ],
-    "maintenanceRevisions": [
-        {
-            "maintenanceId": 1,
-            "plateNumber": "1234TSJ",
-            "date": "01/01/2022",
-            "kilometers": 155000,
-            "faultyBodyWork": true,
-            "bodyWorkStatus": "Description",
-            "faultyPaint": false,
-            "paintStatus": "Description... ",
-            "tyrePressureStatus": true,
-            "engineOilStatus": true,
-            "windshieldWasherFluidStatus": true,
-            "coolantStatus": true,
-            "breakFluidStatus": true,
-            "cabinFilterStatus": true,
-            "engineOilFilter": true,
-            "engineAirFilter": true,
-            "batteryStatus": true,
-            "breaksSatus": true,
-            "headlightsStatus": true,
-            "bulbHeadlightsSatus": true,
-            "description": "Description... ",
-            "authorizedWorkshop": true,
-            "authorizedParts": true,
-            "invoiceNo": "",
-            "cost": 0
-        }
-    ],
-    "repairs": [
-        {
-            "fixingId": 1,
-            "plateNumber": "1234TSJ",
-            "faultyPart": "Faros delanteros",
-            "faultyDescription": "Faros desgastados por el sol",
-            "dateIn": "01/01/2022",         
-            "fixDescription": "Pulimentado de faros",
-            "fixedOn": "06/01/2022",
-            "status": "Reparado",
-            "repeat": true,
-            "cost": 18,
-            "minutes": 30
-        }
-    ]
+  "users": [
+    {
+      "name": "JONAS DOES",
+      "email": "jonas-does@dark.gr",
+      "city": "Greendenwell",
+      "password": "$2a$10$rrlGchq7gre0UaSZckh2xuBHvxDxamP5JS8pNqB1KmuFmoRzyEAb2",
+      "id": 1
+    },
+    {
+      "name": "Javier",
+      "email": "javier@mail.es",
+      "password": "12345",
+      "ciudad": "Citate",
+      "id": 2
+    },
+    {
+      "name": "Javier2",
+      "email": "javier@mail.es",
+      "password": "12345",
+      "city": "Citate",
+      "id": 3
+    },
+    {
+      "name": "Javito",
+      "email": "javito@mail.es",
+      "password": "12345",
+      "city": "12345",
+      "id": 4
+    },
+    {
+      "name": "scarlet-witch",
+      "email": "scarlet-witch@mail.es",
+      "password": "123456",
+      "city": "123456",
+      "id": 5
+    },
+    {
+      "name": "hulk",
+      "email": "hulk@mail.es",
+      "password": "12345",
+      "city": "12345",
+      "id": 6
+    },
+    {
+      "name": "BlackWidow",
+      "email": "black_widow@mail.es",
+      "password": "12345",
+      "city": "12345",
+      "id": 7
+    },
+    {
+      "name": "Peter Parker",
+      "email": "spidy@mail.es",
+      "password": "$2a$10$u97ctnT37pRp4gKjmitMlutfx5mgseuyL80E1DU1KFrJ8gGb.Rew2",
+      "city": "Nueva York",
+      "id": 9
+    },
+    {
+      "name": "ManganesoL",
+      "email": "manganeso@mail.es",
+      "password": "$2a$10$0nn1IPsxI4qsiIGYGnZ3HuJvfZIF86RrGyn1wV4o3RgjTO5Cct.y6",
+      "city": "City",
+      "id": 11
+    },
+    {
+      "email": "piruca@mail.es",
+      "password": "$2a$10$NNAGtP9jy5BzhoRm1hqsdupXOWE3IqxB4VD36HferVHVW9N.wzBqu",
+      "name": "Piruca",
+      "city": "Leganés",
+      "id": 12
+    },
+    {
+      "email": "pili@mail.es",
+      "password": "$2a$10$9VcDMc3ykz5PZCsyL5BmtOo39ucOMIjBAoFeJUrwHSacT9mcpLYyO",
+      "name": "pili",
+      "city": "Uno",
+      "id": 13
+    },
+    {
+      "email": "alamnao@email.com",
+      "password": "$2a$10$fmJxotHT4R.I5lDyrjNcuO7UBfB.1958t.HuC9W6JijWcj8vYNlOa",
+      "name": "Alamano",
+      "city": "City",
+      "id": 14
+    }
+  ],
+  "cars": [
+    {
+      "plateNumber": "1234TSJ",
+      "branch": "Porsche",
+      "model": "Cayenne",
+      "color": "Red",
+      "doors": 5,
+      "type": "Diesel",
+      "kilometers": 150000,
+      "year": 2019,
+      "engine": 385,
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "plateNumber": "8396WXS",
+      "brand": "Ford",
+      "model": "Fiesta",
+      "color": "Azul",
+      "doors": 5,
+      "type": "Diesel",
+      "kilometers": 1509,
+      "year": "2022",
+      "engine": "2.1",
+      "userId": 9,
+      "id": 2
+    },
+    {
+      "plateNumber": "2133BMK",
+      "brand": "Ford",
+      "model": "Fiesta",
+      "color": "Azul",
+      "doors": 5,
+      "type": "Diesel",
+      "kilometers": 1509,
+      "year": "2022",
+      "engine": "2.1",
+      "userId": 9,
+      "id": 3
+    },
+    {
+      "plateNumber": "1234DMT",
+      "brand": "Renault",
+      "model": "Clios",
+      "color": "Rojo",
+      "doors": 3,
+      "type": "Diesel",
+      "kilometers": 231,
+      "year": "2022",
+      "engine": "2.1",
+      "userId": 9,
+      "id": 4
+    },
+    {
+      "plateNumber": "1562DVG",
+      "brand": "Renault",
+      "model": "Megane",
+      "color": "Negro",
+      "doors": 5,
+      "type": "Diesel",
+      "kilometers": 230000,
+      "year": "2005",
+      "engine": "1.5",
+      "userId": 9,
+      "id": 5
+    },
+    {
+      "plateNumber": "4430BTM",
+      "brand": "Renault",
+      "model": "Clio",
+      "color": "Negro",
+      "doors": 3,
+      "type": "Gasolina",
+      "kilometers": 250000,
+      "year": "2003",
+      "engine": "82",
+      "userId": 11,
+      "id": 7
+    },
+    {
+      "plateNumber": "7988RLW",
+      "brand": "Nissan",
+      "model": "Almera",
+      "color": "Verde",
+      "doors": 5,
+      "type": "Diesel",
+      "kilometers": 245000,
+      "year": "2008",
+      "engine": "2.5",
+      "userId": 11,
+      "id": 8
+    },
+    {
+      "plateNumber": "4563THG",
+      "brand": "Dacia",
+      "model": "Sandero",
+      "color": "Amarillo",
+      "doors": 5,
+      "type": "Híbrido",
+      "kilometers": 100000,
+      "year": "2020",
+      "engine": "115",
+      "userId": 11,
+      "id": 9
+    }
+  ],
+  "repairs": [
+    {
+      "id": 1,
+      "plateNumber": "1234TSJ",
+      "userId": 9,
+      "faultyPart": "Faros delanteros",
+      "faultyDescription": "Faros desgastados por el sol",
+      "dateIn": "01/01/2022",
+      "fixDescription": "Pulimentado de faros",
+      "fixedOn": "06/01/2022",
+      "fixed": true,
+      "cost": 18,
+      "minutes": 30
+    },
+    {
+      "plateNumber": "1562DVG",
+      "userId": 9,
+      "faultyPart": "Retrovisor izquierdo",
+      "faultyDescription": "Retrovisor arrancado por completo y roto, reparación no viable.",
+      "dateIn": "2022-09-01",
+      "fixDescription": "Sutitución por pieza de segunda mano.",
+      "fixedOn": "2022-09-14",
+      "fixed": true,
+      "cost": 60,
+      "minutes": 40,
+      "id": 2
+    },
+    {
+      "plateNumber": "1562DVG",
+      "userId": 9,
+      "faultyPart": "Luna frontal",
+      "faultyDescription": "Rotura parcial en la esquina superior derecha de marco lateral a superior.",
+      "dateIn": "2022-09-12",
+      "fixDescription": "Sustitución completa de la luna.",
+      "fixedOn": "2022-09-14",
+      "fixed": true,
+      "cost": 350,
+      "minutes": 30,
+      "id": 3
+    },
+    {
+      "plateNumber": "8396WXS",
+      "userId": 9,
+      "faultyPart": "Neumáticos delanteros",
+      "faultyDescription": "Desgaste por uso",
+      "dateIn": "2022-09-07",
+      "fixDescription": "Sustitución por nuevos.",
+      "fixedOn": "2022-09-14",
+      "fixed": false,
+      "cost": 160,
+      "minutes": 30,
+      "id": 4
+    },
+    {
+      "plateNumber": "4430BTM",
+      "userId": 11,
+      "faultyPart": "Matrícula",
+      "faultyDescription": "Descuelgue parcial, abollada y número dañado",
+      "dateIn": "2022-09-15",
+      "fixDescription": "Sustitución por acrílica",
+      "fixedOn": "2022-09-16",
+      "fixed": true,
+      "cost": 25,
+      "minutes": 10,
+      "id": 6
+    },
+    {
+      "plateNumber": "4563THG",
+      "userId": 11,
+      "faultyPart": "Luna trasera",
+      "faultyDescription": "Rotura en circulación",
+      "dateIn": "2022-09-05",
+      "fixDescription": "Sutitución por nueva de marca",
+      "fixedOn": "2022-09-15",
+      "fixed": true,
+      "cost": 400,
+      "minutes": 30,
+      "id": 7
+    },
+    {
+      "plateNumber": "4563THG",
+      "userId": 11,
+      "faultyPart": "Cerradura del conductor",
+      "faultyDescription": "Intento de robo, forzada no rota",
+      "dateIn": "2022-09-15",
+      "fixDescription": "Por determinar.",
+      "fixedOn": "2022-09-16",
+      "fixed": false,
+      "cost": 60,
+      "minutes": 1,
+      "id": 8
+    }
+  ]
 }

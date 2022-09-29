@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">    
+    <div class="col">
+        <div class="row">
+            <div class="col-3">
+                <p class="text-white fs-3 mt-1" *ngIf="!userSession">
+                    <img class="navbar-brand cursor-pointer ms-3"src="./assets/images/home.png" width="30px" routerLink="" /> 
+                    {{appTitle}}
+                </p>
+                <p class="text-white fs-3 mt-1" *ngIf="userSession">
+                    <img class="navbar-brand cursor-pointer ms-3"src="./assets/images/home.png" width="30px" routerLink="/car" /> 
+                    {{appTitle}}
+                </p>
+            </div>
+            <ng-container *ngIf="userSession">
+                <div class="col-2 mt-2">
+                    <div ngbDropdown class="d-inline-block col-12">
+                        <button type="button" class="btn btn-outline-primary col-12" id="dropdownBasic1" ngbDropdownToggle>Coches</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem routerLink="/car">Listado de coches</button>
+                            <button ngbDropdownItem routerLink="/set-car">Nuevo coche</button>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-2 mt-2">
+                    <div ngbDropdown class="d-inline-block col-12">
+                        <button type="button" class="btn btn-outline-primary col-12" id="dropdownBasic1" ngbDropdownToggle>Reparaciones</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem routerLink="/repairs">Listado de reparaciones</button>
+                            <button ngbDropdownItem routerLink="/set-repair">Nueva reparación</button>
+                        </div>
+                    </div>
+                </div>            
+                <div class="col align-content-end mt-2">
+                    <a class="navbar-brand float-end" routerLink="logout" (click)="logout()">
+                        <img src="./assets/images/logout.png" width="20px" />
+                    </a>
+                    <a class="navbar-brand text-info bg-light bg-opacity-10 rounded p-2 float-end" routerLink="set-user">
+                        {{userName}}
+                    </a>                                        
+                </div>
+            </ng-container>                
+        </div>
+    </div>
+  </nav>
