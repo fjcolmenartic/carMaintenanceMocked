@@ -6,6 +6,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+## Json server (local)
+
+Run `npx json-server watch server/db.json` to start a fake local server based on a json file that provides an endpoint for each group.
+
+## Json server (local) & authentication
+
+Run `npx json-server server/db.json -m ./node_modules/json-server-auth` to start a fake local server based on a json file that provides endpoints for each group and endpoints to authenticate users.
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
